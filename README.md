@@ -1,2 +1,2 @@
 # No-balance-Swing-
-Mobile game (Swing 1997 reference)
+Mobile game (reference: Swing 1997)
