@@ -28,6 +28,11 @@ public class Field : MonoBehaviour
             }
         }
     }
+
+    public Vector3 GetFieldPositionCoordinates(int collumn, int row)
+    {
+        return fieldCoordinates[collumn][row];
+    }
     void Start()
     {
         
