@@ -13,7 +13,7 @@ public class TestingScript : MonoBehaviour
     {
         for (int i = 0; i < 50; i++)
         {
-            GameObject go = factory.SpawnBall(25, 10);
+            GameObject go = factory.SpawnBall(25, 10).gameObject;
             go.transform.position = new Vector3(i / 5 * 2, i % 5 * 2, -1);
         }
             

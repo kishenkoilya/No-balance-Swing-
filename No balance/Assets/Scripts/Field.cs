@@ -33,6 +33,11 @@ public class Field : MonoBehaviour
     {
         return fieldCoordinates[collumn][row];
     }
+
+    public int GetCollumnsNumber()
+    {
+        return collumnsNumber;
+    }
     void Start()
     {
         

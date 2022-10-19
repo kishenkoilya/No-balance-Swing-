@@ -11,13 +11,14 @@ public class BallFactory : MonoBehaviour
         ballPrefab = ballScript.gameObject;
     }
 
-    public GameObject SpawnBall(int colorsInUse, int maxWeight)
+    public Ball SpawnBall(int colorsInUse, int maxWeight)
     {
         int colorIndex = Random.Range(0, colorsInUse);
         int weight = Random.Range(1, maxWeight);
         GameObject go = GameObject.Instantiate(ballPrefab, transform.position, transform.rotation);
-        go.GetComponent<Ball>().SetWeight(weight);
+        Ball ball = go.GetComponent<Ball>();
+        ball.SetWeight(weight);
         go.GetComponent<Renderer>().material = colors[colorIndex];
-        return go;
+        return ball;
     }
 }
