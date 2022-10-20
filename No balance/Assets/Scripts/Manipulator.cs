@@ -4,15 +4,94 @@ using UnityEngine;
 
 public class Manipulator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField] private BallDispencer dispencer;
+    [SerializeField] private Field field;
+    [SerializeField] private Vector3 destination;
+    [SerializeField] private float speed;
+    [SerializeField] private int currentCollumnIndex;
+    private Ball ballHolded;
+    private bool isStationary = true;
+    private Vector3 movementVector = Vector3.zero;
+    private void Awake() {
+        if (dispencer == null)
+        {
+            dispencer = FindObjectOfType<BallDispencer>();
+        }
+        if (field == null)
+        {
+            field = FindObjectOfType<Field>();
+        }
+        destination = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isStationary)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                Clicked();
+            }
+        }
+        MoveToDestination();
+    }
+
+    private void Clicked()
+    {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit = new RaycastHit();
+        if (Physics.Raycast(ray, out hit))
+        {
+            int collumnIndex = field.GetCollumnByCoordinates(hit.point);
+            if (collumnIndex != currentCollumnIndex)
+            {
+                float xCoord = field.GetXCoordinateByCollumnIndex(collumnIndex);
+                destination = new Vector3 (xCoord, transform.position.y, transform.position.z);
+                isStationary = false;
+                movementVector = currentCollumnIndex > collumnIndex ? Vector3.left : Vector3.right;
+                currentCollumnIndex = collumnIndex;
+                if (ballHolded != null)
+                    ballHolded.SetDestination(destination);
+            }
+            else
+            {
+                ThrowBall(currentCollumnIndex);
+            }
+        }
+    }
+
+    private void MoveToDestination()
+    {
+        if (!isStationary)
+        {
+            Vector3 movementDelta = movementVector * speed * Time.deltaTime;
+            transform.position += movementDelta;
+            if ((transform.position - destination).magnitude < movementDelta.magnitude)
+            {
+                ArrivedToDestination();
+            }
+        }
+    }
+    private void ArrivedToDestination()
+    {
+        transform.position = destination;
+        isStationary = true;
+        ThrowBall(currentCollumnIndex);
+    }
+
+    private void ThrowBall(int collumnIndex)
+    {
+        if (ballHolded == null)
+            GetBall();
+        Vector3 destination = field.AcceptBall(currentCollumnIndex, ballHolded);
+        ballHolded.SetDestination(destination);
+        GetBall();
+    }
+
+    private void GetBall()
+    {
+        ballHolded = dispencer.DispenceBall(currentCollumnIndex);
+        ballHolded.transform.position = transform.position;
     }
 }

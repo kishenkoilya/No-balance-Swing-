@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScalesCup : FieldObject
+public class ScalesCup : MonoBehaviour, IFieldObject
 {
     [SerializeField] private ScalesCup connectedCup;
     [SerializeField] private int weightHolded = 0;
@@ -12,15 +12,10 @@ public class ScalesCup : FieldObject
     private void Awake() {
         field = GameObject.Find("Field").GetComponent<Field>();
     }
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public (bool, int) GetColor()
     {
-        
+        return (false, 0);
     }
 
     public void ChangeWeight(int deltaWeight)

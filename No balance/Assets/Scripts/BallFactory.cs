@@ -17,7 +17,7 @@ public class BallFactory : MonoBehaviour
         int weight = Random.Range(1, maxWeight);
         GameObject go = GameObject.Instantiate(ballPrefab, transform.position, transform.rotation);
         Ball ball = go.GetComponent<Ball>();
-        ball.SetWeight(weight);
+        ball.SetWeightAndColor(weight, colorIndex);
         go.GetComponent<Renderer>().material = colors[colorIndex];
         return ball;
     }

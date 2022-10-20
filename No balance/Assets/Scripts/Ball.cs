@@ -3,42 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Ball : FieldObject
+public class Ball : MonoBehaviour, IFieldObject
 {
     [SerializeField] private Vector3 destination;
     [SerializeField] private float speed = 100;
     [SerializeField] private bool isStationary = true;
-    [SerializeField] private int weight;
     [SerializeField] private WeightText weightTextScript;
     private TextMeshPro weightText;
-    private Vector3 movementVector;
-    private Rigidbody rigidBody;
-
+    public int colorIndex {get; private set;}
+    public int weight {get; private set;}
+    [SerializeField] private Vector3 movementVector;
     private void Awake() 
     {
         Debug.Log("Created");
-        rigidBody = GetComponent<Rigidbody>();
         if (weightTextScript == null)
             throw new System.NullReferenceException("WeightTextScript not set!!");
         weightText = weightTextScript.tmpro;
     }
 
-    private void Start()
+    public (bool, int) GetColor()
     {
-        
+        return (true, colorIndex);
     }
 
-    public void SetWeight(int ballWeight)
+    public void SetWeightAndColor(int ballWeight, int color)
     {
         weight = ballWeight;
         weightText.SetText("" + weight);
+        colorIndex = color;
     }
-
     public void SetDestination(Vector3 dest)
     {
         destination = dest;
-        movementVector = (destination - rigidBody.position).normalized;
+        movementVector = (destination - transform.position).normalized;
         isStationary = false;
     }
     // Update is called once per frame
@@ -52,8 +49,8 @@ public class Ball : FieldObject
         if (!isStationary)
         {
             Vector3 movementDelta = movementVector * speed * Time.deltaTime;
-            rigidBody.position += movementDelta;
-            if ((rigidBody.position - destination).magnitude < movementDelta.magnitude)
+            transform.position += movementDelta;
+            if ((transform.position - destination).magnitude < movementDelta.magnitude)
             {
                 ArrivedToDestination();
             }
@@ -61,7 +58,7 @@ public class Ball : FieldObject
     }
     private void ArrivedToDestination()
     {
-        rigidBody.position = destination;
+        transform.position = destination;
         isStationary = true;
     }
 }

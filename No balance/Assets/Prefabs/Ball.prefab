@@ -127,10 +127,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
-  speed: 15
+  speed: 50
   isStationary: 1
   weight: 0
   weightTextScript: {fileID: 1930312407774938603}
+  movementVector: {x: 0, y: 0, z: 0}
 --- !u!1 &1930312407774938607
 GameObject:
   m_ObjectHideFlags: 0

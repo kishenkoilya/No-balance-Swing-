@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IFieldObject
 {
-    void ChangeObjectRow(int newRow);
+    public (bool, int) GetColor();
 }
