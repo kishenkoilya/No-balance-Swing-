@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998a0e810721c89468acd845216d4bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  field: {fileID: 1931901860}
   ballScript: {fileID: 1930312407638583568, guid: 92d9f181abed2bc4086b55c4c1734e3c, type: 3}
   colors:
   - {fileID: 2100000, guid: d4e7becb061004e41a5700365e0ca343, type: 2}
@@ -283,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab040291912ce6449962702a1ee15429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dispencer: {fileID: 1501756835}
+  dispenser: {fileID: 0}
   field: {fileID: 1931901860}
   destination: {x: 0, y: 0, z: 0}
   speed: 50
@@ -773,6 +774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1931901859}
   - component: {fileID: 1931901860}
+  - component: {fileID: 1931901861}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -814,3 +816,15 @@ MonoBehaviour:
   rowsDistance: 2
   collumnsNumber: 8
   rowsNumber: 10
+--- !u!156049354 &1931901861
+Grid:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931901858}
+  m_Enabled: 1
+  m_CellSize: {x: 2, y: 2, z: 2}
+  m_CellGap: {x: 0.2, y: 0, z: 0}
+  m_CellLayout: 0
+  m_CellSwizzle: 0

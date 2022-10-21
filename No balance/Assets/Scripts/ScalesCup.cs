@@ -9,15 +9,21 @@ public class ScalesCup : MonoBehaviour, IFieldObject
     [SerializeField] private int collumnPosition;
     [SerializeField] private int rowPosition;
     [SerializeField] private Field field;
+    public int collumn {get; set;}
+    public int row {get; set;}
     private void Awake() {
         field = GameObject.Find("Field").GetComponent<Field>();
     }
 
-    public (bool, int) GetColor()
+    public bool IsSameColor(int color)
     {
-        return (false, 0);
+        return false;
     }
 
+    public void ActivateEffect()
+    {
+
+    }
     public void ChangeWeight(int deltaWeight)
     {
         weightHolded += deltaWeight;

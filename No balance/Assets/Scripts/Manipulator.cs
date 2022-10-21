@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Manipulator : MonoBehaviour
 {
-    [SerializeField] private BallDispencer dispencer;
+    [SerializeField] private BallDispenser dispenser;
     [SerializeField] private Field field;
     [SerializeField] private Vector3 destination;
     [SerializeField] private float speed;
     [SerializeField] private int currentCollumnIndex;
-    private Ball ballHolded;
+    private MovingObject ballHolded;
     private bool isStationary = true;
     private Vector3 movementVector = Vector3.zero;
     private void Awake() {
-        if (dispencer == null)
+        if (dispenser == null)
         {
-            dispencer = FindObjectOfType<BallDispencer>();
+            dispenser = FindObjectOfType<BallDispenser>();
         }
         if (field == null)
         {
@@ -31,13 +31,13 @@ public class Manipulator : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
-                Clicked();
+                MoveToAndThrowBall();
             }
         }
         MoveToDestination();
     }
 
-    private void Clicked()
+    private void MoveToAndThrowBall()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit = new RaycastHit();
@@ -84,14 +84,17 @@ public class Manipulator : MonoBehaviour
     {
         if (ballHolded == null)
             GetBall();
-        Vector3 destination = field.AcceptBall(currentCollumnIndex, ballHolded);
-        ballHolded.SetDestination(destination);
+        (int, Vector3) destination = field.AcceptBall(currentCollumnIndex, ballHolded);
+        ballHolded.collumn = currentCollumnIndex;
+        ballHolded.row = destination.Item1;
+        ballHolded.SetDestination(destination.Item2);
+        ballHolded.isActivated = true;
         GetBall();
     }
 
     private void GetBall()
     {
-        ballHolded = dispencer.DispenceBall(currentCollumnIndex);
+        ballHolded = dispenser.DispenceBall(currentCollumnIndex);
         ballHolded.transform.position = transform.position;
     }
 }
