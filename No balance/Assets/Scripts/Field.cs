@@ -6,22 +6,29 @@ using UnityEngine;
 public class Field : MonoBehaviour
 {
     private Grid grid;
-    public IFieldObject[][] field {get; private set;} 
+    [SerializeField] public MovingObject[][] field {get; private set;} 
     public Vector3[][] fieldCoordinates {get; private set;}
     [SerializeField] private Vector3 firstFieldSlot;
     [SerializeField] private float collumnsDistance = 2.2f;
     [SerializeField] private float rowsDistance = 2f;
     [SerializeField] private int collumnsNumber = 8;
     [SerializeField] private int rowsNumber = 10;
-    private List<(int, int, MovingObject)> objectsToDestroy = new List<(int, int, MovingObject)>();
+    [SerializeField] private ScalesCup[] scales;
+    [SerializeField] private List<MovingObject> objectsToDestroy = new List<MovingObject>();
+    [SerializeField] private List<(int, int)> slotsToClear = new List<(int, int)>();
     private void Awake() 
     {
-        grid = GetComponent<Grid>();
+        InitializeFieldSlots();
+        InitializeScalesCups();
+    }
+
+    private void InitializeFieldSlots()
+    {
         fieldCoordinates = new Vector3[collumnsNumber][];
-        field = new IFieldObject[collumnsNumber][];
+        field = new MovingObject[collumnsNumber][];
         for (int i = 0; i < collumnsNumber; i++)
         {
-            field[i] = new IFieldObject[rowsNumber];
+            field[i] = new MovingObject[rowsNumber];
             fieldCoordinates[i] = new Vector3[rowsNumber];
             for (int j = 0; j < rowsNumber; j++)
             {
@@ -29,6 +36,22 @@ public class Field : MonoBehaviour
                                                     firstFieldSlot.y + rowsDistance * j,
                                                     firstFieldSlot.z);
             }
+        }
+    }
+
+    private void InitializeScalesCups()
+    {
+        if (scales.Length == 0)
+        {
+            scales = new ScalesCup[collumnsNumber];
+            scales = GameObject.FindObjectsOfType<ScalesCup>();
+        }
+        for (int i = 0; i < scales.Length; i++)
+        {
+            field[i][0] = scales[i];
+            field[i][1] = scales[i];
+            scales[i].Initialize(i, 1, (fieldCoordinates[i][0] + fieldCoordinates[i][1]) / 2, rowsDistance);
+            scales[i].OnChangeCupPosition += ChangeCupPosition;
         }
     }
 
@@ -78,11 +101,13 @@ public class Field : MonoBehaviour
     {
         ball.OnPrepareForDestruction += AddToDestructionList;
         ball.OnEffectCompleted += DestroyObjectsInList;
+        Ball b = (Ball)ball;
+        b.OnArrivalOnField += ChangeWeightOnScales;
         for (int i = 0; i < rowsNumber; i++)
         {
             if (field[collumnIndex][i] == null)
             {
-                field[collumnIndex][i] = (IFieldObject)ball;
+                field[collumnIndex][i] = ball;
                 return (i, fieldCoordinates[collumnIndex][i]);
             }
         }
@@ -98,24 +123,69 @@ public class Field : MonoBehaviour
 
     private void AddToDestructionList(object sender, MovingObject.OnPrepareForDestructionEventArgs args)
     {
-        objectsToDestroy.Add((args.Collumn, args.Row, (MovingObject)sender));
+        objectsToDestroy.Add((MovingObject)sender);
+        slotsToClear.Add((args.Collumn, args.Row));
+    }
+
+    private void ChangeWeightOnScales(object sender, Ball.OnArrivalOnFieldEventArgs args)
+    {
+        int weight = 0;
+        for (int i = 0; i < rowsNumber; i++)
+        {
+            if (field[args.Collumn][i] == null)
+                break;
+            weight += field[args.Collumn][i].GetWeight();
+        }
+        scales[args.Collumn].SetWeight(weight);
+    }
+
+    private void ChangeCupPosition(object sender, ScalesCup.OnChangeCupPositionEventArgs args)
+    {
+        if (args.rowsDelta > 0)
+        {
+            for (int i = rowsNumber - 1; i > args.resultingRow; i--)
+            {
+                field[args.Collumn][i] = field[args.Collumn][i - args.rowsDelta];
+                if (field[args.Collumn][i] != null)
+                {
+                    field[args.Collumn][i].SetDestination(fieldCoordinates[args.Collumn][i], args.Collumn, i);
+                }
+            }
+        }
+        else
+        {
+            for (int i = args.resultingRow + 1; i < rowsNumber + args.rowsDelta; i++)
+            {
+                field[args.Collumn][i] = field[args.Collumn][i - args.rowsDelta];
+                if (field[args.Collumn][i] != null)
+                {
+                    field[args.Collumn][i].SetDestination(fieldCoordinates[args.Collumn][i], args.Collumn, i);
+                }
+            }
+        }
+
+        for (int i = 0; i <= args.resultingRow; i++)
+        {
+            field[args.Collumn][i] = scales[args.Collumn];
+        }
+        scales[args.Collumn].SetDestination(args.resultingPosition, args.Collumn, args.resultingRow);
     }
 
     private void DestroyObjectsInList(object sender, EventArgs a)
     {
         if (objectsToDestroy.Count > 0)
         {
-            foreach ((int c, int r, MovingObject o) obj in objectsToDestroy)
+            for (int i = 0; i < objectsToDestroy.Count; i++)
             {
-                field[obj.c][obj.r] = null;
-                GameObject.Destroy(obj.o.gameObject);
+                field[slotsToClear[i].Item1][slotsToClear[i].Item2] = null;
+                GameObject.Destroy(objectsToDestroy[i].gameObject);
             }
             objectsToDestroy.Clear();
             SimulateGravity();
         }
     }
 
-    private void SimulateGravity()
+    public void SimulateGravity()
     {
         for (int i = 0; i < collumnsNumber; i++)
         {
@@ -132,14 +202,86 @@ public class Field : MonoBehaviour
             {
                 if (field[i][j] != null)
                 {
-                    MovingObject mo = (MovingObject)field[i][j];
-                    mo.SetDestination(fieldCoordinates[i][r]);
-                    mo.row = r;
+                    field[i][j].SetDestination(fieldCoordinates[i][r], i, r);
+                    field[i][j].row = r;
                     field[i][r] = field[i][j];
                     field[i][j] = null;
                     r++;
                 }
             }
         }
+    }
+
+    public void AddToDestructionList(int c, int r, MovingObject obj)
+    {
+        objectsToDestroy.Add(obj);
+        slotsToClear.Add((c, r));
+    }
+
+    public void ChangeWeightOnScales(int c)
+    {
+        int weight = 0;
+        for (int i = 0; i < rowsNumber; i++)
+        {
+            if (field[c][i] == null)
+                continue;
+            weight += field[c][i].GetWeight();
+        }
+        scales[c].SetWeight(weight);
+    }
+
+    public void ChangeCupPosition(int Collumn, int resultingRow, int rowsDelta, Vector3 resultingPosition)
+    {
+        if (rowsDelta > 0)
+        {
+            for (int i = rowsNumber - 1; i > resultingRow; i--)
+            {
+                field[Collumn][i] = field[Collumn][i - rowsDelta];
+                if (field[Collumn][i] != null)
+                {
+                    field[Collumn][i].SetDestination(fieldCoordinates[Collumn][i], Collumn, i);
+                }
+            }
+        }
+        else
+        {
+            for (int i = resultingRow + 1; i < rowsNumber + rowsDelta; i++)
+            {
+                field[Collumn][i] = field[Collumn][i - rowsDelta];
+                if (field[Collumn][i] != null)
+                {
+                    field[Collumn][i].SetDestination(fieldCoordinates[Collumn][i], Collumn, i);
+                }
+            }
+        }
+
+        for (int i = 0; i <= resultingRow; i++)
+        {
+            field[Collumn][i] = scales[Collumn];
+        }
+        scales[Collumn].SetDestination(resultingPosition, Collumn, resultingRow);
+    }
+
+    public void DestroyObjectsInList()
+    {
+        if (objectsToDestroy.Count > 0)
+        {
+            for (int i = 0; i < objectsToDestroy.Count; i++)
+            {
+                field[slotsToClear[i].Item1][slotsToClear[i].Item2] = null;
+                GameObject.Destroy(objectsToDestroy[i].gameObject);
+            }
+            objectsToDestroy.Clear();
+            for (int i = 0; i < collumnsNumber; i++)
+            {
+                ChangeWeightOnScales(i);
+            }
+            SimulateGravity();
+        }
+    }
+
+    public void ClearSlot(int Collumn, int Row)
+    {
+        field[Collumn][Row] = null;
     }
 }

@@ -127,12 +127,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
-  speed: 50
+  speed: 5
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
-  isActivated: 0
   field: {fileID: 0}
+  collumn: 0
+  row: 0
+  isActivated: 0
   weightTextScript: {fileID: 1930312407774938603}
+  colorIndex: 0
+  weight: 0
   ballToMergeIn: {fileID: 0}
 --- !u!1 &1930312407774938607
 GameObject:

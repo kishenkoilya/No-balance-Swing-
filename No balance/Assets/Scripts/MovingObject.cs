@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingObject : MonoBehaviour
+public abstract class MovingObject : MonoBehaviour, IFieldObject
 {
     public event EventHandler<OnPrepareForDestructionEventArgs> OnPrepareForDestruction;
     public event EventHandler OnEffectCompleted;
@@ -13,15 +13,23 @@ public class MovingObject : MonoBehaviour
         public int Row;
     }
     [SerializeField] private Vector3 destination;
-    [SerializeField] private float speed = 100;
+    [SerializeField] protected float speed = 100;
     [SerializeField] protected bool isStationary = true;
     [SerializeField] private Vector3 movementVector;
-    public int collumn {get; set;}
-    public int row {get; set;}
+    [SerializeField] protected Field field;
+    public int collumn;
+    public int row;
     public bool isActivated = false;
-    public void SetDestination(Vector3 dest)
+
+    public virtual bool IsSameColor(int color) {return false;}
+    public virtual void ActivateEffect(){}
+    public virtual int GetWeight() {return 0;}
+
+    public void SetDestination(Vector3 dest, int Collumn = -1, int Row = -1)
     {
         destination = dest;
+        collumn = Collumn;
+        row = Row;
         movementVector = (destination - transform.position).normalized;
         isStationary = false;
     }
@@ -56,11 +64,13 @@ public class MovingObject : MonoBehaviour
 
     protected void EnqueueForDestruction()
     {
-        OnPrepareForDestruction?.Invoke(this, new OnPrepareForDestructionEventArgs {Collumn = collumn, Row = row});
+        // OnPrepareForDestruction?.Invoke(this, new OnPrepareForDestructionEventArgs {Collumn = collumn, Row = row});
+        field.AddToDestructionList(collumn, row, this);
     }
 
     protected void EffectCompleted()
     {
-        OnEffectCompleted?.Invoke(this, EventArgs.Empty);
+        // OnEffectCompleted?.Invoke(this, EventArgs.Empty);
+        field.DestroyObjectsInList();
     }
 }

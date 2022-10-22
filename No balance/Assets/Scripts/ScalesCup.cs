@@ -1,34 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class ScalesCup : MonoBehaviour, IFieldObject
+public class ScalesCup : MovingObject, IFieldObject
 {
+    public event EventHandler<OnChangeCupPositionEventArgs> OnChangeCupPosition;
+    public class OnChangeCupPositionEventArgs : EventArgs
+    {
+        public int Collumn;
+        public int resultingRow;
+        public int rowsDelta;
+        public Vector3 resultingPosition;
+    }
     [SerializeField] private ScalesCup connectedCup;
+    [SerializeField] private WeightText weightTextScript;
     [SerializeField] private int weightHolded = 0;
-    [SerializeField] private int collumnPosition;
-    [SerializeField] private int rowPosition;
-    [SerializeField] private Field field;
-    public int collumn {get; set;}
-    public int row {get; set;}
+    private Dictionary<int, Vector3> rowToPosition = new Dictionary<int, Vector3>();
+    private TextMeshPro weightText;
+    public float rowsDistance;
     private void Awake() {
-        field = GameObject.Find("Field").GetComponent<Field>();
+        weightText = weightTextScript.tmpro;
+        weightText.SetText("" + weightHolded);
     }
 
-    public bool IsSameColor(int color)
+    public void Initialize(int Collumn, int Row, Vector3 initialPosition, float RowsDistance)
     {
-        return false;
+        collumn = Collumn;
+        row = Row;
+        transform.position = initialPosition;
+        rowsDistance = RowsDistance;
+        rowToPosition.Add(0, transform.position + Vector3.down * rowsDistance);
+        rowToPosition.Add(1, transform.position);
+        rowToPosition.Add(2, transform.position + Vector3.up * rowsDistance);
     }
-
-    public void ActivateEffect()
+    public void SetWeight(int weight)
     {
-
-    }
-    public void ChangeWeight(int deltaWeight)
-    {
-        weightHolded += deltaWeight;
+        weightHolded = weight;
+        weightText.SetText("" + weightHolded);
         int resultingRow = CompareWeights();
-        if (rowPosition != resultingRow)
+        if (row != resultingRow)
         {
             ChangeCupPosition(resultingRow);
             connectedCup.ChangeCupPosition(2 - resultingRow);
@@ -39,7 +51,7 @@ public class ScalesCup : MonoBehaviour, IFieldObject
     {
         if (weightHolded > connectedCup.GetWeigthHolded())
             return 0;
-        else if (weightHolded > connectedCup.GetWeigthHolded())
+        else if (weightHolded < connectedCup.GetWeigthHolded())
             return 2;
         else 
             return 1;
@@ -51,6 +63,11 @@ public class ScalesCup : MonoBehaviour, IFieldObject
 
     private void ChangeCupPosition(int newPosition)
     {
-
+        int delta = newPosition - row;
+        OnChangeCupPosition?.Invoke(this, new OnChangeCupPositionEventArgs{Collumn = collumn, 
+                                                                            resultingRow = newPosition, 
+                                                                            rowsDelta = delta, 
+                                                                            resultingPosition = rowToPosition[newPosition]});
+        // field.ChangeCupPosition(collumn, newPosition, delta, rowToPosition[newPosition]);
     }
 }

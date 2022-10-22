@@ -85,9 +85,7 @@ public class Manipulator : MonoBehaviour
         if (ballHolded == null)
             GetBall();
         (int, Vector3) destination = field.AcceptBall(currentCollumnIndex, ballHolded);
-        ballHolded.collumn = currentCollumnIndex;
-        ballHolded.row = destination.Item1;
-        ballHolded.SetDestination(destination.Item2);
+        ballHolded.SetDestination(destination.Item2, currentCollumnIndex, destination.Item1);
         ballHolded.isActivated = true;
         GetBall();
     }

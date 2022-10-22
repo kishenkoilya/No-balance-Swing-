@@ -4,14 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Ball : MovingObject, IFieldObject
+public class Ball : MovingObject
 {
-    [SerializeField] private Field field;
+    public event EventHandler<OnArrivalOnFieldEventArgs> OnArrivalOnField;
+    public class OnArrivalOnFieldEventArgs : EventArgs
+    {
+        public int Collumn;
+    }
     [SerializeField] private WeightText weightTextScript;
+    [SerializeField] private int colorIndex;
+    [SerializeField] private int weight;
     private TextMeshPro weightText;
-    public int colorIndex {get; private set;}
-    public int weight {get; private set;}
     public Ball ballToMergeIn;
+
     public void Initialize(int ballWeight, int color, Field f)
     {
         weight = ballWeight;
@@ -27,32 +32,42 @@ public class Ball : MovingObject, IFieldObject
         weightText = weightTextScript.tmpro;
     }
 
+    public override int GetWeight()
+    {
+        return weight;
+    }
     protected override void DoUponArrival()
     {
-        if (isActivated)
-            ActivateEffect();
-        if (ballToMergeIn != null)
+        if (collumn >= 0 && row >= 0)
+            field.ChangeWeightOnScales(collumn);
+         if (ballToMergeIn != null)
         {
             ballToMergeIn.SetWeight(ballToMergeIn.weight + weight);
-            EnqueueForDestruction();
+            GameObject.Destroy(gameObject);
         }
+           // OnArrivalOnField?.Invoke(this, new OnArrivalOnFieldEventArgs{Collumn = collumn});
+        if (isActivated)
+            ActivateEffect();
     }
 
     public void SetWeight(int w)
     {
         weight = w;
         weightText.SetText("" + weight);
+        field.ChangeWeightOnScales(collumn);
     }
 
-    public bool IsSameColor(int color)
+    public override bool IsSameColor(int color)
     {
         return colorIndex == color;
     }
 
-    public void ActivateEffect()
+    public override void ActivateEffect()
     {
         if (row >= 4)
+        {
             MergeDown5();
+        }
         Burn3InRow();
     }
 
@@ -64,18 +79,20 @@ public class Ball : MovingObject, IFieldObject
             if (field.IsSameColor(collumn, i, colorIndex))
                 sameColorDown++;
             else
-                return;
+                break;
         }
         if (sameColorDown >= 4)
         {
             Vector3 mergeIn = field.fieldCoordinates[collumn][row - sameColorDown];
             ballToMergeIn = (Ball)field.field[collumn][row - sameColorDown];
-            for (int i = row - 1; i >= row - sameColorDown; i--)
+            for (int i = row; i > row - sameColorDown; i--)
             {
                 Ball b = (Ball)field.field[collumn][i];
                 b.SetDestination(mergeIn);
                 b.ballToMergeIn = ballToMergeIn;
+                field.ClearSlot(b.collumn, b.row);
             }
+            field.SimulateGravity();
         }
     }
 
@@ -121,5 +138,10 @@ public class Ball : MovingObject, IFieldObject
             Ball b1 = (Ball)field.field[c][r];
             b1.BurnAllAdjacentSameColor(color);
         }
+    }
+
+    public int GetColor()
+    {
+        return colorIndex;
     }
 }
