@@ -42,11 +42,10 @@ public class Ball : MovingObject
             field.ChangeWeightOnScales(collumn);
          if (ballToMergeIn != null)
         {
-            ballToMergeIn.SetWeight(ballToMergeIn.weight + weight);
             GameObject.Destroy(gameObject);
         }
            // OnArrivalOnField?.Invoke(this, new OnArrivalOnFieldEventArgs{Collumn = collumn});
-        if (isActivated)
+        if (isActivated && isStationary)
             ActivateEffect();
     }
 
@@ -83,20 +82,36 @@ public class Ball : MovingObject
         }
         if (sameColorDown >= 4)
         {
+            int weightSum = field.field[collumn][row - sameColorDown].GetWeight();
             Vector3 mergeIn = field.fieldCoordinates[collumn][row - sameColorDown];
             ballToMergeIn = (Ball)field.field[collumn][row - sameColorDown];
             for (int i = row; i > row - sameColorDown; i--)
             {
+                Debug.LogFormat("col: {0} row: {1}", collumn, i);
                 Ball b = (Ball)field.field[collumn][i];
-                b.SetDestination(mergeIn);
-                b.ballToMergeIn = ballToMergeIn;
+                weightSum += b.GetWeight();
+                Debug.LogFormat("ball: {0}", b);
                 field.ClearSlot(b.collumn, b.row);
+                b.SetDestination(mergeIn, collumn, row);
+                b.ballToMergeIn = ballToMergeIn;
             }
+            ballToMergeIn.SetWeight(weightSum);
             field.SimulateGravity();
         }
     }
 
     private void Burn3InRow()
+    {
+        // Debug.Log(SameColorAside());
+
+        if (SameColorAside() >= 2)
+        {
+            BurnAllAdjacentSameColor(colorIndex);
+            EffectCompleted();
+        }
+    }
+
+    private int SameColorAside()
     {
         int sameColorLeft = 0;
         for (int i = collumn - 1; i >= 0; i--)
@@ -114,11 +129,7 @@ public class Ball : MovingObject
             else
                 break;
         }
-        if (sameColorLeft + sameColorRight >= 2)
-        {
-            BurnAllAdjacentSameColor(colorIndex);
-            EffectCompleted();
-        }
+        return sameColorLeft + sameColorRight;
     }
 
     public void BurnAllAdjacentSameColor(int color)

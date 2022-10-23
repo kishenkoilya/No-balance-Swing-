@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 50
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
@@ -717,7 +717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 50
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
@@ -899,7 +899,7 @@ MonoBehaviour:
   dispenser: {fileID: 0}
   field: {fileID: 1931901860}
   destination: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 50
   currentCollumnIndex: 0
 --- !u!65 &632594286
 BoxCollider:
@@ -1104,7 +1104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 50
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
@@ -2309,7 +2309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 50
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
@@ -2623,7 +2623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 50
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
@@ -2998,7 +2998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 50
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
@@ -3120,7 +3120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 50
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
@@ -3257,7 +3257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 50
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}

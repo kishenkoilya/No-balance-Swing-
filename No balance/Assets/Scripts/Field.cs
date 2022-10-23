@@ -116,7 +116,11 @@ public class Field : MonoBehaviour
 
     public bool IsSameColor(int collumn, int row, int colorIndex)
     {
-        if (collumn < 0 || collumn >= collumnsNumber || row < 0 || row >= rowsNumber || field[collumn][row] == null)
+        if (collumn < 0 || 
+            collumn >= collumnsNumber || 
+            row < 0 || 
+            row >= rowsNumber || 
+            field[collumn][row] == null)
             return false;
         return field[collumn][row].IsSameColor(colorIndex);
     }
@@ -157,6 +161,7 @@ public class Field : MonoBehaviour
             for (int i = args.resultingRow + 1; i < rowsNumber + args.rowsDelta; i++)
             {
                 field[args.Collumn][i] = field[args.Collumn][i - args.rowsDelta];
+                field[args.Collumn][i - args.rowsDelta] = null;
                 if (field[args.Collumn][i] != null)
                 {
                     field[args.Collumn][i].SetDestination(fieldCoordinates[args.Collumn][i], args.Collumn, i);
@@ -173,14 +178,17 @@ public class Field : MonoBehaviour
 
     private void DestroyObjectsInList(object sender, EventArgs a)
     {
+        Debug.Log(objectsToDestroy.Count);
         if (objectsToDestroy.Count > 0)
         {
+
             for (int i = 0; i < objectsToDestroy.Count; i++)
             {
                 field[slotsToClear[i].Item1][slotsToClear[i].Item2] = null;
                 GameObject.Destroy(objectsToDestroy[i].gameObject);
             }
             objectsToDestroy.Clear();
+            slotsToClear.Clear();
             SimulateGravity();
         }
     }
@@ -189,27 +197,28 @@ public class Field : MonoBehaviour
     {
         for (int i = 0; i < collumnsNumber; i++)
         {
-            int r = 0;
-            for (int j = 0; j < rowsNumber; j++)
+            (bool relocationNeeded, int to, int from) responce = ObjectsAboveEmpty(i);
+            while (responce.relocationNeeded)
             {
-                if (field[i][j] == null)
-                {
-                    r = j;
-                    break;
-                }
-            }
-            for (int j = r + 1; j < rowsNumber; j++)
-            {
-                if (field[i][j] != null)
-                {
-                    field[i][j].SetDestination(fieldCoordinates[i][r], i, r);
-                    field[i][j].row = r;
-                    field[i][r] = field[i][j];
-                    field[i][j] = null;
-                    r++;
-                }
+                field[i][responce.to] = field[i][responce.from];
+                field[i][responce.from] = null;
+                field[i][responce.to].SetDestination(fieldCoordinates[i][responce.to], i, responce.to);
+                responce = ObjectsAboveEmpty(i);
             }
         }
+    }
+
+    (bool relocationNeeded, int to, int from) ObjectsAboveEmpty(int Collumn)
+    {
+        int nullRow = 0;
+        for (int i = 0; i < rowsNumber; i++)
+        {
+            if (nullRow == 0 && field[Collumn][i] == null)
+                nullRow = i;
+            if (nullRow != 0 && field[Collumn][i] != null)
+                return (true, nullRow, i);
+        }
+        return (false, 0, 0);
     }
 
     public void AddToDestructionList(int c, int r, MovingObject obj)
@@ -248,6 +257,7 @@ public class Field : MonoBehaviour
             for (int i = resultingRow + 1; i < rowsNumber + rowsDelta; i++)
             {
                 field[Collumn][i] = field[Collumn][i - rowsDelta];
+                field[Collumn][i - rowsDelta] = null;
                 if (field[Collumn][i] != null)
                 {
                     field[Collumn][i].SetDestination(fieldCoordinates[Collumn][i], Collumn, i);
@@ -262,6 +272,7 @@ public class Field : MonoBehaviour
         scales[Collumn].SetDestination(resultingPosition, Collumn, resultingRow);
     }
 
+    float timer = 0;
     public void DestroyObjectsInList()
     {
         if (objectsToDestroy.Count > 0)
@@ -272,10 +283,12 @@ public class Field : MonoBehaviour
                 GameObject.Destroy(objectsToDestroy[i].gameObject);
             }
             objectsToDestroy.Clear();
+            slotsToClear.Clear();
             for (int i = 0; i < collumnsNumber; i++)
             {
                 ChangeWeightOnScales(i);
             }
+            // timer = 1;
             SimulateGravity();
         }
     }
@@ -284,4 +297,17 @@ public class Field : MonoBehaviour
     {
         field[Collumn][Row] = null;
     }
+
+    private void Update() {
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                SimulateGravity();
+                timer = 0;
+            }
+        }
+    }
+
 }

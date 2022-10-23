@@ -20,11 +20,12 @@ public abstract class MovingObject : MonoBehaviour, IFieldObject
     public int collumn;
     public int row;
     public bool isActivated = false;
+    private float timeoutBeforeAction = 0;
 
     public virtual bool IsSameColor(int color) {return false;}
     public virtual void ActivateEffect(){}
     public virtual int GetWeight() {return 0;}
-
+    public bool IsStationary() {return isStationary;}
     public void SetDestination(Vector3 dest, int Collumn = -1, int Row = -1)
     {
         destination = dest;
@@ -37,6 +38,15 @@ public abstract class MovingObject : MonoBehaviour, IFieldObject
     private void Update()
     {
         MoveToDestination();
+        if (timeoutBeforeAction > 0)
+        {
+            timeoutBeforeAction -= Time.deltaTime;
+            if (timeoutBeforeAction <= 0)
+            {
+                timeoutBeforeAction = 0;
+                DoUponArrival();
+            }
+        }
     }
 
     private void MoveToDestination()
@@ -55,7 +65,7 @@ public abstract class MovingObject : MonoBehaviour, IFieldObject
     {
         transform.position = destination;
         isStationary = true;
-        DoUponArrival();
+        timeoutBeforeAction = 0.05f;
     }
 
     protected virtual void DoUponArrival()
