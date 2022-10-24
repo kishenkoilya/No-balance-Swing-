@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MovingObject : MonoBehaviour, IFieldObject
+public abstract class MovingObject : MonoBehaviour
 {
     public event EventHandler OnArrival;
     public event EventHandler<OnEffectCompletedEventArgs> OnEffectCompleted;
@@ -26,6 +26,14 @@ public abstract class MovingObject : MonoBehaviour, IFieldObject
     public virtual bool IsSameColor(int color) {return false;}
     public virtual void ActivateEffect(){}
     public virtual int GetWeight() {return 0;}
+    protected virtual void DoUponArrival()
+    {
+        if (arrivesOnField)
+        {
+            arrivesOnField = false;
+            field.ChangeWeightOnScales(collumn);
+        }
+    }
     public bool IsStationary() {return isStationary;}
     public void SetDestination(Vector3 dest, int Collumn = -1, int Row = -1)
     {
@@ -67,15 +75,6 @@ public abstract class MovingObject : MonoBehaviour, IFieldObject
         transform.position = destination;
         isStationary = true;
         timeoutBeforeAction = 0.05f;
-    }
-
-    protected virtual void DoUponArrival()
-    {
-        if (arrivesOnField)
-        {
-            arrivesOnField = false;
-            field.ChangeWeightOnScales(collumn);
-        }
     }
 
     protected void DeclareArrival()

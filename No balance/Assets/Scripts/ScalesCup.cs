@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ScalesCup : MovingObject, IFieldObject
+public class ScalesCup : MovingObject
 {
     public event EventHandler<OnChangeCupPositionEventArgs> OnChangeCupPosition;
     public class OnChangeCupPositionEventArgs : EventArgs

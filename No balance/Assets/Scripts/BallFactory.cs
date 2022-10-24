@@ -34,7 +34,10 @@ public class BallFactory : MonoBehaviour
         ball.Initialize(weight, color, field);
         ball.collumn = -1; //means that it is not on field yet
         ball.row = -1;
-        go.GetComponent<Renderer>().material = colors[color];
+        if (color == -1)
+            go.GetComponent<Renderer>().material = colors[25];
+        else
+            go.GetComponent<Renderer>().material = colors[color];
         return ball;
     }
 }

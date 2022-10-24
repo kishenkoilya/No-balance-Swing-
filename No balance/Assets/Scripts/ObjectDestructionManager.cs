@@ -6,61 +6,112 @@ using UnityEngine;
 public class ObjectDestructionManager : MonoBehaviour
 {
     [SerializeField] Field field;
-    [SerializeField] private List<MovingObject> objectsToDestroy = new List<MovingObject>();
-    [SerializeField] private List<(int, int)> slotsToClear = new List<(int, int)>();
+    [SerializeField] private List<(EffectOptions.Options, List<MovingObject>)> objectsToDestroy = new List<(EffectOptions.Options, List<MovingObject>)>();
 
     public void RegisterMovingObject(MovingObject obj)
     {
-        obj.OnArrival += FindObjectInDestructionLists;
+        obj.OnArrival += ObjectArrived;
         obj.OnEffectCompleted += DestroyObjects;
     }
 
-    private void FindObjectInDestructionLists(object sender, EventArgs args)
+    private void ObjectArrived(object sender, EventArgs args)
     {
-        
+        (int listIndex, int objIndex) indexes;
+        if ((indexes = FindObjectInDestructionLists((MovingObject)sender)).listIndex >= 0)
+        {
+            switch (objectsToDestroy[indexes.listIndex].Item1)
+            {
+                case EffectOptions.Options.DestroyUponIndividualArrival:
+                    DestroyImmediately(indexes.listIndex, indexes.objIndex);
+                    break;
+                
+                case EffectOptions.Options.DestroyWhenAllArrive:
+                    DestroyObjectsWhenAllArrive((MovingObject)sender);
+                    break;
+            }
+        }
+
+    }    
+    
+    private (int listIndex, int objIndex) FindObjectInDestructionLists(MovingObject obj)
+    {
+        int listIndex = -1;
+        int objIndex = -1;
+        for (int i = 0; i < objectsToDestroy.Count; i++)
+        {
+            if ((objIndex = objectsToDestroy[i].Item2.FindIndex(x => x == obj)) >= 0)
+            {
+                listIndex = i;
+                break;
+            }
+        }
+        return (listIndex, objIndex);
     }
 
     private void DestroyObjects(object sender, MovingObject.OnEffectCompletedEventArgs args)
     {
+        switch (args.Effect)
+        {
+            case EffectOptions.Options.DestroyImmedeately:
+                DestroyImmediately(args.ObjectsAffected);
+                break;
 
+            case EffectOptions.Options.DestroyUponIndividualArrival:
+                DestroyObjectsOnIndividualArrival((MovingObject)sender, args.ObjectsAffected);
+                break;
+
+            case EffectOptions.Options.DestroyWhenAllArrive:
+                DestroyObjectsWhenAllArrive((MovingObject)sender, args.ObjectsAffected);
+                break;
+        }
     }
-    private void DestroyObjectsOnIndividualArrival()
+
+    private void DestroyObjectsOnIndividualArrival(MovingObject obj, List<MovingObject> objects)
     {
-
+        (int listIndex, int objIndex) indexes;
+        if ((indexes = FindObjectInDestructionLists(obj)).listIndex == -1)
+            objectsToDestroy.Add((EffectOptions.Options.DestroyUponIndividualArrival, objects));
     }
 
-    private void DestroyObjectsWhenAllArrive()
+    private void DestroyObjectsWhenAllArrive(MovingObject obj, List<MovingObject> objects = null)
     {
+        (int listIndex, int objIndex) indexes;
 
+        if ((indexes = FindObjectInDestructionLists(obj)).listIndex == -1)
+            objectsToDestroy.Add((EffectOptions.Options.DestroyWhenAllArrive, objects));
+
+        indexes = FindObjectInDestructionLists(obj);
+        bool allArrived = true;
+        for (int i = 0; i < objectsToDestroy[indexes.listIndex].Item2.Count; i++)
+        {
+            if (!objectsToDestroy[indexes.listIndex].Item2[i].IsStationary())
+            {
+                allArrived = false;
+                break;
+            }
+        }
+        if (allArrived)
+        {
+            DestroyImmediately(objectsToDestroy[indexes.listIndex].Item2);
+        }
+        
     }
 
-    private void DestroyImmediately()
+    private void DestroyImmediately(List<MovingObject> objectsToDestroy)
     {
-
+        for (int i = objectsToDestroy.Count - 1; i >= 0; i--)
+        {
+            field.RemoveObjectFromField(objectsToDestroy[i]);
+            GameObject.Destroy(objectsToDestroy[i].gameObject);
+        }
+        field.SimulateGravity();
     }
-    // public void AddToDestructionList(int c, int r, MovingObject obj)
-    // {
-    //     objectsToDestroy.Add(obj);
-    //     slotsToClear.Add((c, r));
-    // }
 
-    // public void DestroyObjectsInList()
-    // {
-    //     if (objectsToDestroy.Count > 0)
-    //     {
-    //         for (int i = 0; i < objectsToDestroy.Count; i++)
-    //         {
-    //             field.field[slotsToClear[i].Item1][slotsToClear[i].Item2] = null;
-    //             GameObject.Destroy(objectsToDestroy[i].gameObject);
-    //         }
-    //         objectsToDestroy.Clear();
-    //         slotsToClear.Clear();
-    //         for (int i = 0; i < field.collumnsNumber; i++)
-    //         {
-    //             field.ChangeWeightOnScales(i);
-    //         }
-    //         // timer = 1;
-    //         field.SimulateGravity();
-    //     }
-    // }
+    private void DestroyImmediately(int listIndex, int objIndex)
+    {
+        field.RemoveObjectFromField(objectsToDestroy[listIndex].Item2[objIndex]);
+        GameObject.Destroy(objectsToDestroy[listIndex].Item2[objIndex].gameObject);
+        objectsToDestroy[listIndex].Item2.RemoveAt(objIndex);
+        field.SimulateGravity();
+    }
 }

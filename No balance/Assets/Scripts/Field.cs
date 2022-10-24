@@ -96,8 +96,7 @@ public class Field : MonoBehaviour
 
     public (int row, Vector3 dest) AcceptBall(int collumnIndex, MovingObject ball)
     {
-        Ball b = (Ball)ball;
-        b.OnArrivalOnField += ChangeWeightOnScales;
+        ball.OnArrival += ChangeWeightOnScales;
         for (int i = 0; i < rowsNumber; i++)
         {
             if (field[collumnIndex][i] == null)
@@ -120,17 +119,21 @@ public class Field : MonoBehaviour
         return field[collumn][row].IsSameColor(colorIndex);
     }
 
-    private void ChangeWeightOnScales(object sender, Ball.OnArrivalOnFieldEventArgs args)
+    private void ChangeWeightOnScales(object sender, EventArgs args)
     {
         int weight = 0;
-        for (int i = 0; i < rowsNumber; i++)
+        if (sender.GetType() == typeof (Ball))
         {
-            if (field[args.Collumn][i] == null)
-                break;
-            if (!field[args.Collumn][i].arrivesOnField)
-                weight += field[args.Collumn][i].GetWeight();
+            Ball ball = (Ball) sender;
+            for (int i = 0; i < rowsNumber; i++)
+            {
+                if (field[ball.collumn][i] == null)
+                    break;
+                if (!field[ball.collumn][i].arrivesOnField)
+                    weight += field[ball.collumn][i].GetWeight();
+            }
+            scales[ball.collumn].SetWeight(weight);
         }
-        scales[args.Collumn].SetWeight(weight);
     }
 
     private void ChangeCupPosition(object sender, ScalesCup.OnChangeCupPositionEventArgs args)
@@ -171,13 +174,13 @@ public class Field : MonoBehaviour
     {
         for (int i = 0; i < collumnsNumber; i++)
         {
-            (bool relocationNeeded, int to, int from) responce = ObjectsAboveEmpty(i);
-            while (responce.relocationNeeded)
+            (bool relocationNeeded, int to, int from) responce;
+            ChangeWeightOnScales(i);
+            while ((responce = ObjectsAboveEmpty(i)).relocationNeeded)
             {
                 field[i][responce.to] = field[i][responce.from];
                 field[i][responce.from] = null;
                 field[i][responce.to].SetDestination(fieldCoordinates[i][responce.to], i, responce.to);
-                responce = ObjectsAboveEmpty(i);
             }
         }
     }
@@ -246,6 +249,21 @@ public class Field : MonoBehaviour
     public void ClearSlot(int Collumn, int Row)
     {
         field[Collumn][Row] = null;
+    }
+
+    public void RemoveObjectFromField(MovingObject obj)
+    {
+        for (int i = 0; i < collumnsNumber; i++)
+        {
+            for (int j = 0; j < rowsNumber; j++)
+            {
+                if (field[i][j] == obj)
+                {
+                    field[i][j] = null;
+                    return;
+                }
+            }
+        }
     }
 
     private void Update() {

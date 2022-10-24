@@ -42,7 +42,7 @@ public class FieldSlotsSimulator : MonoBehaviour
                 Ball b = field[i][j].GetComponent<Ball>();
                 if (b)
                 {
-                    Ball nb = factory.SpawnSpecificBall(b.GetColor(), b.GetWeight());
+                    Ball nb = factory.SpawnSpecificBall(b.colorIndex, b.GetWeight());
                     nb.transform.position = spawnPosition;
                     nb.transform.parent = transform;
                 }

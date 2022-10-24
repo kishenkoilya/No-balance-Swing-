@@ -6,13 +6,8 @@ using TMPro;
 
 public class Ball : MovingObject
 {
-    public event EventHandler<OnArrivalOnFieldEventArgs> OnArrivalOnField;
-    public class OnArrivalOnFieldEventArgs : EventArgs
-    {
-        public int Collumn;
-    }
     [SerializeField] private WeightText weightTextScript;
-    [SerializeField] private int colorIndex;
+    [SerializeField] public int colorIndex;
     [SerializeField] private int weight;
     private TextMeshPro weightText;
 
@@ -44,13 +39,6 @@ public class Ball : MovingObject
             ActivateEffect();
     }
 
-    public void SetWeight(int w)
-    {
-        weight = w;
-        weightText.SetText("" + weight);
-        field.ChangeWeightOnScales(collumn);
-    }
-
     public override bool IsSameColor(int color)
     {
         return colorIndex == color;
@@ -59,10 +47,16 @@ public class Ball : MovingObject
     public override void ActivateEffect()
     {
         if (row >= 4)
-        {
             MergeDown5();
-        }
-        // Burn3InRow();
+        if (colorIndex >= 0)
+            Burn3InRow();
+    }
+
+    public void SetWeight(int w)
+    {
+        weight = w;
+        weightText.SetText("" + weight);
+        field.ChangeWeightOnScales(collumn);
     }
 
     private void MergeDown5()
@@ -106,15 +100,16 @@ public class Ball : MovingObject
                 break;
         }    
 
-        return (sameColorDown + sameColorUp, row + sameColorUp, row + sameColorDown);
+        return (sameColorDown + sameColorUp, row + sameColorUp, row - sameColorDown);
     }
 
     private void Burn3InRow()
     {
         if (SameColorAside() >= 2)
         {
-            BurnAllAdjacentSameColor(colorIndex);
-            // EffectCompleted();
+            List<MovingObject> objectsToDestroy = new List<MovingObject>();
+            BurnAllAdjacentSameColor(collumn, row, colorIndex, objectsToDestroy);
+            EffectCompleted(objectsToDestroy, EffectOptions.Options.DestroyWhenAllArrive);
         }
     }
 
@@ -139,26 +134,19 @@ public class Ball : MovingObject
         return sameColorLeft + sameColorRight;
     }
 
-    public void BurnAllAdjacentSameColor(int color)
+    public void BurnAllAdjacentSameColor(int Collumn, int Row, int Color, List<MovingObject> objectsToDestroy)
     {
-        colorIndex = -1;
-        BurnSameColor(collumn, row + 1, color);
-        BurnSameColor(collumn, row - 1, color);
-        BurnSameColor(collumn + 1, row, color);
-        BurnSameColor(collumn - 1, row, color);
+        objectsToDestroy.Add(field.field[Collumn][Row]);
+        ((Ball)field.field[Collumn][Row]).colorIndex = -1;
+        BurnSameColor(Collumn, Row + 1, Color, objectsToDestroy);
+        BurnSameColor(Collumn, Row - 1, Color, objectsToDestroy);
+        BurnSameColor(Collumn + 1, Row, Color, objectsToDestroy);
+        BurnSameColor(Collumn - 1, Row, Color, objectsToDestroy);
     }
 
-    private void BurnSameColor(int c, int r, int color)
+    private void BurnSameColor(int Collumn, int Row, int Color, List<MovingObject> objectsToDestroy)
     {
-        if (field.IsSameColor(c, r, color))
-        {
-            Ball b1 = (Ball)field.field[c][r];
-            b1.BurnAllAdjacentSameColor(color);
-        }
-    }
-
-    public int GetColor()
-    {
-        return colorIndex;
+        if (field.IsSameColor(Collumn, Row, Color))
+            BurnAllAdjacentSameColor(Collumn, Row, Color, objectsToDestroy);
     }
 }

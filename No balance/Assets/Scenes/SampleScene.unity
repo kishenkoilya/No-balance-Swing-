@@ -364,6 +364,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 0d2d0ed784980024c8cb43a8e12611a2, type: 2}
   - {fileID: 2100000, guid: 25a1646bbe693b445ac1cab9f9de52cc, type: 2}
   - {fileID: 2100000, guid: f1dfb0f4c3f54754dba06a5ea1081e6c, type: 2}
+  - {fileID: 2100000, guid: 0db64624d7ba6b14a9d19ef80c747179, type: 2}
 --- !u!4 &65553188
 Transform:
   m_ObjectHideFlags: 0
@@ -2984,7 +2985,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
-  objectsToDestroy: []
 --- !u!1 &2013919943
 GameObject:
   m_ObjectHideFlags: 0
