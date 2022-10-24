@@ -6,6 +6,7 @@ public class Manipulator : MonoBehaviour
 {
     [SerializeField] private BallDispenser dispenser;
     [SerializeField] private Field field;
+    [SerializeField] private ObjectDestructionManager destructor;
     [SerializeField] private Vector3 destination;
     [SerializeField] private float speed;
     [SerializeField] private int currentCollumnIndex;
@@ -21,6 +22,8 @@ public class Manipulator : MonoBehaviour
         {
             field = FindObjectOfType<Field>();
         }
+        if (destructor == null)
+            destructor = FindObjectOfType<ObjectDestructionManager>();
         destination = transform.position;
     }
 
@@ -87,6 +90,8 @@ public class Manipulator : MonoBehaviour
         (int, Vector3) destination = field.AcceptBall(currentCollumnIndex, ballHolded);
         ballHolded.SetDestination(destination.Item2, currentCollumnIndex, destination.Item1);
         ballHolded.isActivated = true;
+        ballHolded.arrivesOnField = true;
+        destructor.RegisterMovingObject(ballHolded);
         GetBall();
     }
 

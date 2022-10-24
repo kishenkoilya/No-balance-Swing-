@@ -5,17 +5,14 @@ using UnityEngine;
 
 public class Field : MonoBehaviour
 {
-    private Grid grid;
     [SerializeField] public MovingObject[][] field {get; private set;} 
     public Vector3[][] fieldCoordinates {get; private set;}
     [SerializeField] private Vector3 firstFieldSlot;
     [SerializeField] private float collumnsDistance = 2.2f;
     [SerializeField] private float rowsDistance = 2f;
-    [SerializeField] private int collumnsNumber = 8;
-    [SerializeField] private int rowsNumber = 10;
+    [SerializeField] public int collumnsNumber = 8;
+    [SerializeField] public int rowsNumber = 10;
     [SerializeField] private ScalesCup[] scales;
-    [SerializeField] private List<MovingObject> objectsToDestroy = new List<MovingObject>();
-    [SerializeField] private List<(int, int)> slotsToClear = new List<(int, int)>();
     private void Awake() 
     {
         InitializeFieldSlots();
@@ -99,8 +96,6 @@ public class Field : MonoBehaviour
 
     public (int row, Vector3 dest) AcceptBall(int collumnIndex, MovingObject ball)
     {
-        ball.OnPrepareForDestruction += AddToDestructionList;
-        ball.OnEffectCompleted += DestroyObjectsInList;
         Ball b = (Ball)ball;
         b.OnArrivalOnField += ChangeWeightOnScales;
         for (int i = 0; i < rowsNumber; i++)
@@ -125,12 +120,6 @@ public class Field : MonoBehaviour
         return field[collumn][row].IsSameColor(colorIndex);
     }
 
-    private void AddToDestructionList(object sender, MovingObject.OnPrepareForDestructionEventArgs args)
-    {
-        objectsToDestroy.Add((MovingObject)sender);
-        slotsToClear.Add((args.Collumn, args.Row));
-    }
-
     private void ChangeWeightOnScales(object sender, Ball.OnArrivalOnFieldEventArgs args)
     {
         int weight = 0;
@@ -138,7 +127,8 @@ public class Field : MonoBehaviour
         {
             if (field[args.Collumn][i] == null)
                 break;
-            weight += field[args.Collumn][i].GetWeight();
+            if (!field[args.Collumn][i].arrivesOnField)
+                weight += field[args.Collumn][i].GetWeight();
         }
         scales[args.Collumn].SetWeight(weight);
     }
@@ -176,22 +166,6 @@ public class Field : MonoBehaviour
         scales[args.Collumn].SetDestination(args.resultingPosition, args.Collumn, args.resultingRow);
     }
 
-    private void DestroyObjectsInList(object sender, EventArgs a)
-    {
-        Debug.Log(objectsToDestroy.Count);
-        if (objectsToDestroy.Count > 0)
-        {
-
-            for (int i = 0; i < objectsToDestroy.Count; i++)
-            {
-                field[slotsToClear[i].Item1][slotsToClear[i].Item2] = null;
-                GameObject.Destroy(objectsToDestroy[i].gameObject);
-            }
-            objectsToDestroy.Clear();
-            slotsToClear.Clear();
-            SimulateGravity();
-        }
-    }
 
     public void SimulateGravity()
     {
@@ -221,12 +195,6 @@ public class Field : MonoBehaviour
         return (false, 0, 0);
     }
 
-    public void AddToDestructionList(int c, int r, MovingObject obj)
-    {
-        objectsToDestroy.Add(obj);
-        slotsToClear.Add((c, r));
-    }
-
     public void ChangeWeightOnScales(int c)
     {
         int weight = 0;
@@ -234,7 +202,8 @@ public class Field : MonoBehaviour
         {
             if (field[c][i] == null)
                 continue;
-            weight += field[c][i].GetWeight();
+            if (!field[c][i].arrivesOnField)
+                weight += field[c][i].GetWeight();
         }
         scales[c].SetWeight(weight);
     }
@@ -273,25 +242,6 @@ public class Field : MonoBehaviour
     }
 
     float timer = 0;
-    public void DestroyObjectsInList()
-    {
-        if (objectsToDestroy.Count > 0)
-        {
-            for (int i = 0; i < objectsToDestroy.Count; i++)
-            {
-                field[slotsToClear[i].Item1][slotsToClear[i].Item2] = null;
-                GameObject.Destroy(objectsToDestroy[i].gameObject);
-            }
-            objectsToDestroy.Clear();
-            slotsToClear.Clear();
-            for (int i = 0; i < collumnsNumber; i++)
-            {
-                ChangeWeightOnScales(i);
-            }
-            // timer = 1;
-            SimulateGravity();
-        }
-    }
 
     public void ClearSlot(int Collumn, int Row)
     {

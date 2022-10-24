@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
-  speed: 50
+  speed: 5
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 0}

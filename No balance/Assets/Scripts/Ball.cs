@@ -15,7 +15,6 @@ public class Ball : MovingObject
     [SerializeField] private int colorIndex;
     [SerializeField] private int weight;
     private TextMeshPro weightText;
-    public Ball ballToMergeIn;
 
     public void Initialize(int ballWeight, int color, Field f)
     {
@@ -38,12 +37,8 @@ public class Ball : MovingObject
     }
     protected override void DoUponArrival()
     {
-        if (collumn >= 0 && row >= 0)
-            field.ChangeWeightOnScales(collumn);
-         if (ballToMergeIn != null)
-        {
-            GameObject.Destroy(gameObject);
-        }
+        base.DoUponArrival();
+        DeclareArrival();
            // OnArrivalOnField?.Invoke(this, new OnArrivalOnFieldEventArgs{Collumn = collumn});
         if (isActivated && isStationary)
             ActivateEffect();
@@ -67,10 +62,32 @@ public class Ball : MovingObject
         {
             MergeDown5();
         }
-        Burn3InRow();
+        // Burn3InRow();
     }
 
     private void MergeDown5()
+    {
+        (int count, int upperRow, int lowerRow) upAndDownInfo = SameColorUpAndDown();
+        if (upAndDownInfo.count >= 4)
+        {
+            int weightSum = field.field[collumn][upAndDownInfo.lowerRow].GetWeight();
+            Vector3 mergeIn = field.fieldCoordinates[collumn][upAndDownInfo.lowerRow];
+            List<MovingObject> objectsToDestroy = new List<MovingObject>();
+            for (int i = upAndDownInfo.upperRow; i > upAndDownInfo.lowerRow; i--)
+            {
+                objectsToDestroy.Add(field.field[collumn][i]);
+                Ball b = (Ball)field.field[collumn][i];
+                weightSum += b.GetWeight();
+                field.ClearSlot(b.collumn, b.row);
+                b.SetDestination(mergeIn, collumn, row);
+            }
+            EffectCompleted(objectsToDestroy, EffectOptions.Options.DestroyUponIndividualArrival);
+            ((Ball)field.field[collumn][upAndDownInfo.lowerRow]).SetWeight(weightSum);
+            field.SimulateGravity();
+        }
+    }
+
+    private (int count, int upperRow, int lowerRow) SameColorUpAndDown()
     {
         int sameColorDown = 0;
         for (int i = row - 1; i >= 0; i--)
@@ -80,34 +97,24 @@ public class Ball : MovingObject
             else
                 break;
         }
-        if (sameColorDown >= 4)
-        {
-            int weightSum = field.field[collumn][row - sameColorDown].GetWeight();
-            Vector3 mergeIn = field.fieldCoordinates[collumn][row - sameColorDown];
-            ballToMergeIn = (Ball)field.field[collumn][row - sameColorDown];
-            for (int i = row; i > row - sameColorDown; i--)
-            {
-                Debug.LogFormat("col: {0} row: {1}", collumn, i);
-                Ball b = (Ball)field.field[collumn][i];
-                weightSum += b.GetWeight();
-                Debug.LogFormat("ball: {0}", b);
-                field.ClearSlot(b.collumn, b.row);
-                b.SetDestination(mergeIn, collumn, row);
-                b.ballToMergeIn = ballToMergeIn;
-            }
-            ballToMergeIn.SetWeight(weightSum);
-            field.SimulateGravity();
-        }
+        int sameColorUp = 0;
+        for (int i = row + 1; i < field.GetRowsNumber(); i++)
+        {   
+            if (field.IsSameColor(collumn, i, colorIndex))
+                sameColorUp++;
+            else
+                break;
+        }    
+
+        return (sameColorDown + sameColorUp, row + sameColorUp, row + sameColorDown);
     }
 
     private void Burn3InRow()
     {
-        // Debug.Log(SameColorAside());
-
         if (SameColorAside() >= 2)
         {
             BurnAllAdjacentSameColor(colorIndex);
-            EffectCompleted();
+            // EffectCompleted();
         }
     }
 
@@ -139,7 +146,6 @@ public class Ball : MovingObject
         BurnSameColor(collumn, row - 1, color);
         BurnSameColor(collumn + 1, row, color);
         BurnSameColor(collumn - 1, row, color);
-        EnqueueForDestruction();
     }
 
     private void BurnSameColor(int c, int r, int color)

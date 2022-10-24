@@ -430,6 +430,7 @@ MonoBehaviour:
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  arrivesOnField: 0
   collumn: 0
   row: 0
   isActivated: 0
@@ -721,6 +722,7 @@ MonoBehaviour:
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  arrivesOnField: 0
   collumn: 0
   row: 0
   isActivated: 0
@@ -896,8 +898,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab040291912ce6449962702a1ee15429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dispenser: {fileID: 0}
+  dispenser: {fileID: 1501756835}
   field: {fileID: 1931901860}
+  destructor: {fileID: 1931901861}
   destination: {x: 0, y: 0, z: 0}
   speed: 50
   currentCollumnIndex: 0
@@ -1108,6 +1111,7 @@ MonoBehaviour:
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  arrivesOnField: 0
   collumn: 0
   row: 0
   isActivated: 0
@@ -2313,6 +2317,7 @@ MonoBehaviour:
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  arrivesOnField: 0
   collumn: 0
   row: 0
   isActivated: 0
@@ -2627,6 +2632,7 @@ MonoBehaviour:
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  arrivesOnField: 0
   collumn: 0
   row: 0
   isActivated: 0
@@ -2906,6 +2912,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1931901859}
   - component: {fileID: 1931901860}
+  - component: {fileID: 1931901861}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -2964,6 +2971,19 @@ MonoBehaviour:
   - {fileID: 206526122}
   - {fileID: 2013919944}
   - {fileID: 2093861781}
+--- !u!114 &1931901861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931901858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10575037349329c4e9be0776948b6cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  field: {fileID: 1931901860}
   objectsToDestroy: []
 --- !u!1 &2013919943
 GameObject:
@@ -3002,6 +3022,7 @@ MonoBehaviour:
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  arrivesOnField: 0
   collumn: 0
   row: 0
   isActivated: 0
@@ -3124,6 +3145,7 @@ MonoBehaviour:
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  arrivesOnField: 0
   collumn: 0
   row: 0
   isActivated: 0
@@ -3261,6 +3283,7 @@ MonoBehaviour:
   isStationary: 1
   movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  arrivesOnField: 0
   collumn: 0
   row: 0
   isActivated: 0

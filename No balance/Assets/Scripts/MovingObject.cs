@@ -5,18 +5,19 @@ using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour, IFieldObject
 {
-    public event EventHandler<OnPrepareForDestructionEventArgs> OnPrepareForDestruction;
-    public event EventHandler OnEffectCompleted;
-    public class OnPrepareForDestructionEventArgs : EventArgs
+    public event EventHandler OnArrival;
+    public event EventHandler<OnEffectCompletedEventArgs> OnEffectCompleted;
+    public class OnEffectCompletedEventArgs
     {
-        public int Collumn;
-        public int Row;
+        public List<MovingObject> ObjectsAffected;
+        public EffectOptions.Options Effect;
     }
     [SerializeField] private Vector3 destination;
     [SerializeField] protected float speed = 100;
     [SerializeField] protected bool isStationary = true;
     [SerializeField] private Vector3 movementVector;
     [SerializeField] protected Field field;
+    [SerializeField] public bool arrivesOnField = false;
     public int collumn;
     public int row;
     public bool isActivated = false;
@@ -70,17 +71,21 @@ public abstract class MovingObject : MonoBehaviour, IFieldObject
 
     protected virtual void DoUponArrival()
     {
+        if (arrivesOnField)
+        {
+            arrivesOnField = false;
+            field.ChangeWeightOnScales(collumn);
+        }
     }
 
-    protected void EnqueueForDestruction()
+    protected void DeclareArrival()
     {
-        // OnPrepareForDestruction?.Invoke(this, new OnPrepareForDestructionEventArgs {Collumn = collumn, Row = row});
-        field.AddToDestructionList(collumn, row, this);
+        OnArrival?.Invoke(this, EventArgs.Empty);
     }
 
-    protected void EffectCompleted()
+    protected void EffectCompleted(List<MovingObject> objectsAffected, EffectOptions.Options effect)
     {
-        // OnEffectCompleted?.Invoke(this, EventArgs.Empty);
-        field.DestroyObjectsInList();
+        OnEffectCompleted?.Invoke(this, new OnEffectCompletedEventArgs{ObjectsAffected = objectsAffected, Effect = effect});
     }
+
 }
