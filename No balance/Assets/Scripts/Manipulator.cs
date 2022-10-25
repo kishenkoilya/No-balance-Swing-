@@ -49,7 +49,7 @@ public class Manipulator : MonoBehaviour
             int collumnIndex = field.GetCollumnByCoordinates(hit.point);
             if (collumnIndex != currentCollumnIndex)
             {
-                float xCoord = field.GetXCoordinateByCollumnIndex(collumnIndex);
+                float xCoord = field.fieldCoordinates[collumnIndex][0].x;
                 destination = new Vector3 (xCoord, transform.position.y, transform.position.z);
                 isStationary = false;
                 movementVector = currentCollumnIndex > collumnIndex ? Vector3.left : Vector3.right;

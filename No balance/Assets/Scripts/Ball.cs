@@ -34,7 +34,6 @@ public class Ball : MovingObject
     {
         base.DoUponArrival();
         DeclareArrival();
-           // OnArrivalOnField?.Invoke(this, new OnArrivalOnFieldEventArgs{Collumn = collumn});
         if (isActivated && isStationary)
             ActivateEffect();
     }
@@ -56,7 +55,7 @@ public class Ball : MovingObject
     {
         weight = w;
         weightText.SetText("" + weight);
-        field.ChangeWeightOnScales(collumn);
+        // field.ChangeWeightOnScales(collumn);
     }
 
     private void MergeDown5()
@@ -75,7 +74,7 @@ public class Ball : MovingObject
                 field.ClearSlot(b.collumn, b.row);
                 b.SetDestination(mergeIn, collumn, row);
             }
-            EffectCompleted(objectsToDestroy, EffectOptions.Options.DestroyUponIndividualArrival);
+            DeclareEffectCompleted(objectsToDestroy, EffectOptions.Options.DestroyUponIndividualArrival);
             ((Ball)field.field[collumn][upAndDownInfo.lowerRow]).SetWeight(weightSum);
             field.SimulateGravity();
         }
@@ -109,16 +108,18 @@ public class Ball : MovingObject
         {
             List<MovingObject> objectsToDestroy = new List<MovingObject>();
             BurnAllAdjacentSameColor(collumn, row, colorIndex, objectsToDestroy);
-            EffectCompleted(objectsToDestroy, EffectOptions.Options.DestroyWhenAllArrive);
+            DeclareEffectCompleted(objectsToDestroy, EffectOptions.Options.DestroyWhenAllArrive);
         }
     }
 
-    private int SameColorAside()
+    private int SameColorAside(bool arrivedRelevant = true)
     {
         int sameColorLeft = 0;
         for (int i = collumn - 1; i >= 0; i--)
         {
-            if (field.IsSameColor(i, row, colorIndex))
+            if (field.IsSameColor(i, row, colorIndex) && 
+            ((arrivedRelevant && field.field[i][row].IsStationary()) || 
+            !arrivedRelevant))
                 sameColorLeft++;
             else
                 break;
@@ -126,8 +127,9 @@ public class Ball : MovingObject
         int sameColorRight = 0;
         for (int i = collumn + 1; i < field.GetCollumnsNumber(); i++)
         {
-            if (field.IsSameColor(i, row, colorIndex))
-                sameColorRight++;
+            if (field.IsSameColor(i, row, colorIndex) && 
+            ((arrivedRelevant && field.field[i][row].IsStationary()) || 
+            !arrivedRelevant))                sameColorRight++;
             else
                 break;
         }

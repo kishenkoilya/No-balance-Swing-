@@ -2914,6 +2914,7 @@ GameObject:
   - component: {fileID: 1931901859}
   - component: {fileID: 1931901860}
   - component: {fileID: 1931901861}
+  - component: {fileID: 1931901862}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -2985,6 +2986,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
+--- !u!114 &1931901862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931901858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350b08a76b0204d4ca54441d2008c1c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  field: {fileID: 1931901860}
+  scales:
+  - {fileID: 1767089578}
+  - {fileID: 1429937487}
+  - {fileID: 448158103}
+  - {fileID: 756265257}
+  - {fileID: 2064593763}
+  - {fileID: 206526122}
+  - {fileID: 2013919944}
+  - {fileID: 2093861781}
+  leftTeleport: {x: 0, y: 24, z: -1}
+  rightTeleport: {x: 28, y: 24, z: -1}
 --- !u!1 &2013919943
 GameObject:
   m_ObjectHideFlags: 0

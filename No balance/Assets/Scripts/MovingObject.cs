@@ -13,7 +13,7 @@ public abstract class MovingObject : MonoBehaviour
         public EffectOptions.Options Effect;
     }
     [SerializeField] private Vector3 destination;
-    [SerializeField] protected float speed = 100;
+    [SerializeField] protected float speed = 50;
     [SerializeField] protected bool isStationary = true;
     [SerializeField] private Vector3 movementVector;
     [SerializeField] protected Field field;
@@ -31,7 +31,6 @@ public abstract class MovingObject : MonoBehaviour
         if (arrivesOnField)
         {
             arrivesOnField = false;
-            field.ChangeWeightOnScales(collumn);
         }
     }
     public bool IsStationary() {return isStationary;}
@@ -82,9 +81,8 @@ public abstract class MovingObject : MonoBehaviour
         OnArrival?.Invoke(this, EventArgs.Empty);
     }
 
-    protected void EffectCompleted(List<MovingObject> objectsAffected, EffectOptions.Options effect)
+    protected void DeclareEffectCompleted(List<MovingObject> objectsAffected, EffectOptions.Options effect)
     {
         OnEffectCompleted?.Invoke(this, new OnEffectCompletedEventArgs{ObjectsAffected = objectsAffected, Effect = effect});
     }
-
 }

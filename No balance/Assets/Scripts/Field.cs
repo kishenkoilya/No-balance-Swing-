@@ -13,7 +13,7 @@ public class Field : MonoBehaviour
     [SerializeField] public int collumnsNumber = 8;
     [SerializeField] public int rowsNumber = 10;
     [SerializeField] private ScalesCup[] scales;
-    private void Awake() 
+    private void Awake()
     {
         InitializeFieldSlots();
         InitializeScalesCups();
@@ -48,7 +48,6 @@ public class Field : MonoBehaviour
             field[i][0] = scales[i];
             field[i][1] = scales[i];
             scales[i].Initialize(i, 1, (fieldCoordinates[i][0] + fieldCoordinates[i][1]) / 2, rowsDistance);
-            scales[i].OnChangeCupPosition += ChangeCupPosition;
         }
     }
 
@@ -72,11 +71,6 @@ public class Field : MonoBehaviour
         return rowsDistance;
     }
 
-    public Vector3 GetFieldPositionCoordinates(int collumn, int row)
-    {
-        return fieldCoordinates[collumn][row];
-    }
-
     public int GetCollumnByCoordinates(Vector3 clickPosition)
     {
         int resultingIndex;
@@ -89,93 +83,85 @@ public class Field : MonoBehaviour
         return resultingIndex;
     }
 
-    public float GetXCoordinateByCollumnIndex(int index)
+    public bool IsSameColor(int Collumn, int Row, int colorIndex)
     {
-        return fieldCoordinates[index][0].x;
+        if (Collumn < 0 || 
+            Collumn >= collumnsNumber || 
+            Row < 0 || 
+            Row >= rowsNumber || 
+            field[Collumn][Row] == null)
+            return false;
+        return field[Collumn][Row].IsSameColor(colorIndex);
     }
 
-    public (int row, Vector3 dest) AcceptBall(int collumnIndex, MovingObject ball)
+    public (int row, Vector3 dest) AcceptBall(int Collumn, MovingObject ball)
     {
         ball.OnArrival += ChangeWeightOnScales;
+        int EmptyRow = FindEmptyPositionInCollumn(Collumn);
+        field[Collumn][EmptyRow] = ball;
+        return (EmptyRow, fieldCoordinates[Collumn][EmptyRow]);
+    }
+
+    public int FindEmptyPositionInCollumn(int Collumn)
+    {
+        int Row = -1;
         for (int i = 0; i < rowsNumber; i++)
         {
-            if (field[collumnIndex][i] == null)
+            if (field[Collumn][i] == null)
             {
-                field[collumnIndex][i] = ball;
-                return (i, fieldCoordinates[collumnIndex][i]);
+                Row = i;
+                break;
             }
         }
-        return (rowsNumber - 1, fieldCoordinates[collumnIndex][rowsNumber - 1]);
+        return Row;
     }
 
-    public bool IsSameColor(int collumn, int row, int colorIndex)
+    public void ClearSlot(int Collumn, int Row)
     {
-        if (collumn < 0 || 
-            collumn >= collumnsNumber || 
-            row < 0 || 
-            row >= rowsNumber || 
-            field[collumn][row] == null)
-            return false;
-        return field[collumn][row].IsSameColor(colorIndex);
+        field[Collumn][Row] = null;
     }
 
+    public void RemoveObjectFromField(MovingObject obj)
+    {
+        (int Collumn, int Row) pos = FindObjectOnField(obj);
+        if (pos.Collumn >= 0 && pos.Row >= 0)
+            field[pos.Collumn][pos.Row] = null;
+    }
+
+    public (int Collumn, int Row) FindObjectOnField(MovingObject obj)
+    {
+        int Collumn = -1;
+        int Row = -1;
+        for (int i = 0; i < collumnsNumber; i++)
+        {
+            for (int j = 0; j < rowsNumber; j++)
+            {
+                if (field[i][j] == obj)
+                {
+                    Collumn = i;
+                    Row = j;
+                }
+            }
+        }
+        return (Collumn, Row);
+    }
+    
     private void ChangeWeightOnScales(object sender, EventArgs args)
     {
-        int weight = 0;
         if (sender.GetType() == typeof (Ball))
         {
             Ball ball = (Ball) sender;
-            for (int i = 0; i < rowsNumber; i++)
-            {
-                if (field[ball.collumn][i] == null)
-                    break;
-                if (!field[ball.collumn][i].arrivesOnField)
-                    weight += field[ball.collumn][i].GetWeight();
-            }
-            scales[ball.collumn].SetWeight(weight);
+            if (ball.collumn >= 0)
+                scales[ball.collumn].ChangeWeightOnScales();
         }
     }
-
-    private void ChangeCupPosition(object sender, ScalesCup.OnChangeCupPositionEventArgs args)
-    {
-        if (args.rowsDelta > 0)
-        {
-            for (int i = rowsNumber - 1; i > args.resultingRow; i--)
-            {
-                field[args.Collumn][i] = field[args.Collumn][i - args.rowsDelta];
-                if (field[args.Collumn][i] != null)
-                {
-                    field[args.Collumn][i].SetDestination(fieldCoordinates[args.Collumn][i], args.Collumn, i);
-                }
-            }
-        }
-        else
-        {
-            for (int i = args.resultingRow + 1; i < rowsNumber + args.rowsDelta; i++)
-            {
-                field[args.Collumn][i] = field[args.Collumn][i - args.rowsDelta];
-                field[args.Collumn][i - args.rowsDelta] = null;
-                if (field[args.Collumn][i] != null)
-                {
-                    field[args.Collumn][i].SetDestination(fieldCoordinates[args.Collumn][i], args.Collumn, i);
-                }
-            }
-        }
-
-        for (int i = 0; i <= args.resultingRow; i++)
-        {
-            field[args.Collumn][i] = scales[args.Collumn];
-        }
-        scales[args.Collumn].SetDestination(args.resultingPosition, args.Collumn, args.resultingRow);
-    }
-
 
     public void SimulateGravity()
     {
         for (int i = 0; i < collumnsNumber; i++)
         {
             (bool relocationNeeded, int to, int from) responce;
-            ChangeWeightOnScales(i);
+            scales[i].ChangeWeightOnScales();
             while ((responce = ObjectsAboveEmpty(i)).relocationNeeded)
             {
                 field[i][responce.to] = field[i][responce.from];
@@ -185,7 +171,7 @@ public class Field : MonoBehaviour
         }
     }
 
-    (bool relocationNeeded, int to, int from) ObjectsAboveEmpty(int Collumn)
+    private (bool relocationNeeded, int to, int from) ObjectsAboveEmpty(int Collumn)
     {
         int nullRow = 0;
         for (int i = 0; i < rowsNumber; i++)
@@ -197,85 +183,4 @@ public class Field : MonoBehaviour
         }
         return (false, 0, 0);
     }
-
-    public void ChangeWeightOnScales(int c)
-    {
-        int weight = 0;
-        for (int i = 0; i < rowsNumber; i++)
-        {
-            if (field[c][i] == null)
-                continue;
-            if (!field[c][i].arrivesOnField)
-                weight += field[c][i].GetWeight();
-        }
-        scales[c].SetWeight(weight);
-    }
-
-    public void ChangeCupPosition(int Collumn, int resultingRow, int rowsDelta, Vector3 resultingPosition)
-    {
-        if (rowsDelta > 0)
-        {
-            for (int i = rowsNumber - 1; i > resultingRow; i--)
-            {
-                field[Collumn][i] = field[Collumn][i - rowsDelta];
-                if (field[Collumn][i] != null)
-                {
-                    field[Collumn][i].SetDestination(fieldCoordinates[Collumn][i], Collumn, i);
-                }
-            }
-        }
-        else
-        {
-            for (int i = resultingRow + 1; i < rowsNumber + rowsDelta; i++)
-            {
-                field[Collumn][i] = field[Collumn][i - rowsDelta];
-                field[Collumn][i - rowsDelta] = null;
-                if (field[Collumn][i] != null)
-                {
-                    field[Collumn][i].SetDestination(fieldCoordinates[Collumn][i], Collumn, i);
-                }
-            }
-        }
-
-        for (int i = 0; i <= resultingRow; i++)
-        {
-            field[Collumn][i] = scales[Collumn];
-        }
-        scales[Collumn].SetDestination(resultingPosition, Collumn, resultingRow);
-    }
-
-    float timer = 0;
-
-    public void ClearSlot(int Collumn, int Row)
-    {
-        field[Collumn][Row] = null;
-    }
-
-    public void RemoveObjectFromField(MovingObject obj)
-    {
-        for (int i = 0; i < collumnsNumber; i++)
-        {
-            for (int j = 0; j < rowsNumber; j++)
-            {
-                if (field[i][j] == obj)
-                {
-                    field[i][j] = null;
-                    return;
-                }
-            }
-        }
-    }
-
-    private void Update() {
-        if (timer > 0)
-        {
-            timer -= Time.deltaTime;
-            if (timer <= 0)
-            {
-                SimulateGravity();
-                timer = 0;
-            }
-        }
-    }
-
 }
