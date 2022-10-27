@@ -6,6 +6,7 @@ public class BallFactory : MonoBehaviour
 {
     [SerializeField] private Field field;
     [SerializeField] private Ball ballScript;
+    [SerializeField] private MovingObject[] specialBallPrefabs;
     [SerializeField] private List<Material> colors;
     private GameObject ballPrefab;
     private void Awake() {
@@ -14,7 +15,9 @@ public class BallFactory : MonoBehaviour
             field = FindObjectOfType<Field>();
     }
 
-    public Ball SpawnBall(int colorsInUse, int maxWeight)
+    public int GetSpecialBallCount() {return specialBallPrefabs.Length;}
+
+    public MovingObject SpawnBall(int colorsInUse, int maxWeight)
     {
         int colorIndex = Random.Range(0, colorsInUse);
         int weight = Random.Range(1, maxWeight);
@@ -24,7 +27,8 @@ public class BallFactory : MonoBehaviour
         ball.collumn = -1; //means that it is not on field yet
         ball.row = -1;
         go.GetComponent<Renderer>().material = colors[colorIndex];
-        return ball;
+        MovingObject mo = go.GetComponent<MovingObject>();
+        return mo;
     }
 
     public Ball SpawnSpecificBall(int color, int weight)
@@ -39,5 +43,13 @@ public class BallFactory : MonoBehaviour
         else
             go.GetComponent<Renderer>().material = colors[color];
         return ball;
+    }
+
+    public MovingObject SpawnSpecialBall(int prefabIndex)
+    {
+        GameObject go = GameObject.Instantiate(specialBallPrefabs[prefabIndex].gameObject, transform.position, transform.rotation);
+        MovingObject mo = go.GetComponent<MovingObject>();
+        mo.Initialize(field);
+        return mo;
     }
 }

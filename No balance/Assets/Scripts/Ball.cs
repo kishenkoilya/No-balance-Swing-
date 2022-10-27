@@ -7,16 +7,17 @@ using TMPro;
 public class Ball : MovingObject
 {
     [SerializeField] private WeightText weightTextScript;
+    [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] public int colorIndex;
     [SerializeField] private int weight;
     private TextMeshPro weightText;
 
     public void Initialize(int ballWeight, int color, Field f)
     {
+        base.Initialize(f);
         weight = ballWeight;
         weightText.SetText("" + weight);
         colorIndex = color;
-        field = f;
     }
 
     private void Awake() 
@@ -24,6 +25,8 @@ public class Ball : MovingObject
         if (weightTextScript == null)
             throw new System.NullReferenceException("WeightTextScript not set!!");
         weightText = weightTextScript.tmpro;
+        if (meshRenderer == null)
+            meshRenderer = GetComponent<MeshRenderer>();
     }
 
     public override int GetWeight()
@@ -51,6 +54,11 @@ public class Ball : MovingObject
             Burn3InRow();
     }
 
+    public override void VisualsState(bool state)
+    {
+        meshRenderer.enabled = state;
+        weightText.enabled = state;
+    }
     public void SetWeight(int w)
     {
         weight = w;

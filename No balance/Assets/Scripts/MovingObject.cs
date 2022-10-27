@@ -23,6 +23,10 @@ public abstract class MovingObject : MonoBehaviour
     public bool isActivated = false;
     private float timeoutBeforeAction = 0;
 
+    public virtual void Initialize(Field f)
+    {
+        field = f;
+    }
     public virtual bool IsSameColor(int color) {return false;}
     public virtual void ActivateEffect(){}
     public virtual int GetWeight() {return 0;}
@@ -33,6 +37,7 @@ public abstract class MovingObject : MonoBehaviour
             arrivesOnField = false;
         }
     }
+    public virtual void VisualsState(bool state){}
     public bool IsStationary() {return isStationary;}
     public void SetDestination(Vector3 dest, int Collumn = -1, int Row = -1)
     {

@@ -94,7 +94,6 @@ public class ObjectDestructionManager : MonoBehaviour
         {
             DestroyImmediately(objectsToDestroy[indexes.listIndex].Item2);
         }
-        
     }
 
     private void DestroyImmediately(List<MovingObject> objectsToDestroy)

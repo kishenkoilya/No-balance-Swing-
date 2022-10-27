@@ -139,7 +139,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_0
+      name: explosion-0
       rect:
         serializedVersion: 2
         x: 28
@@ -147,7 +147,7 @@ TextureImporter:
         width: 39
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,15 +160,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_1
+      name: explosion-1
       rect:
         serializedVersion: 2
-        x: 117
+        x: 118
         y: 732
         width: 46
         height: 47
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,7 +181,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_2
+      name: explosion-2
       rect:
         serializedVersion: 2
         x: 208
@@ -189,7 +189,7 @@ TextureImporter:
         width: 52
         height: 54
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -202,7 +202,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_3
+      name: explosion-3
       rect:
         serializedVersion: 2
         x: 298
@@ -210,7 +210,7 @@ TextureImporter:
         width: 57
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -223,7 +223,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_4
+      name: explosion-4
       rect:
         serializedVersion: 2
         x: 388
@@ -231,7 +231,7 @@ TextureImporter:
         width: 63
         height: 65
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -244,7 +244,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_5
+      name: explosion-5
       rect:
         serializedVersion: 2
         x: 478
@@ -252,7 +252,7 @@ TextureImporter:
         width: 68
         height: 71
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -265,7 +265,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_6
+      name: explosion-6
       rect:
         serializedVersion: 2
         x: 569
@@ -273,7 +273,7 @@ TextureImporter:
         width: 71
         height: 75
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -286,7 +286,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_7
+      name: explosion-7
       rect:
         serializedVersion: 2
         x: 660
@@ -294,7 +294,7 @@ TextureImporter:
         width: 75
         height: 78
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -307,7 +307,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_8
+      name: explosion-8
       rect:
         serializedVersion: 2
         x: 752
@@ -315,7 +315,7 @@ TextureImporter:
         width: 77
         height: 80
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -328,7 +328,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_9
+      name: explosion-9
       rect:
         serializedVersion: 2
         x: 8
@@ -336,7 +336,7 @@ TextureImporter:
         width: 79
         height: 84
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -349,7 +349,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_10
+      name: explosion-10
       rect:
         serializedVersion: 2
         x: 99
@@ -357,7 +357,7 @@ TextureImporter:
         width: 82
         height: 85
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -370,7 +370,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_11
+      name: explosion-11
       rect:
         serializedVersion: 2
         x: 191
@@ -378,7 +378,7 @@ TextureImporter:
         width: 83
         height: 87
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -391,7 +391,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_12
+      name: explosion-12
       rect:
         serializedVersion: 2
         x: 284
@@ -399,7 +399,7 @@ TextureImporter:
         width: 84
         height: 89
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -412,15 +412,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_13
+      name: explosion-13
       rect:
         serializedVersion: 2
         x: 376
-        y: 618
+        y: 621
         width: 85
         height: 89
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -433,15 +433,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_14
+      name: explosion-14
       rect:
         serializedVersion: 2
         x: 468
-        y: 617
+        y: 618
         width: 87
-        height: 91
+        height: 90
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -454,15 +454,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_15
+      name: explosion-15
       rect:
         serializedVersion: 2
         x: 561
-        y: 617
+        y: 618
         width: 87
-        height: 91
+        height: 90
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -475,15 +475,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_16
+      name: explosion-16
       rect:
         serializedVersion: 2
         x: 652
-        y: 616
+        y: 617
         width: 90
-        height: 93
+        height: 92
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -496,15 +496,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_17
+      name: explosion-17
       rect:
         serializedVersion: 2
         x: 745
-        y: 616
+        y: 617
         width: 90
-        height: 93
+        height: 92
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -517,15 +517,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_18
+      name: explosion-27
       rect:
         serializedVersion: 2
         x: 0
         y: 429
         width: 92
-        height: 95
+        height: 94
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -538,15 +538,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_19
+      name: explosion-18
       rect:
         serializedVersion: 2
         x: 2
-        y: 523
+        y: 524
         width: 90
-        height: 93
+        height: 92
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -559,15 +559,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_20
+      name: explosion-28
       rect:
         serializedVersion: 2
         x: 93
         y: 429
         width: 92
-        height: 95
+        height: 94
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -580,15 +580,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_21
+      name: explosion-19
       rect:
         serializedVersion: 2
         x: 94
-        y: 523
+        y: 524
         width: 90
-        height: 93
+        height: 92
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -601,15 +601,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_22
+      name: explosion-29
       rect:
         serializedVersion: 2
         x: 186
         y: 429
         width: 92
-        height: 95
+        height: 94
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -622,15 +622,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_23
+      name: explosion-20
       rect:
         serializedVersion: 2
         x: 187
-        y: 523
+        y: 524
         width: 91
-        height: 94
+        height: 93
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -643,15 +643,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_24
+      name: explosion-30
       rect:
         serializedVersion: 2
         x: 279
         y: 429
         width: 88
-        height: 95
+        height: 94
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -664,15 +664,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_25
+      name: explosion-21
       rect:
         serializedVersion: 2
         x: 280
-        y: 523
+        y: 524
         width: 91
-        height: 94
+        height: 93
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -685,15 +685,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_26
+      name: explosion-31
       rect:
         serializedVersion: 2
         x: 372
         y: 429
         width: 88
-        height: 95
+        height: 94
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -706,15 +706,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_27
+      name: explosion-22
       rect:
         serializedVersion: 2
         x: 373
-        y: 523
+        y: 524
         width: 91
-        height: 94
+        height: 93
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -727,15 +727,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_28
+      name: explosion-32
       rect:
         serializedVersion: 2
         x: 465
         y: 429
         width: 92
-        height: 95
+        height: 94
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -748,15 +748,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_29
+      name: explosion-23
       rect:
         serializedVersion: 2
         x: 466
-        y: 522
+        y: 524
         width: 91
-        height: 95
+        height: 93
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -769,7 +769,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_30
+      name: explosion-24
       rect:
         serializedVersion: 2
         x: 558
@@ -777,7 +777,7 @@ TextureImporter:
         width: 92
         height: 95
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -790,15 +790,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_31
+      name: explosion-25
       rect:
         serializedVersion: 2
         x: 651
         y: 522
         width: 92
-        height: 95
+        height: 94
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -811,15 +811,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_32
+      name: explosion-26
       rect:
         serializedVersion: 2
         x: 743
         y: 522
         width: 92
-        height: 95
+        height: 94
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -832,49 +832,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_33
-      rect:
-        serializedVersion: 2
-        x: 367
-        y: 466
-        width: 4
-        height: 4
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 158f6dd4cfca54140800000000000000
-      internalID: 4703355585496021073
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_34
-      rect:
-        serializedVersion: 2
-        x: 460
-        y: 466
-        width: 4
-        height: 4
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 00b3543344a8b8b70800000000000000
-      internalID: 8902361113950501632
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_35
+      name: explosion-33
       rect:
         serializedVersion: 2
         x: 558
@@ -882,7 +840,7 @@ TextureImporter:
         width: 92
         height: 92
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -895,7 +853,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_36
+      name: explosion-34
       rect:
         serializedVersion: 2
         x: 651
@@ -903,7 +861,7 @@ TextureImporter:
         width: 91
         height: 91
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -916,7 +874,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_37
+      name: explosion-35
       rect:
         serializedVersion: 2
         x: 744
@@ -924,7 +882,7 @@ TextureImporter:
         width: 91
         height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -937,7 +895,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_38
+      name: explosion-36
       rect:
         serializedVersion: 2
         x: 1
@@ -945,7 +903,7 @@ TextureImporter:
         width: 87
         height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -958,7 +916,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_39
+      name: explosion-37
       rect:
         serializedVersion: 2
         x: 90
@@ -966,7 +924,7 @@ TextureImporter:
         width: 94
         height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -979,7 +937,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_40
+      name: explosion-38
       rect:
         serializedVersion: 2
         x: 187
@@ -987,7 +945,7 @@ TextureImporter:
         width: 90
         height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1000,7 +958,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_41
+      name: explosion-39
       rect:
         serializedVersion: 2
         x: 280
@@ -1008,7 +966,7 @@ TextureImporter:
         width: 90
         height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1021,7 +979,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_42
+      name: explosion-40
       rect:
         serializedVersion: 2
         x: 373
@@ -1029,7 +987,7 @@ TextureImporter:
         width: 90
         height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1042,7 +1000,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_43
+      name: explosion-41
       rect:
         serializedVersion: 2
         x: 466
@@ -1050,7 +1008,7 @@ TextureImporter:
         width: 90
         height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1063,7 +1021,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_44
+      name: explosion-42
       rect:
         serializedVersion: 2
         x: 559
@@ -1071,7 +1029,7 @@ TextureImporter:
         width: 90
         height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1084,7 +1042,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_45
+      name: explosion-43
       rect:
         serializedVersion: 2
         x: 652
@@ -1092,7 +1050,7 @@ TextureImporter:
         width: 90
         height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1105,7 +1063,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_46
+      name: explosion-44
       rect:
         serializedVersion: 2
         x: 754
@@ -1113,7 +1071,7 @@ TextureImporter:
         width: 71
         height: 73
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1126,7 +1084,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_47
+      name: explosion-45
       rect:
         serializedVersion: 2
         x: 12
@@ -1134,7 +1092,7 @@ TextureImporter:
         width: 69
         height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1147,7 +1105,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_48
+      name: explosion-46
       rect:
         serializedVersion: 2
         x: 104
@@ -1155,7 +1113,7 @@ TextureImporter:
         width: 69
         height: 71
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1168,7 +1126,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_49
+      name: explosion-47
       rect:
         serializedVersion: 2
         x: 197
@@ -1176,7 +1134,7 @@ TextureImporter:
         width: 68
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1189,15 +1147,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_50
+      name: explosion-48
       rect:
         serializedVersion: 2
-        x: 291
+        x: 290
         y: 258
         width: 66
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1210,7 +1168,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_51
+      name: explosion-49
       rect:
         serializedVersion: 2
         x: 384
@@ -1218,7 +1176,7 @@ TextureImporter:
         width: 64
         height: 67
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1231,7 +1189,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_52
+      name: explosion-50
       rect:
         serializedVersion: 2
         x: 478
@@ -1239,7 +1197,7 @@ TextureImporter:
         width: 62
         height: 66
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1252,7 +1210,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_53
+      name: explosion-51
       rect:
         serializedVersion: 2
         x: 573
@@ -1260,7 +1218,7 @@ TextureImporter:
         width: 59
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1273,7 +1231,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_54
+      name: explosion-52
       rect:
         serializedVersion: 2
         x: 666
@@ -1281,7 +1239,7 @@ TextureImporter:
         width: 58
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1294,7 +1252,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_55
+      name: explosion-53
       rect:
         serializedVersion: 2
         x: 761
@@ -1302,7 +1260,7 @@ TextureImporter:
         width: 55
         height: 58
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1315,7 +1273,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_56
+      name: explosion-54
       rect:
         serializedVersion: 2
         x: 18
@@ -1323,7 +1281,7 @@ TextureImporter:
         width: 53
         height: 56
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1336,7 +1294,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_57
+      name: explosion-55
       rect:
         serializedVersion: 2
         x: 112
@@ -1344,7 +1302,7 @@ TextureImporter:
         width: 52
         height: 54
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1357,7 +1315,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_58
+      name: explosion-56
       rect:
         serializedVersion: 2
         x: 205
@@ -1365,7 +1323,7 @@ TextureImporter:
         width: 51
         height: 52
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1378,7 +1336,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_59
+      name: explosion-57
       rect:
         serializedVersion: 2
         x: 300
@@ -1386,7 +1344,7 @@ TextureImporter:
         width: 49
         height: 51
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1399,7 +1357,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_60
+      name: explosion-58
       rect:
         serializedVersion: 2
         x: 394
@@ -1407,7 +1365,7 @@ TextureImporter:
         width: 47
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1420,7 +1378,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_61
+      name: explosion-59
       rect:
         serializedVersion: 2
         x: 491
@@ -1428,7 +1386,7 @@ TextureImporter:
         width: 43
         height: 46
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1441,7 +1399,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_62
+      name: explosion-60
       rect:
         serializedVersion: 2
         x: 582
@@ -1449,7 +1407,7 @@ TextureImporter:
         width: 42
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1462,7 +1420,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_64
+      name: explosion-61
       rect:
         serializedVersion: 2
         x: 674
@@ -1470,7 +1428,7 @@ TextureImporter:
         width: 43
         height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1483,7 +1441,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_65
+      name: explosion-62
       rect:
         serializedVersion: 2
         x: 769
@@ -1491,7 +1449,7 @@ TextureImporter:
         width: 42
         height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1504,7 +1462,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_70
+      name: explosion-63
       rect:
         serializedVersion: 2
         x: 25
@@ -1512,7 +1470,7 @@ TextureImporter:
         width: 42
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1525,7 +1483,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_72
+      name: explosion-64
       rect:
         serializedVersion: 2
         x: 119
@@ -1533,7 +1491,7 @@ TextureImporter:
         width: 40
         height: 41
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1546,7 +1504,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_75
+      name: explosion-65
       rect:
         serializedVersion: 2
         x: 212
@@ -1554,7 +1512,7 @@ TextureImporter:
         width: 41
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1567,7 +1525,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_77
+      name: explosion-66
       rect:
         serializedVersion: 2
         x: 307
@@ -1575,7 +1533,7 @@ TextureImporter:
         width: 39
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1588,15 +1546,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_79
+      name: explosion-67
       rect:
         serializedVersion: 2
-        x: 402
+        x: 406
         y: 88
         width: 34
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1609,7 +1567,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_81
+      name: explosion-68
       rect:
         serializedVersion: 2
         x: 497
@@ -1617,7 +1575,7 @@ TextureImporter:
         width: 33
         height: 33
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1630,7 +1588,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_83
+      name: explosion-69
       rect:
         serializedVersion: 2
         x: 588
@@ -1638,7 +1596,7 @@ TextureImporter:
         width: 31
         height: 33
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1651,7 +1609,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_85
+      name: explosion-70
       rect:
         serializedVersion: 2
         x: 690
@@ -1659,7 +1617,7 @@ TextureImporter:
         width: 10
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1672,7 +1630,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toppng.com-explosion-sprite-png-2d-explosion-sprite-sheet-899x857_87
+      name: explosion-71
       rect:
         serializedVersion: 2
         x: 783
@@ -1680,7 +1638,7 @@ TextureImporter:
         width: 10
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

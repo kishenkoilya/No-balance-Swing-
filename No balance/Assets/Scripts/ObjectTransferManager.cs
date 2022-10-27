@@ -49,10 +49,6 @@ public class ObjectTransferManager : MonoBehaviour
         (Queue<Vector3>, int) route = FillRoute(args.ThrowDistance, pos.Collumn, args.Dir);
         objectsRoute.Add(args.Obj, route.Item1);
         objectsDestinationCollumn.Add(args.Obj, route.Item2);
-        foreach (Vector3 dest in route.Item1)
-        {
-            Debug.Log(dest);
-        }
         SetNextStopEnRoute(args.Obj, EventArgs.Empty);
     }
 
@@ -62,7 +58,6 @@ public class ObjectTransferManager : MonoBehaviour
         route.Enqueue(field.fieldCoordinates[currentCollumn][field.rowsNumber - 1]);
         while (throwDistance > 0)
         {
-            Debug.LogFormat("throwDist: {0}, col: {1}, dir: {2}", throwDistance, currentCollumn, dir);
             if (dir == Direction.Left)
             {
                 if ((currentCollumn - throwDistance) < 0)
@@ -97,9 +92,7 @@ public class ObjectTransferManager : MonoBehaviour
                     throwDistance = 0;
                 }
             }
-            Debug.LogFormat("throwDist: {0}, col: {1}, dir: {2}", throwDistance, currentCollumn, dir);
         }
-        Debug.LogFormat("throwDist: {0}, col: {1}, dir: {2}", throwDistance, currentCollumn, dir);
         route.Enqueue(field.fieldCoordinates[currentCollumn][field.FindEmptyPositionInCollumn(currentCollumn)]);
         return (route, currentCollumn);
     }
