@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BombExplotionAnimation : MonoBehaviour
 {
-    private Bomb bomb;
-    private Animator animator;
-    private bool VisualsTurnedOff = false;
+    [SerializeField] private Bomb bomb;
+    [SerializeField] private Animator animator;
+    [SerializeField] private bool VisualsTurnedOff = false;
     private void Awake() {
         animator = GetComponent<Animator>();
-        bomb = transform.parent.parent.GetComponent<Bomb>();
+        bomb = transform.parent.GetComponent<Bomb>();
     }
     void Update()
     {
@@ -22,7 +22,10 @@ public class BombExplotionAnimation : MonoBehaviour
                 bomb.TurnAffectedObjectsVisualsOff();
             }
             if (asi.normalizedTime > 0.9f)
+            {
+                bomb.VisualsState(false);
                 bomb.DestroyObjects();
+            }
         }
     }
 }

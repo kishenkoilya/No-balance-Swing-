@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Bomb : MovingObject
 {
-    [SerializeField] private float timeoutBeforeDestruction = 0.5f;
     [SerializeField] private Animator explosionAnimator;
     [SerializeField] private SpriteRenderer sprite;
     private List<MovingObject> objectsToDestroy = new List<MovingObject>();
-    private bool done = false;
 
     public override void VisualsState(bool state)
     {
@@ -40,7 +38,7 @@ public class Bomb : MovingObject
                     objectsToDestroy.Add(GetBallInCoordinates(i, j));
             }
         }
-        VisualsState(false);
+        transform.GetChild(0).localScale = new Vector3 (9, 9, 9);
         explosionAnimator.SetTrigger("Explosion");
     }
 
@@ -57,8 +55,10 @@ public class Bomb : MovingObject
     {
         foreach (MovingObject mo in objectsToDestroy)
         {
-            mo.VisualsState(false);
+            if (mo != null)
+                mo.VisualsState(false);
         }
+        VisualsState(true);
     }
     public void DestroyObjects()
     {

@@ -72,6 +72,8 @@ public abstract class MovingObject : MonoBehaviour
             {
                 ArrivedToDestination();
             }
+            if (movementVector == Vector3.zero)
+                isStationary = true;
         }
     }
     private void ArrivedToDestination()

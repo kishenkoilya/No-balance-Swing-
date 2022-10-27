@@ -96,12 +96,13 @@ public class ObjectDestructionManager : MonoBehaviour
         }
     }
 
-    private void DestroyImmediately(List<MovingObject> objectsToDestroy)
+    private void DestroyImmediately(List<MovingObject> ObjectsToDestroy)
     {
-        for (int i = objectsToDestroy.Count - 1; i >= 0; i--)
+        for (int i = ObjectsToDestroy.Count - 1; i >= 0; i--)
         {
-            field.RemoveObjectFromField(objectsToDestroy[i]);
-            GameObject.Destroy(objectsToDestroy[i].gameObject);
+            field.RemoveObjectFromField(ObjectsToDestroy[i]);
+            if (ObjectsToDestroy[i] != null)
+                GameObject.Destroy(ObjectsToDestroy[i].gameObject);
         }
         field.SimulateGravity();
     }
@@ -109,7 +110,8 @@ public class ObjectDestructionManager : MonoBehaviour
     private void DestroyImmediately(int listIndex, int objIndex)
     {
         field.RemoveObjectFromField(objectsToDestroy[listIndex].Item2[objIndex]);
-        GameObject.Destroy(objectsToDestroy[listIndex].Item2[objIndex].gameObject);
+        if (objectsToDestroy[listIndex].Item2[objIndex].gameObject != null)
+            GameObject.Destroy(objectsToDestroy[listIndex].Item2[objIndex].gameObject);
         objectsToDestroy[listIndex].Item2.RemoveAt(objIndex);
         field.SimulateGravity();
     }
