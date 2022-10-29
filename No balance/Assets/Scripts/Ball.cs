@@ -8,6 +8,7 @@ public class Ball : MovingObject
 {
     [SerializeField] private WeightText weightTextScript;
     [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private Renderer ballRenderer;
     [SerializeField] public int colorIndex;
     [SerializeField] private int weight;
     private TextMeshPro weightText;
@@ -18,6 +19,7 @@ public class Ball : MovingObject
         weight = ballWeight;
         weightText.SetText("" + weight);
         colorIndex = color;
+        delayBeforeDestruction = 1;
     }
 
     private void Awake() 
@@ -27,18 +29,21 @@ public class Ball : MovingObject
         weightText = weightTextScript.tmpro;
         if (meshRenderer == null)
             meshRenderer = GetComponent<MeshRenderer>();
+        if (ballRenderer == null)
+            ballRenderer = GetComponent<Renderer>();
     }
-
-    public override int GetWeight()
-    {
-        return weight;
-    }
+    
     protected override void DoUponArrival()
     {
         base.DoUponArrival();
         DeclareArrival();
         if (isActivated && isStationary)
             ActivateEffect();
+    }
+
+    public override int GetWeight()
+    {
+        return weight;
     }
 
     public override bool IsSameColor(int color)
@@ -62,6 +67,23 @@ public class Ball : MovingObject
         meshRenderer.enabled = state;
         weightText.enabled = state;
     }
+
+    public override void ActionsBeforeDestruction()
+    {
+        if (this == null)
+            return;
+        delayStarted = true;
+        ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
+        ps.Play();
+    }
+
+    protected override void ActionsWhileDestroying()
+    {
+        float currentCutoff = ballRenderer.material.GetFloat("_CutoffHeight");
+        ballRenderer.material.SetFloat("_CutoffHeight", currentCutoff + (Time.deltaTime * 1.5f));
+        weightText.alpha -= Time.deltaTime;
+    }
+    
     public void SetWeight(int w)
     {
         weight = w;
@@ -96,7 +118,7 @@ public class Ball : MovingObject
         int sameColorDown = 0;
         for (int i = row - 1; i >= 0; i--)
         {   
-            if (field.IsSameColor(collumn, i, colorIndex))
+            if (field.IsSameColor(collumn, i, colorIndex) && field.field[collumn][i].GetType() == typeof (Ball))
                 sameColorDown++;
             else
                 break;
@@ -104,7 +126,7 @@ public class Ball : MovingObject
         int sameColorUp = 0;
         for (int i = row + 1; i < field.GetRowsNumber(); i++)
         {   
-            if (field.IsSameColor(collumn, i, colorIndex))
+            if (field.IsSameColor(collumn, i, colorIndex) && field.field[collumn][i].GetType() == typeof (Ball))
                 sameColorUp++;
             else
                 break;

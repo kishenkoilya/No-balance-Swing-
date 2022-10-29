@@ -5,6 +5,7 @@ using UnityEngine;
 public class RainbowBall : MovingObject
 {
     [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private Renderer ballRenderer;
     public bool effectActive {get; private set;}
     private void Awake() 
     {
@@ -12,6 +13,8 @@ public class RainbowBall : MovingObject
         transform.rotation = Quaternion.Euler(45, 45, 0);
         if (meshRenderer == null)
             meshRenderer = GetComponent<MeshRenderer>();
+        if (ballRenderer == null)
+            ballRenderer = GetComponent<Renderer>();
     }
 
     public override void VisualsState(bool state)
@@ -31,6 +34,23 @@ public class RainbowBall : MovingObject
             ActivateEffect();
     }
 
+    public override void ActionsBeforeDestruction()
+    {
+        if (this == null)
+            return;
+        delayStarted = true;
+        ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
+        ps.Play();
+        ballRenderer.material.SetFloat("_CutoffHeight", transform.position.y - (0.5f * transform.localScale.y + ballRenderer.material.GetFloat("_EdgeWidth") * 2));
+    }
+
+    protected override void ActionsWhileDestroying()
+    {
+        float currentCutoff = ballRenderer.material.GetFloat("_CutoffHeight");
+        float timeMultiplier = transform.localScale.y + ballRenderer.material.GetFloat("_EdgeWidth") * transform.localScale.y;
+        ballRenderer.material.SetFloat("_CutoffHeight", currentCutoff + Time.deltaTime * timeMultiplier);
+    }
+    
     public override void ActivateEffect()
     {
         effectActive = true;

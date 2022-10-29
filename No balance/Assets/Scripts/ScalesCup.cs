@@ -117,7 +117,7 @@ public class ScalesCup : MovingObject
         if (weightDelta <= 0)
             return;
         int objRow = field.FindEmptyPositionInCollumn(collumn) - 1;
-        MovingObject obj = field.field[collumn][field.FindEmptyPositionInCollumn(collumn) - 1];
+        MovingObject obj = field.field[collumn][objRow];
         if (obj.GetType() == typeof (ScalesCup))
             return;
         if (obj.arrivesOnField)

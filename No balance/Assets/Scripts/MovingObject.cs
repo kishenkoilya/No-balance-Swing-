@@ -11,6 +11,7 @@ public abstract class MovingObject : MonoBehaviour
     {
         public List<MovingObject> ObjectsAffected;
         public EffectOptions.Options Effect;
+        public float Delay;
     }
     [SerializeField] private Vector3 destination;
     [SerializeField] protected float speed = 50;
@@ -18,6 +19,8 @@ public abstract class MovingObject : MonoBehaviour
     [SerializeField] private Vector3 movementVector;
     [SerializeField] protected Field field;
     [SerializeField] public bool arrivesOnField = false;
+    protected float delayBeforeDestruction = 0;
+    protected bool delayStarted = false;
     public int collumn;
     public int row;
     public bool isActivated = false;
@@ -38,6 +41,17 @@ public abstract class MovingObject : MonoBehaviour
             arrivesOnField = false;
         }
     }
+
+    protected void DeclareArrival()
+    {
+        OnArrival?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected void DeclareEffectCompleted(List<MovingObject> objectsAffected, EffectOptions.Options effect)
+    {
+        OnEffectCompleted?.Invoke(this, new OnEffectCompletedEventArgs{ObjectsAffected = objectsAffected, Effect = effect, Delay = delayBeforeDestruction});
+    }
+
     public virtual void VisualsState(bool state){}
     public bool IsStationary() {return isStationary;}
     public void SetDestination(Vector3 dest, int Collumn = -1, int Row = -1)
@@ -48,6 +62,9 @@ public abstract class MovingObject : MonoBehaviour
         movementVector = (destination - transform.position).normalized;
         isStationary = false;
     }
+
+    public virtual void ActionsBeforeDestruction() {}
+    protected virtual void ActionsWhileDestroying() {}
     // Update is called once per frame
     private void Update()
     {
@@ -61,6 +78,9 @@ public abstract class MovingObject : MonoBehaviour
                 DoUponArrival();
             }
         }
+
+        if (delayStarted)
+            ActionsWhileDestroying();
     }
 
     private void MoveToDestination()
@@ -82,15 +102,5 @@ public abstract class MovingObject : MonoBehaviour
         transform.position = destination;
         isStationary = true;
         timeoutBeforeAction = 0.05f;
-    }
-
-    protected void DeclareArrival()
-    {
-        OnArrival?.Invoke(this, EventArgs.Empty);
-    }
-
-    protected void DeclareEffectCompleted(List<MovingObject> objectsAffected, EffectOptions.Options effect)
-    {
-        OnEffectCompleted?.Invoke(this, new OnEffectCompletedEventArgs{ObjectsAffected = objectsAffected, Effect = effect});
     }
 }
