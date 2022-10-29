@@ -6,7 +6,7 @@ public class BallFactory : MonoBehaviour
 {
     [SerializeField] private Field field;
     [SerializeField] private Ball ballScript;
-    [SerializeField] private MovingObject[] specialBallPrefabs;
+    [SerializeField] public MovingObject[] specialBallPrefabs;
     [SerializeField] private List<Material> colors;
     private GameObject ballPrefab;
     private void Awake() {

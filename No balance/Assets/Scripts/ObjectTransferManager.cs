@@ -49,6 +49,11 @@ public class ObjectTransferManager : MonoBehaviour
         (Queue<Vector3>, int) route = FillRoute(args.ThrowDistance, pos.Collumn, args.Dir);
         objectsRoute.Add(args.Obj, route.Item1);
         objectsDestinationCollumn.Add(args.Obj, route.Item2);
+        // foreach (Vector3 v in route.Item1)
+        // {
+        //     Debug.Log(v);
+        // }
+        // Debug.Log(route.Item2);
         SetNextStopEnRoute(args.Obj, EventArgs.Empty);
     }
 

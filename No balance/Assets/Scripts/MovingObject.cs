@@ -21,6 +21,7 @@ public abstract class MovingObject : MonoBehaviour
     public int collumn;
     public int row;
     public bool isActivated = false;
+    public bool isBurning = false;
     private float timeoutBeforeAction = 0;
 
     public virtual void Initialize(Field f)

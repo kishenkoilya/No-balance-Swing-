@@ -44,7 +44,19 @@ public class FieldSlotsSimulator : MonoBehaviour
                 {
                     Ball nb = factory.SpawnSpecificBall(b.colorIndex, b.GetWeight());
                     nb.transform.position = spawnPosition;
-                    nb.transform.parent = transform;
+                    nb.transform.parent = transform; 
+                }
+                else
+                {
+                    for (int k = 0; k < factory.GetSpecialBallCount(); k++)
+                    {
+                        if (field[i][j].GetType() == factory.specialBallPrefabs[k].GetType())
+                        {
+                            MovingObject mo = factory.SpawnSpecialBall(k);
+                            mo.transform.position = spawnPosition;
+                            mo.transform.parent = transform;
+                        }
+                    }
                 }
             }
         }

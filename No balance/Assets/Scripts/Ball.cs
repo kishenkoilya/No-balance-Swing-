@@ -43,7 +43,10 @@ public class Ball : MovingObject
 
     public override bool IsSameColor(int color)
     {
-        return colorIndex == color;
+        if (!isBurning)
+            return colorIndex == color;
+        else
+            return false;
     }
 
     public override void ActivateEffect()
@@ -147,7 +150,7 @@ public class Ball : MovingObject
     public void BurnAllAdjacentSameColor(int Collumn, int Row, int Color, List<MovingObject> objectsToDestroy)
     {
         objectsToDestroy.Add(field.field[Collumn][Row]);
-        ((Ball)field.field[Collumn][Row]).colorIndex = -1;
+        field.field[Collumn][Row].isBurning = true;
         BurnSameColor(Collumn, Row + 1, Color, objectsToDestroy);
         BurnSameColor(Collumn, Row - 1, Color, objectsToDestroy);
         BurnSameColor(Collumn + 1, Row, Color, objectsToDestroy);
@@ -156,7 +159,7 @@ public class Ball : MovingObject
 
     private void BurnSameColor(int Collumn, int Row, int Color, List<MovingObject> objectsToDestroy)
     {
-        if (field.IsSameColor(Collumn, Row, Color))
+        if (field.IsSameColor(Collumn, Row, Color) && !field.field[Collumn][Row].isBurning)
             BurnAllAdjacentSameColor(Collumn, Row, Color, objectsToDestroy);
     }
 }
