@@ -22,33 +22,22 @@ public class Bomb : MovingObject
             sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
-    protected override void DoUponArrival()
-    {
-        base.DoUponArrival();
-        if (isActivated && isStationary)
-            ActivateEffect();
-    }
     public override void ActivateEffect()
     {
         for (int i = collumn - 1; i <= collumn + 1; i++)
         {
             for (int j = row - 1; j <= row + 1; j++)
             {
-                if (GetBallInCoordinates(i, j) != null)
-                    objectsToDestroy.Add(GetBallInCoordinates(i, j));
+                if (GetObjectInCoordinates(i, j) != null)
+                {
+                    MovingObject mo = GetObjectInCoordinates(i, j);
+                    objectsToDestroy.Add(mo);
+                    mo.isDestroying = true;
+                }
             }
         }
         transform.GetChild(0).localScale = new Vector3 (9, 9, 9);
         explosionAnimator.SetTrigger("Explosion");
-    }
-
-    private MovingObject GetBallInCoordinates(int Collumn, int Row)
-    {
-        if (Collumn < 0 || Row < 0 || Collumn >= field.collumnsNumber || Row >= field.rowsNumber)
-            return null;
-        if (field.field[Collumn][Row] == null || field.field[Collumn][Row].GetType() == typeof (ScalesCup))
-            return null;
-        return field.field[Collumn][Row];
     }
 
     public void TurnAffectedObjectsVisualsOff()

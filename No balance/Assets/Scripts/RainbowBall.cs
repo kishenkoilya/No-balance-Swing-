@@ -26,19 +26,12 @@ public class RainbowBall : MovingObject
     {
         return true;        
     }
-    protected override void DoUponArrival()
-    {
-        base.DoUponArrival();
-        DeclareArrival();
-        if (isActivated && isStationary)
-            ActivateEffect();
-    }
 
     public override void ActionsBeforeDestruction()
     {
         if (this == null)
             return;
-        delayStarted = true;
+        isDestroying = true;
         ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
         ps.Play();
         ballRenderer.material.SetFloat("_CutoffHeight", transform.position.y - (0.5f * transform.localScale.y + ballRenderer.material.GetFloat("_EdgeWidth") * 2));
@@ -72,27 +65,21 @@ public class RainbowBall : MovingObject
 
     private Ball GetBall(int Collumn, int Row)
     {
-        if (Collumn < 0 || 
-            Collumn >= field.collumnsNumber || 
-            Row < 0 || 
-            Row >= field.rowsNumber || 
-            field.field[Collumn][Row] == null)
+        MovingObject mo = GetObjectInCoordinates(Collumn, Row);
+        if (mo == null)
             return null;
-        if (field.field[Collumn][Row].GetType() != typeof (Ball))
+        if (mo.GetType() != typeof (Ball))
             return null;
-        return (Ball)field.field[Collumn][Row];
+        return (Ball)mo;
     }
 
     private RainbowBall GetRainbowBall(int Collumn, int Row)
     {
-        if (Collumn < 0 || 
-            Collumn >= field.collumnsNumber || 
-            Row < 0 || 
-            Row >= field.rowsNumber || 
-            field.field[Collumn][Row] == null)
+        MovingObject mo = GetObjectInCoordinates(Collumn, Row);
+        if (mo == null)
             return null;
-        if (field.field[Collumn][Row].GetType() != typeof (RainbowBall))
+        if (mo.GetType() != typeof (RainbowBall))
             return null;
-        return (RainbowBall)field.field[Collumn][Row];
+        return (RainbowBall)mo;
     }
 }

@@ -32,14 +32,7 @@ public class Ball : MovingObject
         if (ballRenderer == null)
             ballRenderer = GetComponent<Renderer>();
     }
-    
-    protected override void DoUponArrival()
-    {
-        base.DoUponArrival();
-        DeclareArrival();
-        if (isActivated && isStationary)
-            ActivateEffect();
-    }
+
 
     public override int GetWeight()
     {
@@ -72,7 +65,7 @@ public class Ball : MovingObject
     {
         if (this == null)
             return;
-        delayStarted = true;
+        isDestroying = true;
         ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
         ps.Play();
     }
@@ -142,6 +135,8 @@ public class Ball : MovingObject
             List<MovingObject> objectsToDestroy = new List<MovingObject>();
             BurnAllAdjacentSameColor(collumn, row, colorIndex, objectsToDestroy);
             DeclareEffectCompleted(objectsToDestroy, EffectOptions.Options.DestroyWhenAllArrive);
+            foreach(MovingObject mo in objectsToDestroy)
+                mo.isDestroying = true;
         }
     }
 

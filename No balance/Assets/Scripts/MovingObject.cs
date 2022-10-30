@@ -20,7 +20,7 @@ public abstract class MovingObject : MonoBehaviour
     [SerializeField] protected Field field;
     [SerializeField] public bool arrivesOnField = false;
     protected float delayBeforeDestruction = 0;
-    protected bool delayStarted = false;
+    public bool isDestroying = false;
     public int collumn;
     public int row;
     public bool isActivated = false;
@@ -40,6 +40,9 @@ public abstract class MovingObject : MonoBehaviour
         {
             arrivesOnField = false;
         }
+        DeclareArrival();
+        if (isActivated && isStationary && !isDestroying)
+            ActivateEffect();
     }
 
     protected void DeclareArrival()
@@ -52,10 +55,21 @@ public abstract class MovingObject : MonoBehaviour
         OnEffectCompleted?.Invoke(this, new OnEffectCompletedEventArgs{ObjectsAffected = objectsAffected, Effect = effect, Delay = delayBeforeDestruction});
     }
 
+    protected MovingObject GetObjectInCoordinates(int Collumn, int Row)
+    {
+        if (Collumn < 0 || Row < 0 || Collumn >= field.collumnsNumber || Row >= field.rowsNumber)
+            return null;
+        if (field.field[Collumn][Row] == null || field.field[Collumn][Row].isDestroying || field.field[Collumn][Row].GetType() == typeof (ScalesCup))
+            return null;
+        return field.field[Collumn][Row];
+    }
+
     public virtual void VisualsState(bool state){}
     public bool IsStationary() {return isStationary;}
     public void SetDestination(Vector3 dest, int Collumn = -1, int Row = -1)
     {
+        if (isDestroying)
+            return;
         destination = dest;
         collumn = Collumn;
         row = Row;
@@ -79,7 +93,7 @@ public abstract class MovingObject : MonoBehaviour
             }
         }
 
-        if (delayStarted)
+        if (isDestroying)
             ActionsWhileDestroying();
     }
 
