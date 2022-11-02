@@ -41,6 +41,10 @@ public class ScalesCup : MovingObject
     {
         weightHolded = weight;
         weightText.SetText("" + weightHolded);
+    }
+
+    public void RelocateCups()
+    {
         int resultingRow = CompareWeights();
         if (row != resultingRow)
         {

@@ -19,7 +19,7 @@ public class Ball : MovingObject
         weight = ballWeight;
         weightText.SetText("" + weight);
         colorIndex = color;
-        delayBeforeDestruction = 1;
+        delayBeforeDestruction = 1; 
     }
 
     private void Awake() 
@@ -68,12 +68,14 @@ public class Ball : MovingObject
         isDestroying = true;
         ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
         ps.Play();
+        ballRenderer.material.SetFloat("_CutoffHeight", transform.position.y - (0.5f * transform.localScale.y + ballRenderer.material.GetFloat("_EdgeWidth") * 2));
     }
 
     protected override void ActionsWhileDestroying()
     {
         float currentCutoff = ballRenderer.material.GetFloat("_CutoffHeight");
-        ballRenderer.material.SetFloat("_CutoffHeight", currentCutoff + (Time.deltaTime * 1.5f));
+        float timeMultiplier = transform.localScale.y + ballRenderer.material.GetFloat("_EdgeWidth") * transform.localScale.y;
+        ballRenderer.material.SetFloat("_CutoffHeight", currentCutoff + Time.deltaTime * timeMultiplier);
         weightText.alpha -= Time.deltaTime;
     }
     

@@ -105,7 +105,13 @@ public class ObjectTransferManager : MonoBehaviour
     private void SetNextStopEnRoute(object sender, EventArgs args)
     {   
         MovingObject obj = (MovingObject)sender;
-        Vector3 nextStop = objectsRoute[obj].Dequeue();
+        Vector3 nextStop = objectsRoute[obj].Peek();
+        if (obj.transform.position == nextStop)
+        {
+            objectsRoute[obj].Dequeue();
+            nextStop = objectsRoute[obj].Peek();
+        }
+
 
         if ((obj.transform.position == leftTeleport && nextStop == rightTeleport) || 
             (obj.transform.position == rightTeleport && nextStop == leftTeleport))
@@ -113,7 +119,7 @@ public class ObjectTransferManager : MonoBehaviour
             obj.transform.position = nextStop;
             nextStop = objectsRoute[obj].Dequeue();
         }
-        if (objectsRoute[obj].Count == 0)
+        if (objectsRoute[obj].Count == 1)
         {
             obj.OnArrival -= SetNextStopEnRoute;
             int resultingRow = field.FindEmptyPositionInCollumn(objectsDestinationCollumn[obj]);
@@ -126,4 +132,29 @@ public class ObjectTransferManager : MonoBehaviour
         }
         obj.SetDestination(nextStop);
     }
+
+    // private void SetNextStopEnRoute(object sender, EventArgs args)
+    // {   
+    //     MovingObject obj = (MovingObject)sender;
+    //     Vector3 nextStop = objectsRoute[obj].Dequeue();
+
+    //     if ((obj.transform.position == leftTeleport && nextStop == rightTeleport) || 
+    //         (obj.transform.position == rightTeleport && nextStop == leftTeleport))
+    //     {
+    //         obj.transform.position = nextStop;
+    //         nextStop = objectsRoute[obj].Dequeue();
+    //     }
+    //     if (objectsRoute[obj].Count == 0)
+    //     {
+    //         obj.OnArrival -= SetNextStopEnRoute;
+    //         int resultingRow = field.FindEmptyPositionInCollumn(objectsDestinationCollumn[obj]);
+    //         obj.SetDestination(field.fieldCoordinates[objectsDestinationCollumn[obj]][resultingRow], objectsDestinationCollumn[obj], resultingRow);
+    //         obj.arrivesOnField = true;
+    //         field.field[objectsDestinationCollumn[obj]][resultingRow] = obj;
+    //         objectsDestinationCollumn.Remove(obj);
+    //         objectsRoute.Remove(obj);
+    //         return;
+    //     }
+    //     obj.SetDestination(nextStop);
+    // }
 }

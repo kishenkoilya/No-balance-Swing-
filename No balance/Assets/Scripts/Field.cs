@@ -152,7 +152,10 @@ public class Field : MonoBehaviour
         {
             Ball ball = (Ball) sender;
             if (ball.collumn >= 0)
+            {
                 scales[ball.collumn].ChangeWeightOnScales();
+                scales[ball.collumn].RelocateCups();
+            }
         }
     }
 
@@ -160,15 +163,24 @@ public class Field : MonoBehaviour
     {
         for (int i = 0; i < collumnsNumber; i++)
         {
-            (bool relocationNeeded, int to, int from) responce;
             scales[i].ChangeWeightOnScales();
+        }
+
+        for (int i = 0; i < collumnsNumber; i++)
+        {
+            scales[i].RelocateCups();
+        }
+
+        for (int i = 0; i < collumnsNumber; i++)
+        {
+            (bool relocationNeeded, int to, int from) responce;
             while ((responce = ObjectsAboveEmpty(i)).relocationNeeded)
             {
                 field[i][responce.to] = field[i][responce.from];
                 field[i][responce.from] = null;
                 field[i][responce.to].SetDestination(fieldCoordinates[i][responce.to], i, responce.to);
             }
-        }
+        }              
     }
 
     private (bool relocationNeeded, int to, int from) ObjectsAboveEmpty(int Collumn)
