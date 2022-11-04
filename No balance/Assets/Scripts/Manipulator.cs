@@ -13,6 +13,7 @@ public class Manipulator : MonoBehaviour
     private MovingObject ballHolded;
     private bool isStationary = true;
     private Vector3 movementVector = Vector3.zero;
+    private bool fastControl = true;
     private void Awake() {
         if (dispenser == null)
         {
@@ -34,12 +35,28 @@ public class Manipulator : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
-                MoveToAndThrowBall();
+                LeftMouseClick();
             }
         }
         MoveToDestination();
     }
 
+    public void ToggleControl()
+    {
+        fastControl = !fastControl;
+    }
+    private void LeftMouseClick()
+    {
+        if (Input.mousePosition.y > Screen.height * 0.8f)
+            return;
+        else
+        {
+            if (fastControl)
+                MoveToAndThrowBall();
+            else
+                MoveOrThrow();
+        }
+    }
     private void MoveToAndThrowBall()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -50,18 +67,64 @@ public class Manipulator : MonoBehaviour
             if (collumnIndex != currentCollumnIndex)
             {
                 float xCoord = field.fieldCoordinates[collumnIndex][0].x;
-                destination = new Vector3 (xCoord, transform.position.y, transform.position.z);
-                isStationary = false;
-                movementVector = currentCollumnIndex > collumnIndex ? Vector3.left : Vector3.right;
-                currentCollumnIndex = collumnIndex;
-                if (ballHolded != null)
-                    ballHolded.SetDestination(destination);
+                SetDestination(new Vector3 (xCoord, transform.position.y, transform.position.z), collumnIndex);
             }
             else
             {
                 ThrowBall(currentCollumnIndex);
             }
         }
+    }
+
+    private void MoveOrThrow()
+    {
+        Debug.Log(Input.mousePosition + " " + Screen.height * 0.3f + " " + Screen.width * 0.5f);
+        if (Input.mousePosition.y < Screen.height * 0.3f)
+        {
+            if (ballHolded != null)
+                ThrowBall(currentCollumnIndex);
+            else
+                GetBall();
+        }
+        else
+        {
+            if (Input.mousePosition.x < Screen.width * 0.5f)
+                MoveLeft();
+            else
+                MoveRight();
+        }
+    }
+
+    private void MoveLeft()
+    {
+        if (currentCollumnIndex == 0)
+            return;
+        else
+        {
+            float xCoord = field.fieldCoordinates[currentCollumnIndex - 1][0].x;
+            SetDestination(new Vector3(xCoord, transform.position.y, transform.position.z), currentCollumnIndex - 1);
+        }
+    }
+
+    private void MoveRight()
+    {
+        if (currentCollumnIndex == field.collumnsNumber - 1)
+            return;
+        else
+        {
+            float xCoord = field.fieldCoordinates[currentCollumnIndex + 1][0].x;
+            SetDestination(new Vector3(xCoord, transform.position.y, transform.position.z), currentCollumnIndex + 1);
+        }
+    }
+
+    public void SetDestination(Vector3 dest, int Collumn)
+    {
+        destination = dest;
+        currentCollumnIndex = Collumn;
+        movementVector = (destination - transform.position).normalized;
+        isStationary = false;
+        if (ballHolded != null)
+            ballHolded.SetDestination(destination);
     }
 
     private void MoveToDestination()
@@ -80,7 +143,8 @@ public class Manipulator : MonoBehaviour
     {
         transform.position = destination;
         isStationary = true;
-        ThrowBall(currentCollumnIndex);
+        if (fastControl)
+            ThrowBall(currentCollumnIndex);
     }
 
     private void ThrowBall(int collumnIndex)

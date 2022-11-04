@@ -117,7 +117,8 @@ public class ObjectTransferManager : MonoBehaviour
             (obj.transform.position == rightTeleport && nextStop == leftTeleport))
         {
             obj.transform.position = nextStop;
-            nextStop = objectsRoute[obj].Dequeue();
+            objectsRoute[obj].Dequeue();
+            nextStop = objectsRoute[obj].Peek();
         }
         if (objectsRoute[obj].Count == 1)
         {

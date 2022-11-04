@@ -41,7 +41,7 @@ public class Ball : MovingObject
 
     public override bool IsSameColor(int color)
     {
-        if (!isBurning)
+        if (!isBurning && !isDestroying)
             return colorIndex == color;
         else
             return false;
