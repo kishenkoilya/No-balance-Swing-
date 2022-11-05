@@ -16,7 +16,7 @@ public class BombExplotionAnimation : MonoBehaviour
         AnimatorStateInfo asi = animator.GetCurrentAnimatorStateInfo(0);
         if (asi.IsName("ExplosionAnimation"))
         {
-            if (!VisualsTurnedOff && asi.normalizedTime > 0.5f)
+            if (!VisualsTurnedOff && asi.normalizedTime > 0.3f)
             {
                 VisualsTurnedOff = true;
                 bomb.TurnAffectedObjectsVisualsOff();
