@@ -6,8 +6,8 @@ public class BallFactory : MonoBehaviour
 {
     [SerializeField] private Field field;
     [SerializeField] private Ball ballScript;
-    [SerializeField] public MovingObject[] specialBallPrefabs;
     [SerializeField] private List<Material> colors;
+    public MovingObject[] specialBallPrefabs;
     private GameObject ballPrefab;
     private void Awake() {
         ballPrefab = ballScript.gameObject;
@@ -38,10 +38,7 @@ public class BallFactory : MonoBehaviour
         ball.Initialize(weight, color, field);
         ball.collumn = -1; //means that it is not on field yet
         ball.row = -1;
-        if (color == -1)
-            go.GetComponent<Renderer>().material = colors[25];
-        else
-            go.GetComponent<Renderer>().material = colors[color];
+        go.GetComponent<Renderer>().material = colors[color];
         return ball;
     }
 

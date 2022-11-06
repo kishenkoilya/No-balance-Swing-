@@ -9,8 +9,10 @@ public class Ball : MovingObject
     [SerializeField] private WeightText weightTextScript;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Renderer ballRenderer;
-    [SerializeField] public int colorIndex;
-    [SerializeField] private int weight;
+    [SerializeField] private int mergingBallsCount = 5; //how many balls in one collumn of one color will merge in one
+    [SerializeField] private int burningBallsCount = 3; //how many balls in one row of one color will trigger burning
+    public int colorIndex;
+    private int weight;
     private TextMeshPro weightText;
 
     public void Initialize(int ballWeight, int color, Field f)
@@ -49,10 +51,10 @@ public class Ball : MovingObject
 
     public override void ActivateEffect()
     {
-        if (row >= 4)
-            MergeDown5();
-        if (colorIndex >= 0)
-            Burn3InRow();
+        if (row >= mergingBallsCount - 1)
+            MergeDown();
+        if (colorIndex >= 0 && isActivated)
+            BurnInRow();
     }
 
     public override void VisualsState(bool state)
@@ -83,13 +85,12 @@ public class Ball : MovingObject
     {
         weight = w;
         weightText.SetText("" + weight);
-        // field.ChangeWeightOnScales(collumn);
     }
 
-    private void MergeDown5()
+    private void MergeDown()
     {
         (int count, int upperRow, int lowerRow) upAndDownInfo = SameColorUpAndDown();
-        if (upAndDownInfo.count >= 4)
+        if (upAndDownInfo.count >= mergingBallsCount - 1)
         {
             int weightSum = field.field[collumn][upAndDownInfo.lowerRow].GetWeight();
             Vector3 mergeIn = field.fieldCoordinates[collumn][upAndDownInfo.lowerRow];
@@ -101,6 +102,7 @@ public class Ball : MovingObject
                 weightSum += b.GetWeight();
                 field.ClearSlot(b.collumn, b.row);
                 b.SetDestination(mergeIn, collumn, row);
+                b.isActivated = false;
             }
             DeclareEffectCompleted(objectsToDestroy, EffectOptions.Options.DestroyUponIndividualArrival);
             ((Ball)field.field[collumn][upAndDownInfo.lowerRow]).SetWeight(weightSum);
@@ -119,7 +121,7 @@ public class Ball : MovingObject
                 break;
         }
         int sameColorUp = 0;
-        for (int i = row + 1; i < field.GetRowsNumber(); i++)
+        for (int i = row + 1; i < field.rowsNumber; i++)
         {   
             if (field.IsSameColor(collumn, i, colorIndex) && field.field[collumn][i].GetType() == typeof (Ball))
                 sameColorUp++;
@@ -130,9 +132,9 @@ public class Ball : MovingObject
         return (sameColorDown + sameColorUp, row + sameColorUp, row - sameColorDown);
     }
 
-    private void Burn3InRow()
+    private void BurnInRow()
     {
-        if (SameColorAside() >= 2)
+        if (SameColorAside() >= burningBallsCount - 1)
         {
             List<MovingObject> objectsToDestroy = new List<MovingObject>();
             BurnAllAdjacentSameColor(collumn, row, colorIndex, objectsToDestroy);
@@ -142,24 +144,23 @@ public class Ball : MovingObject
         }
     }
 
-    private int SameColorAside(bool arrivedRelevant = true)
+    private int SameColorAside()
     {
         int sameColorLeft = 0;
         for (int i = collumn - 1; i >= 0; i--)
         {
             if (field.IsSameColor(i, row, colorIndex) && 
-            ((arrivedRelevant && field.field[i][row].IsStationary()) || 
-            !arrivedRelevant))
+            field.field[i][row].IsStationary())
                 sameColorLeft++;
             else
                 break;
         }
         int sameColorRight = 0;
-        for (int i = collumn + 1; i < field.GetCollumnsNumber(); i++)
+        for (int i = collumn + 1; i < field.collumnsNumber; i++)
         {
             if (field.IsSameColor(i, row, colorIndex) && 
-            ((arrivedRelevant && field.field[i][row].IsStationary()) || 
-            !arrivedRelevant))                sameColorRight++;
+            field.field[i][row].IsStationary())
+                sameColorRight++;
             else
                 break;
         }

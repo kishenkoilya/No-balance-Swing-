@@ -5,14 +5,17 @@ using UnityEngine;
 
 public class Field : MonoBehaviour
 {
-    [SerializeField] public MovingObject[][] field {get; private set;} 
-    public Vector3[][] fieldCoordinates {get; private set;}
-    [SerializeField] private Vector3 firstFieldSlot;
-    [SerializeField] private float collumnsDistance = 2.2f;
-    [SerializeField] private float rowsDistance = 2f;
-    [SerializeField] public int collumnsNumber = 8;
-    [SerializeField] public int rowsNumber = 10;
     [SerializeField] private ScalesCup[] scales;
+    [SerializeField] private Vector3 firstFieldSlot;
+    [SerializeField] private float _collumnsDistance = 2.2f;
+    public float collumnsDistance {get {return _collumnsDistance;} private set {_collumnsDistance = value;}}
+    [SerializeField] private float _rowsDistance = 2f;
+    public float rowsDistance {get {return _rowsDistance;} private set {_rowsDistance = value;}}
+    public MovingObject[][] field {get; private set;} 
+    public Vector3[][] fieldCoordinates {get; private set;}
+    public int collumnsNumber {get; private set;} = 8;
+    public int rowsNumber {get; private set;} = 10;
+
     private void Awake()
     {
         InitializeFieldSlots();
@@ -49,26 +52,6 @@ public class Field : MonoBehaviour
             field[i][1] = scales[i];
             scales[i].Initialize(i, 1, (fieldCoordinates[i][0] + fieldCoordinates[i][1]) / 2, rowsDistance);
         }
-    }
-
-    public int GetCollumnsNumber()
-    {
-        return collumnsNumber;
-    }
-
-    public int GetRowsNumber()
-    {
-        return rowsNumber;
-    }
-
-    public float GetCollumnsDistance()
-    {
-        return collumnsDistance;
-    }
-
-    public float GetRowsDistance()
-    {
-        return rowsDistance;
     }
 
     public int GetCollumnByCoordinates(Vector3 clickPosition)

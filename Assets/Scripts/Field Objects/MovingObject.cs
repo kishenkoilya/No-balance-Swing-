@@ -13,18 +13,18 @@ public abstract class MovingObject : MonoBehaviour
         public EffectOptions.Options Effect;
         public float Delay;
     }
-    [SerializeField] private Vector3 destination;
-    [SerializeField] protected float speed = 50;
-    [SerializeField] protected bool isStationary = true;
-    [SerializeField] private Vector3 movementVector;
     [SerializeField] protected Field field;
-    [SerializeField] public bool arrivesOnField = false;
+    [SerializeField] protected float speed = 50;
+    private Vector3 destination;
+    protected bool isStationary = true;
+    private Vector3 movementVector;
+    public bool arrivesOnField = false;
     protected float delayBeforeDestruction = 0;
     public bool isDestroying = false;
-    public int collumn;
-    public int row;
     public bool isActivated = false;
     public bool isBurning = false;
+    public int collumn;
+    public int row;
     private float timeoutBeforeAction = 0;
 
     public virtual void Initialize(Field f)
@@ -70,11 +70,11 @@ public abstract class MovingObject : MonoBehaviour
     {
         if (isDestroying)
             return;
+        isStationary = false;
         destination = dest;
         collumn = Collumn;
         row = Row;
         movementVector = (destination - transform.position).normalized;
-        isStationary = false;
     }
 
     public virtual void ActionsBeforeDestruction() {}

@@ -133,29 +133,4 @@ public class ObjectTransferManager : MonoBehaviour
         }
         obj.SetDestination(nextStop);
     }
-
-    // private void SetNextStopEnRoute(object sender, EventArgs args)
-    // {   
-    //     MovingObject obj = (MovingObject)sender;
-    //     Vector3 nextStop = objectsRoute[obj].Dequeue();
-
-    //     if ((obj.transform.position == leftTeleport && nextStop == rightTeleport) || 
-    //         (obj.transform.position == rightTeleport && nextStop == leftTeleport))
-    //     {
-    //         obj.transform.position = nextStop;
-    //         nextStop = objectsRoute[obj].Dequeue();
-    //     }
-    //     if (objectsRoute[obj].Count == 0)
-    //     {
-    //         obj.OnArrival -= SetNextStopEnRoute;
-    //         int resultingRow = field.FindEmptyPositionInCollumn(objectsDestinationCollumn[obj]);
-    //         obj.SetDestination(field.fieldCoordinates[objectsDestinationCollumn[obj]][resultingRow], objectsDestinationCollumn[obj], resultingRow);
-    //         obj.arrivesOnField = true;
-    //         field.field[objectsDestinationCollumn[obj]][resultingRow] = obj;
-    //         objectsDestinationCollumn.Remove(obj);
-    //         objectsRoute.Remove(obj);
-    //         return;
-    //     }
-    //     obj.SetDestination(nextStop);
-    // }
 }

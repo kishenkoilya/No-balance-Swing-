@@ -8,20 +8,21 @@ public class BallDispenser : MonoBehaviour
     private MovingObject[][] balls;
     private Vector3[][] ballsCoordinates;
     [SerializeField] private Vector3 firstBallCoordinates;
+    [SerializeField] private float specialBallSpawnChance = 0.1f;
     private int collumnsNumber = 8;
     private int rowsNumber = 2;
     private int currentLevel = 4;
     void Start()
     {
         ballsCoordinates = new Vector3[collumnsNumber][];
-        collumnsNumber = transform.parent.GetComponent<Field>().GetCollumnsNumber();
+        collumnsNumber = transform.parent.GetComponent<Field>().collumnsNumber;
         balls = new MovingObject[collumnsNumber][];
     }
 
     public void FillDispencer()
     {
-        float collumnsDistance = transform.parent.GetComponent<Field>().GetCollumnsDistance();
-        float rowsDistance = transform.parent.GetComponent<Field>().GetRowsDistance();
+        float collumnsDistance = transform.parent.GetComponent<Field>().collumnsDistance;
+        float rowsDistance = transform.parent.GetComponent<Field>().rowsDistance;
         for (int i = 0; i < collumnsNumber; i++)
         {
             balls[i] = new MovingObject[rowsNumber];
@@ -62,7 +63,7 @@ public class BallDispenser : MonoBehaviour
         int index = -1;
         for (int i = factory.GetSpecialBallCount() - 1; i >= 0; i--)
         {
-            if (Random.Range(0, 100) < 10)
+            if (Random.Range(0f, 1f) < specialBallSpawnChance)
                 index = i;
         }
         return index;

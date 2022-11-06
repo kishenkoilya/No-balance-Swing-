@@ -16,7 +16,7 @@ public class ScalesCup : MovingObject
     [SerializeField] private ObjectTransferManager transferManager;
     [SerializeField] private ScalesCup connectedCup;
     [SerializeField] private WeightText weightTextScript;
-    [SerializeField] private int weightHolded = 0;
+    private int weightHolded = 0;
     private Dictionary<int, Vector3> rowToPosition = new Dictionary<int, Vector3>();
     private TextMeshPro weightText;
     public float rowsDistance;

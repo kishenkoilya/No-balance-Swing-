@@ -7,9 +7,13 @@ public class Manipulator : MonoBehaviour
     [SerializeField] private BallDispenser dispenser;
     [SerializeField] private Field field;
     [SerializeField] private ObjectDestructionManager destructor;
-    [SerializeField] private Vector3 destination;
     [SerializeField] private float speed;
-    [SerializeField] private int currentCollumnIndex;
+    [SerializeField] private float upperPartOfScreen = 0.8f;
+    [SerializeField] private float lowerPartOfScreen = 0.3f;
+    [SerializeField] private float leftAndRightBorderOfScreen = 0.5f;
+    [SerializeField] private float manipulatorReactivationTime = 0.5f;
+    private Vector3 destination;
+    private int currentCollumnIndex;
     private MovingObject ballHolded;
     private bool isStationary = true;
     private Vector3 movementVector = Vector3.zero;
@@ -55,7 +59,7 @@ public class Manipulator : MonoBehaviour
 
     public void ActivateManipulator()
     {
-        manipulatorActivationTimer = 0.5f;
+        manipulatorActivationTimer = manipulatorReactivationTime;
     }
 
     public void DeactivateManipulator()
@@ -71,7 +75,7 @@ public class Manipulator : MonoBehaviour
     {
         if (!manipulatorActive)
             return;
-        if (Input.mousePosition.y > Screen.height * 0.8f)
+        if (Input.mousePosition.y > Screen.height * upperPartOfScreen)
             return;
         else
         {
@@ -102,8 +106,7 @@ public class Manipulator : MonoBehaviour
 
     private void MoveOrThrow()
     {
-        Debug.Log(Input.mousePosition + " " + Screen.height * 0.3f + " " + Screen.width * 0.5f);
-        if (Input.mousePosition.y < Screen.height * 0.3f)
+        if (Input.mousePosition.y < Screen.height * lowerPartOfScreen)
         {
             if (ballHolded != null)
                 ThrowBall(currentCollumnIndex);
@@ -112,7 +115,7 @@ public class Manipulator : MonoBehaviour
         }
         else
         {
-            if (Input.mousePosition.x < Screen.width * 0.5f)
+            if (Input.mousePosition.x < Screen.width * leftAndRightBorderOfScreen)
                 MoveLeft();
             else
                 MoveRight();

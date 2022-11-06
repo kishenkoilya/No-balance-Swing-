@@ -14,7 +14,7 @@ public class ObjectDestructionManager : MonoBehaviour
     }
 
     [SerializeField] Field field;
-    [SerializeField] private List<ObjectDestructor> objectsToDestroy = new List<ObjectDestructor>();
+    private List<ObjectDestructor> objectsToDestroy = new List<ObjectDestructor>();
 
     private void Update() 
     {
@@ -22,7 +22,7 @@ public class ObjectDestructionManager : MonoBehaviour
         {
             if (objectsToDestroy[i].DelayStarted)
                 objectsToDestroy[i].Delay -= Time.deltaTime;
-            if (objectsToDestroy[i].Delay <= 0)
+            if (objectsToDestroy[i].DelayStarted && objectsToDestroy[i].Delay <= 0)
                 DestroyImmediately(objectsToDestroy[i].Objects);
         }
     }
@@ -89,7 +89,7 @@ public class ObjectDestructionManager : MonoBehaviour
     {
         (int listIndex, int objIndex) indexes;
         if ((indexes = FindObjectInDestructionLists(obj)).listIndex == -1)
-            objectsToDestroy.Add(new ObjectDestructor{Option = EffectOptions.Options.DestroyUponIndividualArrival, Objects = objects, Delay = 0, DelayStarted = true});
+            objectsToDestroy.Add(new ObjectDestructor{Option = EffectOptions.Options.DestroyUponIndividualArrival, Objects = objects, Delay = 0, DelayStarted = false});
     }
 
     private void DestroyObjectsWhenAllArrive(MovingObject obj, float delay = 0, List<MovingObject> objects = null)

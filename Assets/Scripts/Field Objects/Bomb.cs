@@ -6,6 +6,7 @@ public class Bomb : MovingObject
 {
     [SerializeField] private Animator explosionAnimator;
     [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private Vector3 explosionScale;
     private List<MovingObject> objectsToDestroy = new List<MovingObject>();
 
     public override void VisualsState(bool state)
@@ -36,7 +37,7 @@ public class Bomb : MovingObject
                 }
             }
         }
-        transform.GetChild(0).localScale = new Vector3 (9, 9, 9);
+        transform.GetChild(0).localScale = explosionScale;
         explosionAnimator.SetTrigger("Explosion");
     }
 

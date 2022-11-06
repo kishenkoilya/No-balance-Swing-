@@ -115,6 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8806277011a2fae41908e3a7099021f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bomb: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!1 &5664354031604456728
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,14 +161,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72bd5b1f6c7de1948b70cda6f6582a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  speed: 50
-  isStationary: 1
-  movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 0}
+  speed: 50
   arrivesOnField: 0
+  isDestroying: 0
+  isActivated: 0
+  isBurning: 0
   collumn: 0
   row: 0
-  isActivated: 0
   explosionAnimator: {fileID: 1594992696908454589}
   sprite: {fileID: 9206721720199192930}
+  explosionScale: {x: 9, y: 9, z: 9}
