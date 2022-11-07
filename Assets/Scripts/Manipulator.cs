@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Manipulator : MonoBehaviour
 {
+    public event EventHandler ballThrown;
     [SerializeField] private BallDispenser dispenser;
     [SerializeField] private Field field;
     [SerializeField] private ObjectDestructionManager destructor;
@@ -183,6 +185,7 @@ public class Manipulator : MonoBehaviour
         ballHolded.isActivated = true;
         ballHolded.arrivesOnField = true;
         destructor.RegisterMovingObject(ballHolded);
+        ballThrown?.Invoke(this, EventArgs.Empty);
         GetBall();
     }
 

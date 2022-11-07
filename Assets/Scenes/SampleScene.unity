@@ -384,9 +384,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
   ballScript: {fileID: 1930312407638583568, guid: 92d9f181abed2bc4086b55c4c1734e3c, type: 3}
-  specialBallPrefabs:
-  - {fileID: 4187653477679345632, guid: 2905c6f72463d064cae9a17e58959c7c, type: 3}
-  - {fileID: 6281066677703941639, guid: acfd847195daaf441bd3b881fe817d8e, type: 3}
   colors:
   - {fileID: 2100000, guid: b68e42bfe7f35b64db67171b9acdf52c, type: 2}
   - {fileID: 2100000, guid: c48bb9cd50dda434dafcd4e61c35e015, type: 2}
@@ -413,6 +410,9 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 94be27f94e6a1b94fa31e63f1d12bc70, type: 2}
   - {fileID: 2100000, guid: f92adbb1b90b8f644afc4e2107e29a98, type: 2}
   - {fileID: 2100000, guid: ccd89aaca11a4874aadf679f4e3d853e, type: 2}
+  specialBallPrefabs:
+  - {fileID: 4187653477679345632, guid: 2905c6f72463d064cae9a17e58959c7c, type: 3}
+  - {fileID: 6281066677703941639, guid: acfd847195daaf441bd3b881fe817d8e, type: 3}
 --- !u!4 &65553188
 Transform:
   m_ObjectHideFlags: 0
@@ -474,21 +474,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb1fc7d4552dd24f916174216f49db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  speed: 50
-  isStationary: 1
-  movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  speed: 50
   arrivesOnField: 0
   isDestroying: 0
-  collumn: 0
-  row: 0
   isActivated: 0
   isBurning: 0
+  collumn: 0
+  row: 0
   transferManager: {fileID: 0}
   connectedCup: {fileID: 2064593763}
   weightTextScript: {fileID: 9897696}
-  weightHolded: 0
   rowsDistance: 0
 --- !u!136 &206526123
 CapsuleCollider:
@@ -1088,7 +1084,7 @@ GameObject:
   - component: {fileID: 318674162}
   - component: {fileID: 318674161}
   m_Layer: 5
-  m_Name: Score (Counter)
+  m_Name: Score (Number)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1816,21 +1812,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb1fc7d4552dd24f916174216f49db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  speed: 50
-  isStationary: 1
-  movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  speed: 50
   arrivesOnField: 0
   isDestroying: 0
-  collumn: 0
-  row: 0
   isActivated: 0
   isBurning: 0
+  collumn: 0
+  row: 0
   transferManager: {fileID: 0}
   connectedCup: {fileID: 756265257}
   weightTextScript: {fileID: 421873174}
-  weightHolded: 0
   rowsDistance: 0
 --- !u!136 &448158104
 CapsuleCollider:
@@ -2137,9 +2129,11 @@ MonoBehaviour:
   dispenser: {fileID: 1501756835}
   field: {fileID: 1931901860}
   destructor: {fileID: 1931901861}
-  destination: {x: 0, y: 0, z: 0}
   speed: 50
-  currentCollumnIndex: 0
+  upperPartOfScreen: 0.8
+  lowerPartOfScreen: 0.3
+  leftAndRightBorderOfScreen: 0.5
+  manipulatorReactivationTime: 0.5
 --- !u!65 &632594286
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2610,21 +2604,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb1fc7d4552dd24f916174216f49db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  speed: 50
-  isStationary: 1
-  movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  speed: 50
   arrivesOnField: 0
   isDestroying: 0
-  collumn: 0
-  row: 0
   isActivated: 0
   isBurning: 0
+  collumn: 0
+  row: 0
   transferManager: {fileID: 0}
   connectedCup: {fileID: 448158103}
   weightTextScript: {fileID: 1020508770}
-  weightHolded: 0
   rowsDistance: 0
 --- !u!136 &756265258
 CapsuleCollider:
@@ -4051,8 +4041,13 @@ MonoBehaviour:
   - {fileID: 318674159}
   - {fileID: 1395055618}
   - {fileID: 1815971718}
-  ballDispenser: {fileID: 0}
-  manipulator: {fileID: 0}
+  ballDispenser: {fileID: 1501756835}
+  manipulator: {fileID: 632594285}
+  scoreCounter: {fileID: 1931901863}
+  levelText: {fileID: 2001839805}
+  timerText: {fileID: 2114498441}
+  ballsDroppedText: {fileID: 1897040267}
+  scoreText: {fileID: 318674161}
 --- !u!1 &1245062825
 GameObject:
   m_ObjectHideFlags: 0
@@ -5151,21 +5146,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb1fc7d4552dd24f916174216f49db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  speed: 50
-  isStationary: 1
-  movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  speed: 50
   arrivesOnField: 0
   isDestroying: 0
-  collumn: 0
-  row: 0
   isActivated: 0
   isBurning: 0
+  collumn: 0
+  row: 0
   transferManager: {fileID: 0}
   connectedCup: {fileID: 1767089578}
   weightTextScript: {fileID: 893773657}
-  weightHolded: 0
   rowsDistance: 0
 --- !u!136 &1429937488
 CapsuleCollider:
@@ -5402,6 +5393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   factory: {fileID: 65553187}
   firstBallCoordinates: {x: 6, y: 28, z: -1}
+  specialBallSpawnChance: 0.1
 --- !u!4 &1501756836
 Transform:
   m_ObjectHideFlags: 0
@@ -6586,21 +6578,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb1fc7d4552dd24f916174216f49db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  speed: 50
-  isStationary: 1
-  movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  speed: 50
   arrivesOnField: 0
   isDestroying: 0
-  collumn: 0
-  row: 0
   isActivated: 0
   isBurning: 0
+  collumn: 0
+  row: 0
   transferManager: {fileID: 0}
   connectedCup: {fileID: 1429937487}
   weightTextScript: {fileID: 1829280977}
-  weightHolded: 0
   rowsDistance: 0
 --- !u!136 &1767089579
 CapsuleCollider:
@@ -7337,7 +7325,7 @@ GameObject:
   - component: {fileID: 1897040268}
   - component: {fileID: 1897040267}
   m_Layer: 5
-  m_Name: BallsDropped (Counter)
+  m_Name: BallsDropped (Number)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7471,6 +7459,7 @@ GameObject:
   - component: {fileID: 1931901860}
   - component: {fileID: 1931901861}
   - component: {fileID: 1931901862}
+  - component: {fileID: 1931901863}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -7515,11 +7504,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f8b8f1a8e5c7941865e5e70fca7b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstFieldSlot: {x: 6, y: 6, z: -1}
-  collumnsDistance: 2.2
-  rowsDistance: 2
-  collumnsNumber: 8
-  rowsNumber: 10
   scales:
   - {fileID: 1767089578}
   - {fileID: 1429937487}
@@ -7529,6 +7513,9 @@ MonoBehaviour:
   - {fileID: 206526122}
   - {fileID: 2013919944}
   - {fileID: 2093861781}
+  firstFieldSlot: {x: 6, y: 6, z: -1}
+  _collumnsDistance: 2.2
+  _rowsDistance: 2
 --- !u!114 &1931901861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7542,6 +7529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
+  scoreCounter: {fileID: 1931901863}
 --- !u!114 &1931901862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7566,6 +7554,22 @@ MonoBehaviour:
   - {fileID: 2093861781}
   leftTeleport: {x: 0, y: 24, z: -1}
   rightTeleport: {x: 28, y: 24, z: -1}
+--- !u!114 &1931901863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931901858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd5014d5c036cf64585c888da9b23379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  additionToWeight: 0
+  scoreMultiplier: 1
+  scoreBonusPrefab: {fileID: 3745666957890752887, guid: ea7d3135bc1f3a748b57c8c9d9c74e9f, type: 3}
+  scoreBonusesCount: 5
 --- !u!1 &2001839803
 GameObject:
   m_ObjectHideFlags: 0
@@ -7809,21 +7813,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb1fc7d4552dd24f916174216f49db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  speed: 50
-  isStationary: 1
-  movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  speed: 50
   arrivesOnField: 0
   isDestroying: 0
-  collumn: 0
-  row: 0
   isActivated: 0
   isBurning: 0
+  collumn: 0
+  row: 0
   transferManager: {fileID: 0}
   connectedCup: {fileID: 2093861781}
   weightTextScript: {fileID: 1407055899}
-  weightHolded: 0
   rowsDistance: 0
 --- !u!136 &2013919945
 CapsuleCollider:
@@ -7935,21 +7935,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb1fc7d4552dd24f916174216f49db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  speed: 50
-  isStationary: 1
-  movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  speed: 50
   arrivesOnField: 0
   isDestroying: 0
-  collumn: 0
-  row: 0
   isActivated: 0
   isBurning: 0
+  collumn: 0
+  row: 0
   transferManager: {fileID: 0}
   connectedCup: {fileID: 206526122}
   weightTextScript: {fileID: 1312966839}
-  weightHolded: 0
   rowsDistance: 0
 --- !u!136 &2064593764
 CapsuleCollider:
@@ -8076,21 +8072,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb1fc7d4552dd24f916174216f49db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  speed: 50
-  isStationary: 1
-  movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 1931901860}
+  speed: 50
   arrivesOnField: 0
   isDestroying: 0
-  collumn: 0
-  row: 0
   isActivated: 0
   isBurning: 0
+  collumn: 0
+  row: 0
   transferManager: {fileID: 0}
   connectedCup: {fileID: 2013919944}
   weightTextScript: {fileID: 1353733199}
-  weightHolded: 0
   rowsDistance: 0
 --- !u!136 &2093861782
 CapsuleCollider:

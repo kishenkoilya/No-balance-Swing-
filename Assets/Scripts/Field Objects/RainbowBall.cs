@@ -10,7 +10,7 @@ public class RainbowBall : MovingObject
     private void Awake() 
     {
         effectActive = false;
-        transform.rotation = Quaternion.Euler(45, 45, 0);
+        transform.rotation = Quaternion.Euler(45, 45, 0); // with rotation shader looks better
         if (meshRenderer == null)
             meshRenderer = GetComponent<MeshRenderer>();
         if (ballRenderer == null)

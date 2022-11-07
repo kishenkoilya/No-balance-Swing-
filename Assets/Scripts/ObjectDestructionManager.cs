@@ -13,7 +13,8 @@ public class ObjectDestructionManager : MonoBehaviour
         public bool DelayStarted;
     }
 
-    [SerializeField] Field field;
+    [SerializeField] private Field field;
+    [SerializeField] private ScoreCounter scoreCounter;
     private List<ObjectDestructor> objectsToDestroy = new List<ObjectDestructor>();
 
     private void Update() 
@@ -114,6 +115,7 @@ public class ObjectDestructionManager : MonoBehaviour
             foreach (MovingObject mo in objectsToDestroy[indexes.listIndex].Objects)
                 mo.ActionsBeforeDestruction();
             objectsToDestroy[indexes.listIndex].DelayStarted = true;
+            scoreCounter.CountScoreBonus(objectsToDestroy[indexes.listIndex].Objects);
         }
     }
 
