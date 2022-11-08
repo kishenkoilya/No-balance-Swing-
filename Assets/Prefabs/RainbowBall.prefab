@@ -109,17 +109,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aafeb2c7a1c3654cbbfdcf962787355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  speed: 50
-  isStationary: 1
-  movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 0}
+  speed: 50
   arrivesOnField: 0
-  collumn: 0
-  row: 0
+  isDestroying: 0
   isActivated: 0
   isBurning: 0
+  collumn: 0
+  row: 0
   meshRenderer: {fileID: 5395896164611961125}
+  ballRenderer: {fileID: 5395896164611961125}
 --- !u!1 &5563338601664652534
 GameObject:
   m_ObjectHideFlags: 0

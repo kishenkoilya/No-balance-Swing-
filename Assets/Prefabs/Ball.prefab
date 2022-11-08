@@ -127,21 +127,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeac0482ce018474da4540feea203c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  speed: 50
-  isStationary: 1
-  movementVector: {x: 0, y: 0, z: 0}
   field: {fileID: 0}
+  speed: 50
   arrivesOnField: 0
-  collumn: 0
-  row: 0
+  isDestroying: 0
   isActivated: 0
   isBurning: 0
+  collumn: 0
+  row: 0
   weightTextScript: {fileID: 1930312407774938603}
-  meshRenderer: {fileID: 0}
-  ballRenderer: {fileID: 0}
+  meshRenderer: {fileID: 1930312407638583571}
+  ballRenderer: {fileID: 1930312407638583571}
+  mergingBallsCount: 5
+  burningBallsCount: 3
   colorIndex: 0
-  weight: 0
 --- !u!1 &1930312407774938607
 GameObject:
   m_ObjectHideFlags: 0

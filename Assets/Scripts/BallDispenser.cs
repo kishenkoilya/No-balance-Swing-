@@ -7,6 +7,7 @@ public class BallDispenser : MonoBehaviour
     [SerializeField] private BallFactory factory;
     private MovingObject[][] balls;
     private Vector3[][] ballsCoordinates;
+    private bool coordinatesSet = false;
     [SerializeField] private Vector3 firstBallCoordinates;
     [SerializeField] private float specialBallSpawnChance = 0.1f;
     private int collumnsNumber = 8;
@@ -17,29 +18,62 @@ public class BallDispenser : MonoBehaviour
         ballsCoordinates = new Vector3[collumnsNumber][];
         collumnsNumber = transform.parent.GetComponent<Field>().collumnsNumber;
         balls = new MovingObject[collumnsNumber][];
+        for (int i = 0; i < collumnsNumber; i++)
+        {
+            balls[i] = new MovingObject[rowsNumber];
+        }
     }
 
     public void FillDispencer()
     {
-        float collumnsDistance = transform.parent.GetComponent<Field>().collumnsDistance;
-        float rowsDistance = transform.parent.GetComponent<Field>().rowsDistance;
+        ClearDispencer();
+        if (!coordinatesSet)
+            SetBallsCoordinates();
         for (int i = 0; i < collumnsNumber; i++)
         {
-            balls[i] = new MovingObject[rowsNumber];
-            ballsCoordinates[i] = new Vector3[rowsNumber];
             for (int j = 0; j < rowsNumber; j++)
             {
-                ballsCoordinates[i][j] = new Vector3(firstBallCoordinates.x + collumnsDistance * i,
-                                                    firstBallCoordinates.y + rowsDistance * j,
-                                                    firstBallCoordinates.z);
                 int decision = DecideWhichBallToSpawn();        
                 if (decision == -1)
                     balls[i][j] = factory.SpawnBall(currentLevel, currentLevel + 1);
                 else
                     balls[i][j] = factory.SpawnSpecialBall(decision);
                 balls[i][j].transform.position = ballsCoordinates[i][j];
+                balls[i][j].transform.parent = transform;
             }
         }
+    }
+
+    private void ClearDispencer()
+    {
+        for (int i = 0; i < collumnsNumber; i++)
+        {
+            for (int j = 0; j < rowsNumber; j++)
+            {
+                if (balls[i][j])
+                {
+                    GameObject.Destroy(balls[i][j].gameObject);
+                    balls[i][j] = null;
+                }
+            }
+        }    
+    }
+
+    private void SetBallsCoordinates()
+    {
+        float collumnsDistance = transform.parent.GetComponent<Field>().collumnsDistance;
+        float rowsDistance = transform.parent.GetComponent<Field>().rowsDistance;
+        for (int i = 0; i < collumnsNumber; i++)
+        {
+            ballsCoordinates[i] = new Vector3[rowsNumber];
+            for (int j = 0; j < rowsNumber; j++)
+            {
+                ballsCoordinates[i][j] = new Vector3(firstBallCoordinates.x + collumnsDistance * i,
+                                                    firstBallCoordinates.y + rowsDistance * j,
+                                                    firstBallCoordinates.z);
+            }
+        }
+        coordinatesSet = true;
     }
 
     public MovingObject DispenceBall(int collumnIndex)
@@ -55,6 +89,7 @@ public class BallDispenser : MonoBehaviour
             balls[collumnIndex][1] = factory.SpawnSpecialBall(decision);
         
         balls[collumnIndex][1].transform.position = ballsCoordinates[collumnIndex][1];
+        balls[collumnIndex][1].transform.parent = transform;
         return dispencedBall;
     }
 

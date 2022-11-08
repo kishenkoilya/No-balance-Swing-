@@ -26,13 +26,7 @@ public class Ball : MovingObject
 
     private void Awake() 
     {
-        if (weightTextScript == null)
-            throw new System.NullReferenceException("WeightTextScript not set!!");
         weightText = weightTextScript.tmpro;
-        if (meshRenderer == null)
-            meshRenderer = GetComponent<MeshRenderer>();
-        if (ballRenderer == null)
-            ballRenderer = GetComponent<Renderer>();
     }
 
 

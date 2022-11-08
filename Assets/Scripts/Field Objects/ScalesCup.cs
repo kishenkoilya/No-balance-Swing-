@@ -23,8 +23,6 @@ public class ScalesCup : MovingObject
     private void Awake() {
         weightText = weightTextScript.tmpro;
         weightText.SetText("" + weightHolded);
-        if (transferManager == null)
-            transferManager = GameObject.FindObjectOfType<ObjectTransferManager>();
     }
 
     public void Initialize(int Collumn, int Row, Vector3 initialPosition, float RowsDistance)
@@ -121,6 +119,8 @@ public class ScalesCup : MovingObject
         if (weightDelta <= 0)
             return;
         int objRow = field.FindEmptyPositionInCollumn(collumn) - 1;
+        if (objRow < 0)
+            objRow = field.rowsNumber - 1;
         MovingObject obj = field.field[collumn][objRow];
         if (obj.GetType() == typeof (ScalesCup))
             return;

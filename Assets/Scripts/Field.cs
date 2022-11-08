@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class Field : MonoBehaviour
 {
+    public event EventHandler gameLostEvent;
     [SerializeField] private ScalesCup[] scales;
     [SerializeField] private Vector3 firstFieldSlot;
     [SerializeField] private float _collumnsDistance = 2.2f;
     public float collumnsDistance {get {return _collumnsDistance;} private set {_collumnsDistance = value;}}
     [SerializeField] private float _rowsDistance = 2f;
+    public Transform ballsPool;
     public float rowsDistance {get {return _rowsDistance;} private set {_rowsDistance = value;}}
     public MovingObject[][] field {get; private set;} 
     public Vector3[][] fieldCoordinates {get; private set;}
@@ -79,9 +81,11 @@ public class Field : MonoBehaviour
 
     public (int row, Vector3 dest) AcceptBall(int Collumn, MovingObject ball)
     {
+        ball.transform.parent = ballsPool;
         ball.OnArrival += ChangeWeightOnScales;
         int EmptyRow = FindEmptyPositionInCollumn(Collumn);
         field[Collumn][EmptyRow] = ball;
+        CheckGameLost();
         return (EmptyRow, fieldCoordinates[Collumn][EmptyRow]);
     }
 
@@ -163,7 +167,8 @@ public class Field : MonoBehaviour
                 field[i][responce.from] = null;
                 field[i][responce.to].SetDestination(fieldCoordinates[i][responce.to], i, responce.to);
             }
-        }              
+        }
+        CheckGameLost();              
     }
 
     private (bool relocationNeeded, int to, int from) ObjectsAboveEmpty(int Collumn)
@@ -177,5 +182,36 @@ public class Field : MonoBehaviour
                 return (true, nullRow, i);
         }
         return (false, 0, 0);
+    }
+
+    private void CheckGameLost()
+    {
+        for (int i = 0; i < collumnsNumber; i++)
+        {
+            if (field[i][rowsNumber - 1])
+            {
+                gameLostEvent?.Invoke(this, EventArgs.Empty);
+                return;
+            }
+        }
+    }
+
+    public void ClearField()
+    {
+        for (int i = 0; i < collumnsNumber; i++)
+        {
+            for (int j = 0; j < rowsNumber; j++)
+            {
+                if (field[i][j] && field[i][j].GetType() != typeof (ScalesCup))
+                {
+                    ClearSlot(i, j);
+                }
+            }
+        }
+        for (int i = ballsPool.childCount - 1; i >= 0; i--)
+        {
+            GameObject.Destroy(ballsPool.GetChild(i).gameObject);
+        }
+        SimulateGravity();
     }
 }

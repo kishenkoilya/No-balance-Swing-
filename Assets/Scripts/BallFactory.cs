@@ -11,8 +11,6 @@ public class BallFactory : MonoBehaviour
     private GameObject ballPrefab;
     private void Awake() {
         ballPrefab = ballScript.gameObject;
-        if (field == null)
-            field = FindObjectOfType<Field>();
     }
 
     public int GetSpecialBallCount() {return specialBallPrefabs.Length;}

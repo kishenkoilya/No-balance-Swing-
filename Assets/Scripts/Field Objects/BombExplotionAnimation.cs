@@ -9,10 +9,7 @@ public class BombExplotionAnimation : MonoBehaviour
     [SerializeField] private float animationTimeToTurnVisualsOff = 0.3f;
     [SerializeField] private float animationTimeToDestroyObjects = 0.4f;
     private bool VisualsTurnedOff = false;
-    private void Awake() {
-        animator = GetComponent<Animator>();
-        bomb = transform.parent.GetComponent<Bomb>();
-    }
+
     void Update()
     {
         AnimatorStateInfo asi = animator.GetCurrentAnimatorStateInfo(0);

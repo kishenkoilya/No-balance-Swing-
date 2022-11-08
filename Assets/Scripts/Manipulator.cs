@@ -22,18 +22,14 @@ public class Manipulator : MonoBehaviour
     private bool fastControl = true;
     private bool manipulatorActive = false;
     private float manipulatorActivationTimer = 0;
-    private void Awake() {
-        if (dispenser == null)
-        {
-            dispenser = FindObjectOfType<BallDispenser>();
-        }
-        if (field == null)
-        {
-            field = FindObjectOfType<Field>();
-        }
-        if (destructor == null)
-            destructor = FindObjectOfType<ObjectDestructionManager>();
+    private void Awake() 
+    {
         destination = transform.position;
+    }
+
+    private void Start() 
+    {
+        field.gameLostEvent += GameLost;
     }
 
     // Update is called once per frame
@@ -152,8 +148,8 @@ public class Manipulator : MonoBehaviour
         currentCollumnIndex = Collumn;
         movementVector = (destination - transform.position).normalized;
         isStationary = false;
-        if (ballHolded != null)
-            ballHolded.SetDestination(destination);
+        // if (ballHolded != null)
+        //     ballHolded.SetDestination(destination);
     }
 
     private void MoveToDestination()
@@ -193,5 +189,16 @@ public class Manipulator : MonoBehaviour
     {
         ballHolded = dispenser.DispenceBall(currentCollumnIndex);
         ballHolded.transform.position = transform.position;
+        ballHolded.transform.parent = transform;
+    }
+
+    private void GameLost(object sender, EventArgs args)
+    {
+        DeactivateManipulator();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).GetComponent<MovingObject>())
+                GameObject.Destroy(transform.GetChild(i).gameObject);
+        }
     }
 }

@@ -25,14 +25,6 @@ public class ObjectTransferManager : MonoBehaviour
             return false;
     }
 
-    private void Awake() 
-    {
-        if (field == null)
-            field = GameObject.FindObjectOfType<Field>();
-        if (scales.Length == 0)
-            scales = GameObject.FindObjectsOfType<ScalesCup>();
-    }
-
     private void Start() 
     {
         foreach (ScalesCup scale in scales)

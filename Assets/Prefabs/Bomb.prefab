@@ -115,8 +115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8806277011a2fae41908e3a7099021f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bomb: {fileID: 0}
-  animator: {fileID: 0}
+  bomb: {fileID: 4187653477679345632}
+  animator: {fileID: 1594992696908454589}
+  animationTimeToTurnVisualsOff: 0.3
+  animationTimeToDestroyObjects: 0.4
 --- !u!1 &5664354031604456728
 GameObject:
   m_ObjectHideFlags: 0

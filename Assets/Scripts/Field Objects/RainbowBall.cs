@@ -11,10 +11,6 @@ public class RainbowBall : MovingObject
     {
         effectActive = false;
         transform.rotation = Quaternion.Euler(45, 45, 0); // with rotation shader looks better
-        if (meshRenderer == null)
-            meshRenderer = GetComponent<MeshRenderer>();
-        if (ballRenderer == null)
-            ballRenderer = GetComponent<Renderer>();
     }
 
     public override void VisualsState(bool state)

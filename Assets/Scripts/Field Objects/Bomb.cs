@@ -14,15 +14,6 @@ public class Bomb : MovingObject
         sprite.enabled = state;
     }
 
-    private void Awake() 
-    {
-        if (explosionAnimator == null)
-            explosionAnimator = GetComponentInChildren<Animator>();
-
-        if (sprite == null)
-            sprite = GetComponentInChildren<SpriteRenderer>();
-    }
-
     public override void ActivateEffect()
     {
         for (int i = collumn - 1; i <= collumn + 1; i++)
