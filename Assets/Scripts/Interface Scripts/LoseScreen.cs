@@ -11,7 +11,6 @@ public class LoseScreen : ScreenScript
     [SerializeField] private TextMeshProUGUI ballsDroppedNumber;
     public void SetGameData(GameScreen.GameData gameData)
     {
-        Debug.Log("SettingGameData");
         string timeText = "";
         timeText += gameData.Hours > 0 ? (gameData.Hours + ":") : "";
         timeText += gameData.Minutes > 9 ? (gameData.Minutes + ":") : ("0" + gameData.Minutes + ":");
