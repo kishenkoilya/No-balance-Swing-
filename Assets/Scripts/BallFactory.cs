@@ -18,7 +18,7 @@ public class BallFactory : MonoBehaviour
     public MovingObject SpawnBall(int colorsInUse, int maxWeight)
     {
         int colorIndex = Random.Range(0, colorsInUse);
-        int weight = Random.Range(1, maxWeight);
+        int weight = Random.Range(1, maxWeight + 1);
         GameObject go = GameObject.Instantiate(ballPrefab, transform.position, transform.rotation);
         Ball ball = go.GetComponent<Ball>();
         ball.Initialize(weight, colorIndex, field);

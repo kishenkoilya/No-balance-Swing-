@@ -36,10 +36,9 @@ public class Bomb : MovingObject
     {
         foreach (MovingObject mo in objectsToDestroy)
         {
-            if (mo != null)
+            if (mo != null && mo != this)
                 mo.VisualsState(false);
         }
-        VisualsState(true);
     }
     public void DestroyObjects()
     {

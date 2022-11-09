@@ -9,8 +9,8 @@ public class Ball : MovingObject
     [SerializeField] private WeightText weightTextScript;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Renderer ballRenderer;
-    [SerializeField] private int mergingBallsCount = 5; //how many balls in one collumn of one color will merge in one
-    [SerializeField] private int burningBallsCount = 3; //how many balls in one row of one color will trigger burning
+    private int mergingBallsCount; //how many balls in one collumn of one color will merge in one
+    private int burningBallsCount; //how many balls in one row of one color will trigger burning
     public int colorIndex;
     private int weight;
     private TextMeshPro weightText;
@@ -22,6 +22,9 @@ public class Ball : MovingObject
         weightText.SetText("" + weight);
         colorIndex = color;
         delayBeforeDestruction = 1; 
+        GameSettings gs =  GameObject.FindObjectOfType<GameSettings>();
+        mergingBallsCount = gs.mergingBallsCount;
+        burningBallsCount = gs.burningBallsCount;
     }
 
     private void Awake() 

@@ -8,22 +8,24 @@ public class Field : MonoBehaviour
     public event EventHandler gameLostEvent;
     [SerializeField] private ScalesCup[] scales;
     [SerializeField] private Vector3 firstFieldSlot;
-    [SerializeField] private float _collumnsDistance = 2.2f;
-    public float collumnsDistance {get {return _collumnsDistance;} private set {_collumnsDistance = value;}}
-    [SerializeField] private float _rowsDistance = 2f;
+    public int collumnsNumber {get; private set;}
+    public int rowsNumber {get; private set;}
+    public float collumnsDistance {get; private set;}
+    public float rowsDistance {get; private set;}
     public Transform ballsPool;
-    public float rowsDistance {get {return _rowsDistance;} private set {_rowsDistance = value;}}
     public MovingObject[][] field {get; private set;} 
     public Vector3[][] fieldCoordinates {get; private set;}
-    public int collumnsNumber {get; private set;} = 8;
-    public int rowsNumber {get; private set;} = 10;
 
-    private void Awake()
+    private void Start() 
     {
+        GameSettings gs = GameObject.FindObjectOfType<GameSettings>();
+        collumnsNumber = gs.collumnsNumber;
+        rowsNumber = gs.fieldRowsNumber;
+        collumnsDistance = gs.collumnsDistance;
+        rowsDistance = gs.rowsDistance;
         InitializeFieldSlots();
         InitializeScalesCups();
     }
-
     private void InitializeFieldSlots()
     {
         fieldCoordinates = new Vector3[collumnsNumber][];
@@ -52,7 +54,7 @@ public class Field : MonoBehaviour
         {
             field[i][0] = scales[i];
             field[i][1] = scales[i];
-            scales[i].Initialize(i, 1, (fieldCoordinates[i][0] + fieldCoordinates[i][1]) / 2, rowsDistance);
+            scales[i].Initialize(i, 1, (fieldCoordinates[i][0] + fieldCoordinates[i][1]) / 2, rowsDistance, this);
         }
     }
 

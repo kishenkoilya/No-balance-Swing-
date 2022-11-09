@@ -1,22 +1,38 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BallDispenser : MonoBehaviour
 {
+    public event EventHandler levelUpEvent;
     [SerializeField] private BallFactory factory;
     private MovingObject[][] balls;
     private Vector3[][] ballsCoordinates;
     private bool coordinatesSet = false;
     [SerializeField] private Vector3 firstBallCoordinates;
-    [SerializeField] private float specialBallSpawnChance = 0.1f;
-    private int collumnsNumber = 8;
-    private int rowsNumber = 2;
-    private int currentLevel = 4;
+    private float specialBallSpawnChance;
+    private int maxWeightAdditionToLevel;
+    private int colorsUsedAdditionToLevel;
+    private int collumnsNumber;
+    private int rowsNumber;
+    private int currentLevel;
+    private int ballsDroppedToLevelUp;
+    private float collumnsDistance;
+    private float rowsDistance;
     void Start()
     {
+        GameSettings gs = GameObject.FindObjectOfType<GameSettings>();
+        specialBallSpawnChance = gs.specialBallSpawnChance;
+        maxWeightAdditionToLevel = gs.maxWeightAdditionToLevel;
+        colorsUsedAdditionToLevel = gs.colorsUsedAdditionToLevel;
+        collumnsNumber = gs.collumnsNumber;
+        rowsNumber = gs.dispencerRowsNumber;
+        currentLevel = gs.startingLevel;
+        ballsDroppedToLevelUp = gs.ballsDroppedToLevelUp;
+        collumnsDistance = gs.collumnsDistance;
+        rowsDistance = gs.rowsDistance;
         ballsCoordinates = new Vector3[collumnsNumber][];
-        collumnsNumber = transform.parent.GetComponent<Field>().collumnsNumber;
         balls = new MovingObject[collumnsNumber][];
         for (int i = 0; i < collumnsNumber; i++)
         {
@@ -35,7 +51,7 @@ public class BallDispenser : MonoBehaviour
             {
                 int decision = DecideWhichBallToSpawn();        
                 if (decision == -1)
-                    balls[i][j] = factory.SpawnBall(currentLevel, currentLevel + 1);
+                    balls[i][j] = factory.SpawnBall(currentLevel + colorsUsedAdditionToLevel, currentLevel + maxWeightAdditionToLevel);
                 else
                     balls[i][j] = factory.SpawnSpecialBall(decision);
                 balls[i][j].transform.position = ballsCoordinates[i][j];
@@ -61,8 +77,6 @@ public class BallDispenser : MonoBehaviour
 
     private void SetBallsCoordinates()
     {
-        float collumnsDistance = transform.parent.GetComponent<Field>().collumnsDistance;
-        float rowsDistance = transform.parent.GetComponent<Field>().rowsDistance;
         for (int i = 0; i < collumnsNumber; i++)
         {
             ballsCoordinates[i] = new Vector3[rowsNumber];
@@ -84,7 +98,7 @@ public class BallDispenser : MonoBehaviour
 
         int decision = DecideWhichBallToSpawn();        
         if (decision == -1)
-            balls[collumnIndex][1] = factory.SpawnBall(currentLevel, currentLevel + 1);
+            balls[collumnIndex][1] = factory.SpawnBall(currentLevel + colorsUsedAdditionToLevel, currentLevel + maxWeightAdditionToLevel);
         else
             balls[collumnIndex][1] = factory.SpawnSpecialBall(decision);
         
@@ -98,9 +112,18 @@ public class BallDispenser : MonoBehaviour
         int index = -1;
         for (int i = factory.GetSpecialBallCount() - 1; i >= 0; i--)
         {
-            if (Random.Range(0f, 1f) < specialBallSpawnChance)
+            if (UnityEngine.Random.Range(0f, 1f) < specialBallSpawnChance)
                 index = i;
         }
         return index;
+    }
+
+    public void DesideLevelUp(int ballsDropped)
+    {
+        currentLevel = Mathf.FloorToInt(ballsDropped / ballsDroppedToLevelUp) + 1;
+        if (ballsDropped % ballsDroppedToLevelUp == 0)
+        {
+            levelUpEvent?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

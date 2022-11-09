@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class Manipulator : MonoBehaviour
 {
-    public event EventHandler ballThrown;
+    public event EventHandler ballThrownEvent;
     [SerializeField] private BallDispenser dispenser;
     [SerializeField] private Field field;
     [SerializeField] private ObjectDestructionManager destructor;
-    [SerializeField] private float speed;
-    [SerializeField] private float upperPartOfScreen = 0.8f;
-    [SerializeField] private float lowerPartOfScreen = 0.3f;
-    [SerializeField] private float leftAndRightBorderOfScreen = 0.5f;
-    [SerializeField] private float manipulatorReactivationTime = 0.5f;
+    private float speed;
+    private float upperPartOfScreen;
+    private float lowerPartOfScreen;
+    private float leftAndRightBorderOfScreen;
+    private float manipulatorReactivationTime;
     private Vector3 destination;
     private int currentCollumnIndex;
     private MovingObject ballHolded;
@@ -22,6 +22,7 @@ public class Manipulator : MonoBehaviour
     private bool fastControl = true;
     private bool manipulatorActive = false;
     private float manipulatorActivationTimer = 0;
+    private int ballsDropped = 0;
     private void Awake() 
     {
         destination = transform.position;
@@ -30,6 +31,12 @@ public class Manipulator : MonoBehaviour
     private void Start() 
     {
         field.gameLostEvent += GameLost;
+        GameSettings gs = GameObject.FindObjectOfType<GameSettings>();
+        speed = gs.speed;
+        upperPartOfScreen = gs.upperPartOfScreen;
+        lowerPartOfScreen = gs.lowerPartOfScreen;
+        leftAndRightBorderOfScreen = gs.leftAndRightBorderOfScreen;
+        manipulatorReactivationTime = gs.manipulatorReactivationTime;
     }
 
     // Update is called once per frame
@@ -181,7 +188,9 @@ public class Manipulator : MonoBehaviour
         ballHolded.isActivated = true;
         ballHolded.arrivesOnField = true;
         destructor.RegisterMovingObject(ballHolded);
-        ballThrown?.Invoke(this, EventArgs.Empty);
+        ballThrownEvent?.Invoke(this, EventArgs.Empty);
+        ballsDropped++;
+        dispenser.DesideLevelUp(ballsDropped);
         GetBall();
     }
 
@@ -195,6 +204,8 @@ public class Manipulator : MonoBehaviour
     private void GameLost(object sender, EventArgs args)
     {
         DeactivateManipulator();
+        ballsDropped = 0;
+        dispenser.DesideLevelUp(ballsDropped);
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).GetComponent<MovingObject>())

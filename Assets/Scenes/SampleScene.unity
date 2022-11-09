@@ -336,7 +336,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &29077202
 MonoBehaviour:
@@ -427,7 +427,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &206526120
 GameObject:
@@ -477,7 +477,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
-  speed: 50
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -487,7 +486,6 @@ MonoBehaviour:
   transferManager: {fileID: 1931901862}
   connectedCup: {fileID: 2064593763}
   weightTextScript: {fileID: 9897696}
-  rowsDistance: 0
 --- !u!136 &206526123
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1827,7 +1825,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
-  speed: 50
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -1837,7 +1834,6 @@ MonoBehaviour:
   transferManager: {fileID: 1931901862}
   connectedCup: {fileID: 756265257}
   weightTextScript: {fileID: 421873174}
-  rowsDistance: 0
 --- !u!136 &448158104
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2079,7 +2075,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &557174215
 MonoBehaviour:
@@ -2180,11 +2176,6 @@ MonoBehaviour:
   dispenser: {fileID: 1501756835}
   field: {fileID: 1931901860}
   destructor: {fileID: 1931901861}
-  speed: 50
-  upperPartOfScreen: 0.8
-  lowerPartOfScreen: 0.3
-  leftAndRightBorderOfScreen: 0.5
-  manipulatorReactivationTime: 0.5
 --- !u!1 &660569650
 GameObject:
   m_ObjectHideFlags: 0
@@ -2544,7 +2535,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &756265255
 GameObject:
@@ -2594,7 +2585,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
-  speed: 50
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -2604,7 +2594,6 @@ MonoBehaviour:
   transferManager: {fileID: 1931901862}
   connectedCup: {fileID: 448158103}
   weightTextScript: {fileID: 1020508770}
-  rowsDistance: 0
 --- !u!136 &756265258
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3094,10 +3083,6 @@ MonoBehaviour:
   f: {fileID: 1931901860}
   factory: {fileID: 65553187}
   cube: {fileID: 679522207974135868, guid: 222ac08290badc44596c2b4adf7615aa, type: 3}
-  colCount: 8
-  rowCount: 10
-  colDist: 2.2
-  rowDist: 2
 --- !u!4 &915516890
 Transform:
   m_ObjectHideFlags: 0
@@ -3110,7 +3095,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &927624970
 GameObject:
@@ -3328,7 +3313,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
@@ -3709,7 +3694,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1164252376
 GameObject:
@@ -5261,7 +5246,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
-  speed: 50
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -5271,7 +5255,6 @@ MonoBehaviour:
   transferManager: {fileID: 1931901862}
   connectedCup: {fileID: 1767089578}
   weightTextScript: {fileID: 893773657}
-  rowsDistance: 0
 --- !u!136 &1429937488
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5399,7 +5382,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1481775023
 GameObject:
@@ -5507,7 +5490,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   factory: {fileID: 65553187}
   firstBallCoordinates: {x: 6, y: 28, z: -1}
-  specialBallSpawnChance: 0.1
 --- !u!4 &1501756836
 Transform:
   m_ObjectHideFlags: 0
@@ -5751,7 +5733,7 @@ RectTransform:
   - {fileID: 1221718476}
   - {fileID: 2006110837}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6693,7 +6675,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
-  speed: 50
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -6703,7 +6684,6 @@ MonoBehaviour:
   transferManager: {fileID: 1931901862}
   connectedCup: {fileID: 1429937487}
   weightTextScript: {fileID: 1829280977}
-  rowsDistance: 0
 --- !u!136 &1767089579
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7605,7 +7585,7 @@ Transform:
   - {fileID: 2093861780}
   - {fileID: 1221161697}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1931901860
 MonoBehaviour:
@@ -7629,8 +7609,6 @@ MonoBehaviour:
   - {fileID: 2013919944}
   - {fileID: 2093861781}
   firstFieldSlot: {x: 6, y: 6, z: -1}
-  _collumnsDistance: 2.2
-  _rowsDistance: 2
   ballsPool: {fileID: 1221161697}
 --- !u!114 &1931901861
 MonoBehaviour:
@@ -7928,7 +7906,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
-  speed: 50
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -7938,7 +7915,6 @@ MonoBehaviour:
   transferManager: {fileID: 1931901862}
   connectedCup: {fileID: 2093861781}
   weightTextScript: {fileID: 1407055899}
-  rowsDistance: 0
 --- !u!136 &2013919945
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8017,6 +7993,66 @@ Transform:
   m_Father: {fileID: 1931901859}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2058089511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2058089513}
+  - component: {fileID: 2058089512}
+  m_Layer: 0
+  m_Name: GameSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2058089512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058089511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bee11c8fe30e1a429bc7301d12e0dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collumnsNumber: 8
+  _dispencerRowsNumber: 2
+  _fieldRowsNumber: 10
+  _collumnsDistance: 2.2
+  _rowsDistance: 2
+  _speed: 50
+  _mergingBallsCount: 5
+  _burningBallsCount: 3
+  _specialBallSpawnChance: 0.1
+  _maxWeightAdditionToLevel: 3
+  _colorsUsedAdditionToLevel: 3
+  _startingLevel: 1
+  _ballsDroppedToLevelUp: 50
+  _upperPartOfScreen: 0.8
+  _lowerPartOfScreen: 0.3
+  _leftAndRightBorderOfScreen: 0.5
+  _manipulatorReactivationTime: 0.5
+--- !u!4 &2058089513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058089511}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2064593762
 GameObject:
   m_ObjectHideFlags: 0
@@ -8050,7 +8086,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
-  speed: 50
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -8060,7 +8095,6 @@ MonoBehaviour:
   transferManager: {fileID: 1931901862}
   connectedCup: {fileID: 206526122}
   weightTextScript: {fileID: 1312966839}
-  rowsDistance: 0
 --- !u!136 &2064593764
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8187,7 +8221,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
-  speed: 50
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -8197,7 +8230,6 @@ MonoBehaviour:
   transferManager: {fileID: 1931901862}
   connectedCup: {fileID: 2013919944}
   weightTextScript: {fileID: 1353733199}
-  rowsDistance: 0
 --- !u!136 &2093861782
 CapsuleCollider:
   m_ObjectHideFlags: 0

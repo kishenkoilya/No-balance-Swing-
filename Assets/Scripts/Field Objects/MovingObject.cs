@@ -14,7 +14,7 @@ public abstract class MovingObject : MonoBehaviour
         public float Delay;
     }
     [SerializeField] protected Field field;
-    [SerializeField] protected float speed = 50;
+    protected float speed;
     private Vector3 destination;
     protected bool isStationary = true;
     private Vector3 movementVector;
@@ -30,6 +30,8 @@ public abstract class MovingObject : MonoBehaviour
     public virtual void Initialize(Field f)
     {
         field = f;
+        GameSettings gs =  GameObject.FindObjectOfType<GameSettings>();
+        speed = gs.speed;
     }
     public virtual bool IsSameColor(int color) {return false;}
     public virtual void ActivateEffect(){}
@@ -79,7 +81,7 @@ public abstract class MovingObject : MonoBehaviour
 
     public virtual void ActionsBeforeDestruction() {}
     protected virtual void ActionsWhileDestroying() {}
-    // Update is called once per frame
+
     private void Update()
     {
         MoveToDestination();

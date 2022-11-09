@@ -8,10 +8,6 @@ public class FieldSlotsSimulator : MonoBehaviour
     public BallFactory factory;
     public MovingObject[][] field;
     public GameObject cube;
-    public int colCount;
-    public int rowCount;
-    public float colDist;
-    public float rowDist;
 
     private void Start() {
         field = f.field;
@@ -28,11 +24,11 @@ public class FieldSlotsSimulator : MonoBehaviour
             GameObject.Destroy(transform.GetChild(i).gameObject);
         }
 
-        for (int i = 0; i < colCount; i++)
+        for (int i = 0; i < f.collumnsNumber; i++)
         {
-            for (int j = 0; j < rowCount; j++)
+            for (int j = 0; j < f.rowsNumber; j++)
             {
-                Vector3 spawnPosition = transform.position + new Vector3 (i * colDist, j * rowDist, 0);
+                Vector3 spawnPosition = transform.position + new Vector3 (i * f.collumnsDistance, j * f.rowsDistance, 0);
                 if (field[i][j] == null)
                     continue;
                 if (field[i][j].GetComponent<ScalesCup>())

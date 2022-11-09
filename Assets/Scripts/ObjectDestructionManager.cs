@@ -24,7 +24,11 @@ public class ObjectDestructionManager : MonoBehaviour
             if (objectsToDestroy[i].DelayStarted)
                 objectsToDestroy[i].Delay -= Time.deltaTime;
             if (objectsToDestroy[i].DelayStarted && objectsToDestroy[i].Delay <= 0)
+            {
                 DestroyImmediately(objectsToDestroy[i].Objects);
+                objectsToDestroy.RemoveAt(i);
+                i--;
+            }
         }
     }
 
@@ -112,6 +116,12 @@ public class ObjectDestructionManager : MonoBehaviour
         }
         if (allArrived)
         {
+            if (objectsToDestroy[indexes.listIndex].Delay == 0)
+            {
+                DestroyImmediately(objectsToDestroy[indexes.listIndex].Objects);
+                objectsToDestroy.RemoveAt(indexes.listIndex);
+                return;
+            }
             foreach (MovingObject mo in objectsToDestroy[indexes.listIndex].Objects)
                 mo.ActionsBeforeDestruction();
             objectsToDestroy[indexes.listIndex].DelayStarted = true;

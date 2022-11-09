@@ -6,8 +6,8 @@ public class BombExplotionAnimation : MonoBehaviour
 {
     [SerializeField] private Bomb bomb;
     [SerializeField] private Animator animator;
-    [SerializeField] private float animationTimeToTurnVisualsOff = 0.3f;
-    [SerializeField] private float animationTimeToDestroyObjects = 0.4f;
+    private float animationTimeToTurnVisualsOff = 0.3f;
+    private float animationTimeToDestroyObjects = 0.9f;
     private bool VisualsTurnedOff = false;
 
     void Update()

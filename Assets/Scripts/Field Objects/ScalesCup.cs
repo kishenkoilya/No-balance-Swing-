@@ -19,14 +19,16 @@ public class ScalesCup : MovingObject
     private int weightHolded = 0;
     private Dictionary<int, Vector3> rowToPosition = new Dictionary<int, Vector3>();
     private TextMeshPro weightText;
-    public float rowsDistance;
-    private void Awake() {
+    private float rowsDistance;
+    private void Awake() 
+    {
         weightText = weightTextScript.tmpro;
         weightText.SetText("" + weightHolded);
     }
 
-    public void Initialize(int Collumn, int Row, Vector3 initialPosition, float RowsDistance)
+    public void Initialize(int Collumn, int Row, Vector3 initialPosition, float RowsDistance, Field field)
     {
+        base.Initialize(field);
         collumn = Collumn;
         row = Row;
         transform.position = initialPosition;

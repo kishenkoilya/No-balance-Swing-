@@ -26,10 +26,11 @@ public class GameScreen : ScreenScript
     private float timeElapsed = 0;
     private int ballsDropped = 0;
     private int score = 0;
-    private int level = 1;
+    private int level;
     private void Awake() 
     {
-        manipulator.ballThrown += IncreaseBallsDroppedCount;
+        manipulator.ballThrownEvent += IncreaseBallsDroppedCount;
+        ballDispenser.levelUpEvent += IncreaseLevel;
     }
 
     private void Start()
@@ -73,6 +74,12 @@ public class GameScreen : ScreenScript
         ballsDroppedText.SetText("" + ballsDropped);
     }
 
+    private void IncreaseLevel(object sender, EventArgs args)
+    {
+        level++;
+        levelText.SetText("Level: " + level);
+    }
+
     private void AddScore(int S)
     {
         score += S;
@@ -84,7 +91,8 @@ public class GameScreen : ScreenScript
         timeElapsed = 0;
         score = 0;
         ballsDropped = 0;
-        level = 1;
+        GameSettings gs = GameObject.FindObjectOfType<GameSettings>();
+        level = gs.startingLevel;
         levelText.SetText("Level: " + level);
         TimerDisplay();
         ballsDroppedText.SetText("0");
