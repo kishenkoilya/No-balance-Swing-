@@ -477,6 +477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
+  sound: {fileID: 0}
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -1825,6 +1826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
+  sound: {fileID: 0}
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -2585,6 +2587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
+  sound: {fileID: 0}
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -3374,8 +3377,8 @@ GameObject:
   m_Component:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
-  - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194226}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5379,6 +5382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
+  sound: {fileID: 0}
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -6940,6 +6944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
+  sound: {fileID: 0}
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -8173,6 +8178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
+  sound: {fileID: 0}
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -8353,6 +8359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
+  sound: {fileID: 0}
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0
@@ -8488,6 +8495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 1931901860}
+  sound: {fileID: 0}
   arrivesOnField: 0
   isDestroying: 0
   isActivated: 0

@@ -14,6 +14,7 @@ public abstract class MovingObject : MonoBehaviour
         public float Delay;
     }
     [SerializeField] protected Field field;
+    [SerializeField] protected AudioSource sound;
     protected float speed;
     private Vector3 destination;
     protected bool isStationary = true;
@@ -115,6 +116,8 @@ public abstract class MovingObject : MonoBehaviour
     }
     private void ArrivedToDestination()
     {
+        if (sound && arrivesOnField)
+            sound.Play();
         transform.position = destination;
         isStationary = true;
         timeoutBeforeAction = 0.05f;
