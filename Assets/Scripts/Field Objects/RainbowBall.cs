@@ -6,10 +6,8 @@ public class RainbowBall : MovingObject
 {
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Renderer ballRenderer;
-    public bool effectActive {get; private set;}
     private void Awake() 
     {
-        effectActive = false;
         transform.rotation = Quaternion.Euler(45, 45, 0); // with rotation shader looks better
         delayBeforeDestruction = 1; 
     }
@@ -44,39 +42,14 @@ public class RainbowBall : MovingObject
     public override void ActivateEffect()
     {
         effectActive = true;
-        Ball ball1 = GetBall(collumn + 1, row);
-        ball1?.ActivateEffect();
-        Ball ball2 = GetBall(collumn - 1, row);
-        ball2?.ActivateEffect();
-        if (!ball1 || !ball2)
-        {
-            RainbowBall rBall1 = GetRainbowBall(collumn + 1, row);
-            if (rBall1 && !rBall1.effectActive)
-                rBall1.ActivateEffect();
-            RainbowBall rBall2 = GetRainbowBall(collumn - 1, row);
-            if (rBall2 && !rBall2.effectActive)
-                rBall2.ActivateEffect();
-        }
+
+        MovingObject mo1 = GetObjectInCoordinates(collumn + 1, row);
+        MovingObject mo2 = GetObjectInCoordinates(collumn - 1, row);
+        if (mo1 && !mo1.effectActive)
+            mo1.ActivateEffect();
+        isBurning = false;
+        if (mo2 && !mo2.effectActive)
+            mo2.ActivateEffect();
         effectActive = false;
-    }
-
-    private Ball GetBall(int Collumn, int Row)
-    {
-        MovingObject mo = GetObjectInCoordinates(Collumn, Row);
-        if (mo == null)
-            return null;
-        if (mo.GetType() != typeof (Ball))
-            return null;
-        return (Ball)mo;
-    }
-
-    private RainbowBall GetRainbowBall(int Collumn, int Row)
-    {
-        MovingObject mo = GetObjectInCoordinates(Collumn, Row);
-        if (mo == null)
-            return null;
-        if (mo.GetType() != typeof (RainbowBall))
-            return null;
-        return (RainbowBall)mo;
     }
 }

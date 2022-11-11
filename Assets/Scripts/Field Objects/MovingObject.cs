@@ -18,6 +18,7 @@ public abstract class MovingObject : MonoBehaviour
     protected float speed;
     private Vector3 destination;
     protected bool isStationary = true;
+    public bool effectActive {get; protected set;} = false;
     private Vector3 movementVector;
     public bool arrivesOnField = false;
     protected float delayBeforeDestruction = 0;

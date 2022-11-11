@@ -48,10 +48,12 @@ public class Ball : MovingObject
 
     public override void ActivateEffect()
     {
+        effectActive = true;
         if (row >= mergingBallsCount - 1)
             MergeDown();
         if (colorIndex >= 0 && isActivated)
             BurnInRow();
+        effectActive = false;
     }
 
     public override void VisualsState(bool state)
