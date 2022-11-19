@@ -55,6 +55,7 @@ public class Field : MonoBehaviour
             field[i][0] = scales[i];
             field[i][1] = scales[i];
             scales[i].Initialize(i, 1, (fieldCoordinates[i][0] + fieldCoordinates[i][1]) / 2, rowsDistance, this);
+            scales[i].OnThrow += ObjectThrown;
         }
     }
 
@@ -215,5 +216,10 @@ public class Field : MonoBehaviour
             GameObject.Destroy(ballsPool.GetChild(i).gameObject);
         }
         SimulateGravity();
+    }
+
+    private void ObjectThrown(object sender, ScalesCup.OnThrowEventArgs args)
+    {
+        args.Obj.OnArrival -= ChangeWeightOnScales;
     }
 }

@@ -41,11 +41,6 @@ public class ObjectTransferManager : MonoBehaviour
         (Queue<Vector3>, int) route = FillRoute(args.ThrowDistance, pos.Collumn, args.Dir);
         objectsRoute.Add(args.Obj, route.Item1);
         objectsDestinationCollumn.Add(args.Obj, route.Item2);
-        // foreach (Vector3 v in route.Item1)
-        // {
-        //     Debug.Log(v);
-        // }
-        // Debug.Log(route.Item2);
         SetNextStopEnRoute(args.Obj, EventArgs.Empty);
     }
 
@@ -115,10 +110,9 @@ public class ObjectTransferManager : MonoBehaviour
         if (objectsRoute[obj].Count == 1)
         {
             obj.OnArrival -= SetNextStopEnRoute;
-            int resultingRow = field.FindEmptyPositionInCollumn(objectsDestinationCollumn[obj]);
-            obj.SetDestination(field.fieldCoordinates[objectsDestinationCollumn[obj]][resultingRow], objectsDestinationCollumn[obj], resultingRow);
             obj.arrivesOnField = true;
-            field.field[objectsDestinationCollumn[obj]][resultingRow] = obj;
+            (int row, Vector3 dest) = field.AcceptBall(objectsDestinationCollumn[obj], obj);
+            obj.SetDestination(dest, objectsDestinationCollumn[obj], row);
             objectsDestinationCollumn.Remove(obj);
             objectsRoute.Remove(obj);
             return;
